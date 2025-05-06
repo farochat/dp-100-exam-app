@@ -36,7 +36,7 @@ def initialize_session_state():
     """
     if 'questions' not in st.session_state:
         st.session_state.questions = load_questions()
-    
+
     # Generate random question order
     if 'question_order' not in st.session_state:
         import random
@@ -44,7 +44,7 @@ def initialize_session_state():
         indices = list(range(len(st.session_state.questions)))
         random.shuffle(indices)
         st.session_state.question_order = indices
-    
+
     # Create a list of key questions (ordering type questions)
     if 'key_questions' not in st.session_state:
         key_question_indices = []
@@ -52,30 +52,30 @@ def initialize_session_state():
             if question.get('type') in ['ordering', 'drag_and_drop_ordering']:
                 key_question_indices.append(i)
         st.session_state.key_questions = key_question_indices
-    
+
     # Track skipped questions
     if 'skipped_questions' not in st.session_state:
         st.session_state.skipped_questions = []
-    
+
     # Track bookmarked questions
     if 'bookmarked_questions' not in st.session_state:
         st.session_state.bookmarked_questions = []
-    
+
     if 'current_question_index' not in st.session_state:
         st.session_state.current_question_index = 0
-    
+
     if 'answered' not in st.session_state:
         st.session_state.answered = False
-    
+
     if 'user_answer' not in st.session_state:
         st.session_state.user_answer = None
-    
+
     if 'correct_answers' not in st.session_state:
         st.session_state.correct_answers = 0
-    
+
     if 'total_answered' not in st.session_state:
         st.session_state.total_answered = 0
-    
+
     if 'quiz_completed' not in st.session_state:
         st.session_state.quiz_completed = False
         
@@ -96,7 +96,9 @@ def initialize_session_state():
         st.session_state.exam_start_time = None     # When the clock starts
     if 'exam_end_time' not in st.session_state:
         st.session_state.exam_end_time = None       # When the clock stops
-        
+    if 'show_results_popup' not in st.session_state:
+        st.session_state.show_results_popup = False
+
 def start_exam_mode():
     """
     Kick off a 50-question timed exam.
@@ -120,7 +122,7 @@ def start_exam_mode():
     st.session_state.quiz_completed = False
     st.session_state.viewing_key_questions = False
     st.session_state.viewing_bookmarked_questions = False
-
+    st.session_state.show_results_popup = False
 
 def reset_quiz():
     """
@@ -131,12 +133,13 @@ def reset_quiz():
     indices = list(range(len(st.session_state.questions)))
     random.shuffle(indices)
     st.session_state.question_order = indices
-    
+
     # Exam mode
     st.session_state.exam_mode = False
     st.session_state.exam_start_time = None
     st.session_state.exam_end_time = None
-    
+    st.session_state.show_results_popup = False
+
     st.session_state.current_question_index = 0
     st.session_state.answered = False
     st.session_state.user_answer = None
@@ -147,7 +150,7 @@ def reset_quiz():
     st.session_state.skipped_questions = []
     st.session_state.bookmarked_questions = []
     st.session_state.viewing_bookmarked_questions = False
-    
+
     # Clear drag and drop state if it exists
     if 'drag_drop_order' in st.session_state:
         del st.session_state.drag_drop_order
@@ -155,7 +158,7 @@ def reset_quiz():
         del st.session_state.available_options
     if 'selected_options' in st.session_state:
         del st.session_state.selected_options
-        
+
 def skip_question():
     """
     Skip the current question and mark it for later review
@@ -163,10 +166,10 @@ def skip_question():
     # Add current question index to skipped questions if not already there
     if st.session_state.current_question_index not in st.session_state.skipped_questions:
         st.session_state.skipped_questions.append(st.session_state.current_question_index)
-    
+
     # Move to the next question
     next_question()
-    
+
 def toggle_key_questions():
     """
     Toggle between showing all questions and only key questions
@@ -175,7 +178,7 @@ def toggle_key_questions():
     st.session_state.current_question_index = 0
     st.session_state.answered = False
     st.session_state.user_answer = None
-    
+
     # Clear drag and drop state if it exists
     if 'drag_drop_order' in st.session_state:
         del st.session_state.drag_drop_order
@@ -183,7 +186,7 @@ def toggle_key_questions():
         del st.session_state.available_options
     if 'selected_options' in st.session_state:
         del st.session_state.selected_options
-        
+
 def go_to_question(index):
     """
     Go to a specific question index
@@ -191,7 +194,7 @@ def go_to_question(index):
     st.session_state.current_question_index = index
     st.session_state.answered = False
     st.session_state.user_answer = None
-    
+
     # Clear drag and drop state if it exists
     if 'drag_drop_order' in st.session_state:
         del st.session_state.drag_drop_order
@@ -204,11 +207,11 @@ def next_question():
     """
     Move to the next question
     """
-    if st.session_state.current_question_index < len(st.session_state.questions) - 1:
+    if st.session_state.current_question_index < len(st.session_state.question_order) - 1:
         st.session_state.current_question_index += 1
         st.session_state.answered = False
         st.session_state.user_answer = None
-        
+
         # Clear drag and drop state when moving to a new question
         if 'drag_drop_order' in st.session_state:
             del st.session_state.drag_drop_order
@@ -217,7 +220,11 @@ def next_question():
         if 'selected_options' in st.session_state:
             del st.session_state.selected_options
     else:
-        st.session_state.quiz_completed = True
+        # In exam mode, show results popup when all questions are answered
+        if st.session_state.exam_mode:
+            st.session_state.show_results_popup = True
+        else:
+            st.session_state.quiz_completed = True
 
 def previous_question():
     """
@@ -227,7 +234,7 @@ def previous_question():
         st.session_state.current_question_index -= 1
         st.session_state.answered = False
         st.session_state.user_answer = None
-        
+
         # Clear drag and drop state when moving to a new question
         if 'drag_drop_order' in st.session_state:
             del st.session_state.drag_drop_order
@@ -244,7 +251,7 @@ def check_answer():
         # Get the actual question index from the randomized order
         question_idx = st.session_state.question_order[st.session_state.current_question_index]
         current_question = st.session_state.questions[question_idx]
-        
+
         # Handle different question types
         if current_question['type'] in ['ordering', 'drag_and_drop_ordering']:
             # For ordering questions, check if the order matches the correct order
@@ -255,7 +262,7 @@ def check_answer():
             try:
                 # Get all correct option IDs
                 correct_options = [option.get('id') for option in current_question.get('options', []) 
-                                  if option.get('is_correct', False)]
+                                if option.get('is_correct', False)]
                 
                 # Check if user's answer matches all correct options (set comparison)
                 user_answers = set(st.session_state.user_answer if isinstance(st.session_state.user_answer, list) else [st.session_state.user_answer])
@@ -267,7 +274,7 @@ def check_answer():
             # For single choice or true/false questions
             try:
                 correct_option = next((option for option in current_question.get('options', []) 
-                                      if option.get('is_correct', False)), None)
+                                    if option.get('is_correct', False)), None)
                 if correct_option and st.session_state.user_answer == correct_option.get('id'):
                     st.session_state.correct_answers += 1
             except Exception as e:
@@ -281,7 +288,7 @@ def on_answer_selection():
     Function to handle when a user selects an answer for single-choice questions
     """
     st.session_state.user_answer = st.session_state.selected_option
-    
+
 def on_multiple_answer_selection():
     """
     Function to handle when a user selects answers for multiple-choice questions
@@ -292,9 +299,9 @@ def on_multiple_answer_selection():
         if option_id.startswith('checkbox_') and value:
             # Extract the option ID from the checkbox key (remove 'checkbox_' prefix)
             selected_options.append(option_id.replace('checkbox_', ''))
-    
+
     st.session_state.user_answer = selected_options
-    
+
 def handle_drag_drop_submit():
     """
     Handle the submission of a drag and drop ordering question
@@ -304,10 +311,10 @@ def handle_drag_drop_submit():
         st.session_state.user_answer = st.session_state.selected_options
     else:
         st.session_state.user_answer = []
-    
+
     # Call check_answer to evaluate the submission and show feedback
     check_answer()
-    
+
 def bookmark_question():
     """
     Bookmark the current question for later review
@@ -328,7 +335,7 @@ def toggle_bookmarked_questions():
     st.session_state.current_question_index = 0
     st.session_state.answered = False
     st.session_state.user_answer = None
-    
+
     # Clear drag and drop state if it exists
     if 'drag_drop_order' in st.session_state:
         del st.session_state.drag_drop_order
@@ -468,9 +475,9 @@ def get_theme_css(theme_name):
             'error_border': '#bf616a'
         }
     }
-    
+
     theme = themes.get(theme_name, themes['One Dark'])
-    
+
     css = f"""
     <style>
     .stApp {{
@@ -531,7 +538,7 @@ def get_theme_css(theme_name):
     }}
     </style>
     """
-    
+
     return css
 
 def finish_quiz():
@@ -541,7 +548,6 @@ def finish_quiz():
     st.session_state.quiz_completed = True
     if st.session_state.exam_mode and st.session_state.exam_end_time is None:
         st.session_state.exam_end_time = datetime.now()
-
 
 def display_question():
     """
@@ -555,23 +561,23 @@ def display_question():
     if not st.session_state.questions:
         st.error("No questions available. Please check the questions.json file.")
         return
-    
+
     # Apply the selected theme CSS
     st.markdown(get_theme_css(st.session_state.theme), unsafe_allow_html=True)
-    
+
     # Top bar with theme selection and finish button
     theme_col, space_col, finish_col = st.columns([2, 3, 1])
-    
+
     with theme_col:
         themes = ['One Dark', 'Solarized Dark', 'Monokai', 'Dracula', 'Nord']
         selected_theme = st.selectbox("Select Theme", themes, index=themes.index(st.session_state.theme))
         if selected_theme != st.session_state.theme:
             st.session_state.theme = selected_theme
             st.rerun()
-    
+
     with finish_col:
         st.button("Finish Quiz", on_click=finish_quiz, type="primary")
-    
+
     # Navigation buttons
     col1, col2, col3 = st.columns([1, 1, 3])
     with col1:
@@ -582,7 +588,7 @@ def display_question():
         if st.button("Bookmarked" if not st.session_state.viewing_bookmarked_questions else "All Questions",
                    key="toggle_bookmarked"):
             toggle_bookmarked_questions()
-    
+
     # If viewing key questions, use the key_questions list
     if st.session_state.viewing_key_questions:
         if not st.session_state.key_questions:
@@ -598,36 +604,57 @@ def display_question():
         real_idx = st.session_state.key_questions[st.session_state.current_question_index]
         question_idx = real_idx
         max_questions = len(st.session_state.key_questions)
-    else:
-        # Normal mode - get question from randomized order
-        if st.session_state.current_question_index >= len(st.session_state.questions):
-            st.session_state.quiz_completed = True
+    elif st.session_state.viewing_bookmarked_questions:
+        if not st.session_state.bookmarked_questions:
+            st.warning("No bookmarked questions available.")
+            st.session_state.viewing_bookmarked_questions = False
             return
         
+        # Check if current index is valid for bookmarked questions
+        if st.session_state.current_question_index >= len(st.session_state.bookmarked_questions):
+            st.session_state.current_question_index = 0
+        
+        # Get the real question index from bookmarked_questions
+        real_idx = st.session_state.bookmarked_questions[st.session_state.current_question_index]
+        question_idx = st.session_state.question_order[real_idx]
+        max_questions = len(st.session_state.bookmarked_questions)
+    else:
+        # Normal mode - get question from randomized order
+        if st.session_state.current_question_index >= len(st.session_state.question_order):
+            # In exam mode, show results popup when all questions are answered
+            if st.session_state.exam_mode:
+                st.session_state.show_results_popup = True
+                return
+            else:
+                st.session_state.quiz_completed = True
+                return
+        
         question_idx = st.session_state.question_order[st.session_state.current_question_index]
-        max_questions = len(st.session_state.questions)
-    
+        max_questions = len(st.session_state.question_order)
+
     # Get the current question
     current_question = st.session_state.questions[question_idx]
-    
+
     # Show skipped questions
-    if st.session_state.skipped_questions and not st.session_state.viewing_key_questions:
+    if st.session_state.skipped_questions and not st.session_state.viewing_key_questions and not st.session_state.viewing_bookmarked_questions:
         with st.expander(f"Skipped Questions ({len(st.session_state.skipped_questions)})"):
             for i, idx in enumerate(st.session_state.skipped_questions):
                 if st.button(f"Go to Question {idx + 1}", key=f"skipped_{i}"):
                     go_to_question(idx)
-    
+
     # Display progress
     st.progress((st.session_state.current_question_index) / max_questions)
     st.write(f"Question {st.session_state.current_question_index + 1} of {max_questions}")
-    
+
     # Display if this is a key question
     if current_question.get('type') in ['ordering', 'drag_and_drop_ordering']:
         st.info("⭐ Key Question ⭐")
-    
-    # Display the question
+
+    # Display the question ID in small, subtle text
+    st.caption(f"Question ID: {question_idx}")
+    # Display the question itself
     st.subheader(current_question.get('question', 'Question unavailable'))
-    
+
     # Get options from the question (handle both list and dictionary formats)
     if 'options' in current_question:
         options = current_question['options']
@@ -638,7 +665,7 @@ def display_question():
     else:
         options = []
         st.warning("No options available for this question.")
-    
+
     # If the question hasn't been answered yet, show the options
     if not st.session_state.answered:
         # Different UI based on question type
@@ -661,8 +688,8 @@ def display_question():
                 for option_id in st.session_state.available_options:
                     try:
                         option_text = next((option.get('text', 'No text available') 
-                                          for option in options if option.get('id') == option_id), 
-                                          'Option text unavailable')
+                                        for option in options if option.get('id') == option_id), 
+                                        'Option text unavailable')
                         option_container = st.container()
                         opt_cols = option_container.columns([8, 2])
                         
@@ -687,8 +714,8 @@ def display_question():
                 for i, option_id in enumerate(st.session_state.selected_options):
                     try:
                         option_text = next((option.get('text', 'No text available') 
-                                          for option in options if option.get('id') == option_id), 
-                                          'Option text unavailable')
+                                        for option in options if option.get('id') == option_id), 
+                                        'Option text unavailable')
                         answer_container = st.container()
                         ans_cols = answer_container.columns([1, 6, 1, 1])
                         
@@ -768,6 +795,12 @@ def display_question():
                     check_answer()
             with col2:
                 st.button("Skip", key="skip_multiple", on_click=skip_question)
+            with col3:
+                # Bookmark button - toggles bookmark status
+                is_bookmarked = st.session_state.current_question_index in st.session_state.bookmarked_questions
+                bookmark_icon = "🔖" if is_bookmarked else "📌"
+                button_text = f"{bookmark_icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
+                st.button(button_text, on_click=bookmark_question)
         
         else:  # Single choice or true/false questions
             try:
@@ -795,6 +828,12 @@ def display_question():
                         st.button("Submit", on_click=check_answer, disabled=st.session_state.user_answer is None)
                     with col2:
                         st.button("Skip", on_click=skip_question)
+                    with col3:
+                        # Bookmark button - toggles bookmark status
+                        is_bookmarked = st.session_state.current_question_index in st.session_state.bookmarked_questions
+                        bookmark_icon = "🔖" if is_bookmarked else "📌"
+                        button_text = f"{bookmark_icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
+                        st.button(button_text, on_click=bookmark_question)
                 else:
                     st.error("No valid options found for this question.")
                     st.button("Skip", on_click=skip_question)
@@ -915,6 +954,12 @@ def display_question():
             st.button("Next", on_click=next_question)
         with col3:
             st.button("Retry", on_click=lambda: setattr(st.session_state, "answered", False))
+        with col4:
+            # Bookmark button - toggles bookmark status
+            is_bookmarked = st.session_state.current_question_index in st.session_state.bookmarked_questions
+            bookmark_icon = "🔖" if is_bookmarked else "📌"
+            button_text = f"{bookmark_icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
+            st.button(button_text, on_click=bookmark_question)
 
 def create_donut_chart():
     """
@@ -923,17 +968,17 @@ def create_donut_chart():
     # Create figure and axis
     fig, ax = plt.subplots(figsize=(6, 6))
     fig.patch.set_facecolor('none')  # Transparent background for the figure
-    
+
     # Data
     correct_answers = st.session_state.correct_answers
     incorrect_answers = st.session_state.total_answered - correct_answers
-    remaining_questions = len(st.session_state.questions) - st.session_state.total_answered
-    
+    remaining_questions = len(st.session_state.question_order) - st.session_state.total_answered
+
     # Data for the pie chart
     sizes = [correct_answers, incorrect_answers, remaining_questions]
     labels = ['Correct', 'Incorrect', 'Unanswered']
     colors = ['#4CAF50', '#F44336', '#9E9E9E']
-    
+
     # Create a donut chart
     wedges, texts, autotexts = ax.pie(
         sizes, 
@@ -943,19 +988,19 @@ def create_donut_chart():
         startangle=90,
         wedgeprops={'width': 0.4, 'edgecolor': 'w'}
     )
-    
+
     # Equal aspect ratio ensures that pie is drawn as a circle
     ax.axis('equal')
     plt.setp(autotexts, size=10, weight="bold", color="white")
     plt.setp(texts, size=12)
-    
+
     # Title in the center
     ax.text(0, 0, f"{correct_answers}/{st.session_state.total_answered}", 
             ha='center', va='center', fontsize=20, fontweight='bold')
-    
+
     # Add a subtitle
     ax.text(0, -0.12, 'Score', ha='center', va='center', fontsize=12)
-    
+
     # Return the figure
     return fig
 
@@ -976,13 +1021,13 @@ def download_results():
     # Create donut chart
     fig = create_donut_chart()
     img_str = get_chart_as_base64(fig)
-    
+
     # Data for the report
     correct_answers = st.session_state.correct_answers
     incorrect_answers = st.session_state.total_answered - correct_answers
-    remaining_questions = len(st.session_state.questions) - st.session_state.total_answered
+    remaining_questions = len(st.session_state.question_order) - st.session_state.total_answered
     success_rate = (correct_answers / st.session_state.total_answered * 100) if st.session_state.total_answered > 0 else 0
-    
+
     # Create HTML report
     html = f"""
     <html>
@@ -1077,7 +1122,7 @@ def download_results():
             </div>
             
             <h2>Summary</h2>
-            <p>You answered {st.session_state.total_answered} out of {len(st.session_state.questions)} total questions.</p>
+            <p>You answered {st.session_state.total_answered} out of {len(st.session_state.question_order)} total questions.</p>
             <p>Your success rate is {success_rate:.1f}% based on the {st.session_state.total_answered} questions you answered.</p>
             
             <div class="footer">
@@ -1087,7 +1132,7 @@ def download_results():
     </body>
     </html>
     """
-    
+
     # Return the HTML for downloading
     return html
 
@@ -1096,30 +1141,30 @@ def display_results():
     Display the final results of the quiz
     """
     st.title("Quiz Completed!")
-    
+
     # Set the completion date if not already set
     if 'date_completed' not in st.session_state:
         from datetime import datetime
         st.session_state.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     # Calculate the percentage based on answered questions only
-    total_questions = len(st.session_state.questions)
+    total_questions = len(st.session_state.question_order)
     correct_answers = st.session_state.correct_answers
     total_answered = st.session_state.total_answered
     unanswered = total_questions - total_answered
-    
+
     # Calculate percentage based on questions answered, not total questions
     percentage = (correct_answers / total_answered * 100) if total_answered > 0 else 0
-    
+
     if st.session_state.exam_mode and st.session_state.exam_start_time and st.session_state.exam_end_time:
         total_secs = int((st.session_state.exam_end_time -
                         st.session_state.exam_start_time).total_seconds())
         mm, ss = divmod(total_secs, 60)
         st.metric("⏱️ Time taken", f"{mm} min {ss} sec")
-    
+
     # Create layout with columns
     col1, col2 = st.columns([2, 2])
-    
+
     with col1:
         st.header(f"Your Score: {correct_answers}/{total_answered} ({percentage:.1f}%)")
         
@@ -1157,7 +1202,7 @@ def display_results():
         with stats_col2:
             st.metric(label="Questions Answered", value=f"{total_answered}")
             st.metric(label="Unanswered Questions", value=f"{unanswered}")
-    
+
     with col2:
         # Display donut chart
         st.subheader("Performance Summary")
@@ -1172,29 +1217,84 @@ def display_results():
             file_name="quiz_results.html",
             mime="text/html"
         )
-    
+
     # Button to restart the quiz
     st.button("Start Over", on_click=reset_quiz)
+
+def show_results_popup():
+    """
+    Show a popup asking if the user wants to see results
+    """
+    # Create a popup container
+    popup = st.container()
+    popup.markdown(
+        """
+        <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Show the popup content
+    popup.markdown("<div class='popup-overlay'></div>", unsafe_allow_html=True)
+    with popup:
+        st.markdown("<div class='popup'>", unsafe_allow_html=True)
+        st.markdown("### Has finalizado el examen")
+        st.write("¿Deseas ver los resultados?")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Sí"):
+                st.session_state.show_results_popup = False
+                st.session_state.quiz_completed = True
+                st.session_state.exam_end_time = datetime.now()
+                st.rerun()
+        with col2:
+            if st.button("No"):
+                st.session_state.show_results_popup = False
+                st.rerun()
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
     """
     Main function to run the application
     """
     st.title("Interactive Quiz")
-    
+
     # Initialize session state
     initialize_session_state()
-    
+
     # Check if there are questions available
     if not st.session_state.questions:
         return
-    
-        # ------------- inside main(), before instructions -------------
+
+    # Show exam mode button
     exam_col, normal_col = st.columns([1, 2])
     with exam_col:
-        st.button("🎯 Exam Mode (50 questions.)", on_click=start_exam_mode)
+        st.button("🎯 Exam Mode (50 questions)", on_click=start_exam_mode)
 
-    
     # Add a message about navigating questions
     st.markdown("""
     ### Instructions:
@@ -1206,9 +1306,12 @@ def main():
     - You can **retry** questions you have already answered.
     - After completing the quiz, you can **download your results**.
     """)
-    
 
-    
+    # Show results popup if needed
+    if st.session_state.show_results_popup:
+        show_results_popup()
+        return
+
     # Check if the quiz is completed
     if st.session_state.quiz_completed:
         display_results()
