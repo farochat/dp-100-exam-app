@@ -1741,27 +1741,46 @@
       },
       {
         "question_id": "57",
-        "type": "drag_and_drop",
-        "question": "Pym Tech is building a cloud-based machine learning solution using Apache Spark with automatic feature engineering. They must create and deploy notebooks using dynamic Spark workers, export notebooks for version control, and run them using AutoML. What is the correct sequence of steps to fulfill these requirements?",
+        "type": "ordering",
+        "question": "Pym Tech is building a cloud-based machine learning solution using Apache Spark with automatic feature engineering. They must:\n\n- Create and deploy notebooks using dynamic Spark workers,\n- Export notebooks for version control,\n- Run them using AutoML.\n\nWhat is the correct sequence of steps to fulfill these requirements?",
         "options": [
-          "a. Install Azure ML SDK for Python on the cluster",
-          "b. Export the Jupyter notebook to a local environment",
-          "c. Create Azure Databricks cluster",
-          "d. Export the processed Jupyter notebook",
-          "e. Install Microsoft Machine Learning for Apache Spark",
-          "f. Create and execute Jupyter notebook using AutoML on the cluster",
-          "g. Execute Zeppelin notebooks on the cluster",
-          "h. Create an Azure HDInsight cluster to include the Apache Spark Mllib library"
+          {
+            "id": "A",
+            "text": "Create Azure Databricks cluster"
+          },
+          {
+            "id": "B",
+            "text": "Install Microsoft Machine Learning for Apache Spark"
+          },
+          {
+            "id": "C",
+            "text": "Create and execute Jupyter notebook using AutoML on the cluster"
+          },
+          {
+            "id": "D",
+            "text": "Export the processed Jupyter notebook"
+          },
+          {
+            "id": "E",
+            "text": "Export the Jupyter notebook to a local environment"
+          },
+          {
+            "id": "F",
+            "text": "Install Azure ML SDK for Python on the cluster"
+          },
+          {
+            "id": "G",
+            "text": "Execute Zeppelin notebooks on the cluster"
+          },
+          {
+            "id": "H",
+            "text": "Create an Azure HDInsight cluster to include the Apache Spark Mllib library"
+          }
         ],
-        "correct_order": [
-          "c. Create Azure Databricks cluster",
-          "e. Install Microsoft Machine Learning for Apache Spark",
-          "f. Create and execute Jupyter notebook using AutoML on the cluster",
-          "d. Export the processed Jupyter notebook",
-          "b. Export the Jupyter notebook to a local environment"
-        ],
-        "feedback": "This question tests your understanding of how to set up a Spark-based machine learning workflow with AutoML in Azure. The correct order begins by creating the compute environment (Databricks cluster), then installing the necessary ML packages. Once the environment is ready, AutoML is used to run notebooks. The processed notebooks are then exported, meeting the requirement for version control. HDInsight is not appropriate in this scenario, and Zeppelin notebooks are not needed when Jupyter notebooks and AutoML are used. This sequence aligns with best practices for cloud-based ML model retraining and deployment."
+        "correct_order": ["A", "B", "C", "D", "E"],
+        "feedback": "The correct order begins by creating the compute environment (Azure Databricks cluster), then installing the Microsoft ML package for Spark. Once the environment is ready, AutoML can run Jupyter notebooks. After execution, the notebooks are exported for version control. HDInsight and Zeppelin are not needed in this scenario."
       },
+      
       {
         "question_id": "58",
         "type": "multiple_choice_single_answer",
