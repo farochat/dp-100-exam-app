@@ -4770,7 +4770,7 @@
       {
         "id": "A",
         "text": "Create a v2 job with `Dataset.File.from_files()` and `ml_client.jobs.create_or_update()`",
-        "is_correct": true,
+        "is_correct": false,
         "explanation": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment."
       },
       {
@@ -4782,44 +4782,11 @@
       {
         "id": "C",
         "text": "Create a v2 job with `AssetTypes.URI_FILE` and `ml_client.jobs.create_or_update()`  \n\n**Correct answer:** B. Create a v2 job with `AssetTypes.URI_FOLDER` and `ml_client.jobs.create_or_update()`  \n\n**Explanation:**  \nWhen the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment.  \n\n**Reference:**  \n- [AssetTypes.URI_FOLDER in Azure ML SDK v2](https://learn.microsoft.com/en-us/python/api/azure-ai-ml/azure.ai.ml.constants.assettypes?view=azureml-api-2)  \n- [MLClient.jobs.create_or_update](https://learn.microsoft.com/en-us/python/api/azure-ai-ml/azure.ai.ml.mlclient#azure-ai-ml-mlclient-jobs-create-or-update)  \n\n---",
-        "is_correct": true,
+        "is_correct": false,
         "explanation": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment."
       }
     ],
     "feedback": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment.",
-    "include_in_bank": true
-  },
-  {
-    "question_id": "q_015",
-    "type": "multiple_choice_multiple_answer",
-    "question": "Which actions should you take?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Specify `idle_seconds_before_scaledown=0`",
-        "is_correct": true,
-        "explanation": "Compute instances can be automatically paused when there are no jobs running, avoiding unnecessary charges. Setting `idle_seconds_before_scaledown=0` ensures the resource scales down immediately after inactivity. Clusters maintain nodes until they hit their minimum idle timeout, and Azure Data Factory is not used for this scenario."
-      },
-      {
-        "id": "B",
-        "text": "Create a compute target as an instance",
-        "is_correct": false,
-        "explanation": ""
-      },
-      {
-        "id": "C",
-        "text": "Create a compute target as a cluster",
-        "is_correct": false,
-        "explanation": ""
-      },
-      {
-        "id": "D",
-        "text": "Create a compute target in Azure Data Factory  \n\n**Correct answers:**",
-        "is_correct": false,
-        "explanation": ""
-      }
-    ],
-    "feedback": "Compute instances can be automatically paused when there are no jobs running, avoiding unnecessary charges. Setting `idle_seconds_before_scaledown=0` ensures the resource scales down immediately after inactivity. Clusters maintain nodes until they hit their minimum idle timeout, and Azure Data Factory is not used for this scenario.",
     "include_in_bank": true
   },
   {
@@ -5292,7 +5259,7 @@
       {
         "id": "B",
         "text": "8 GB",
-        "is_correct": true,
+        "is_correct": false,
         "explanation": "Although the file is 1 GB on disk, loading into pandas can expand its in‑memory footprint to around 10 GB. To allow for transformations, filters, joins, and other operations without running out of memory, it’s best to provision roughly twice that—about 20 GB."
       },
       {
@@ -5303,7 +5270,7 @@
       },
       {
         "id": "D",
-        "text": "20 GB  \n\n**Correct answer:**  \nD. 20 GB  \n\n**Explanation:**  \nAlthough the file is 1 GB on disk, loading into pandas can expand its in‑memory footprint to around 10 GB. To allow for transformations, filters, joins, and other operations without running out of memory, it’s best to provision roughly twice that—about 20 GB.  \n\n**References:**  \n- [Create and manage data assets](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-register-data-assets)  \n- [Scaling to large datasets](https://learn.microsoft.com/en-us/azure/machine-learning/concept-compute-target#scaling-to-large-datasets)\n\n---",
+        "text": "20 GB ",
         "is_correct": true,
         "explanation": "Although the file is 1 GB on disk, loading into pandas can expand its in‑memory footprint to around 10 GB. To allow for transformations, filters, joins, and other operations without running out of memory, it’s best to provision roughly twice that—about 20 GB."
       }
@@ -5337,11 +5304,11 @@
       {
         "id": "D",
         "text": "Deploy Azure Databricks as a compute target.  \n\n**Correct answer:**  \nA. Deploy an Azure Machine Learning compute cluster.  \n\n**Explanation:**  \nAn Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag‑and‑drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI.  \n\n**References:**  \n- [Compute targets in Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/concept-compute-target)  \n- [Create and attach a compute cluster](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-attach-compute-cluster)",
-        "is_correct": true,
-        "explanation": "An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag‑and‑drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI."
+        "is_correct": false,
+        "explanation": ""
       }
     ],
-    "feedback": "An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag‑and‑drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI.",
+    "feedback": "An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag‑and‑drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI. An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag‑and‑drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI.",
     "include_in_bank": true
   },
   {

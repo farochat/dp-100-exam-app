@@ -4,6 +4,7 @@ import os
 import matplotlib.pyplot as plt
 import io
 import base64
+from datetime import datetime
 
 # Set page configuration
 st.set_page_config(
@@ -89,6 +90,37 @@ def initialize_session_state():
     # Theme selection
     if 'theme' not in st.session_state:
         st.session_state.theme = 'One Dark'  # Default theme
+    if 'exam_mode' not in st.session_state:
+        st.session_state.exam_mode = False          # Are we in exam mode?
+    if 'exam_start_time' not in st.session_state:
+        st.session_state.exam_start_time = None     # When the clock starts
+    if 'exam_end_time' not in st.session_state:
+        st.session_state.exam_end_time = None       # When the clock stops
+        
+def start_exam_mode():
+    """
+    Kick off a 50-question timed exam.
+    """
+    import random
+
+    total_q = min(50, len(st.session_state.questions))  # guard if bank < 50
+    st.session_state.question_order = random.sample(
+        range(len(st.session_state.questions)),
+        total_q
+    )
+    # fresh counters
+    st.session_state.exam_mode = True
+    st.session_state.exam_start_time = datetime.now()
+    st.session_state.exam_end_time = None
+    st.session_state.current_question_index = 0
+    st.session_state.answered = False
+    st.session_state.user_answer = None
+    st.session_state.correct_answers = 0
+    st.session_state.total_answered = 0
+    st.session_state.quiz_completed = False
+    st.session_state.viewing_key_questions = False
+    st.session_state.viewing_bookmarked_questions = False
+
 
 def reset_quiz():
     """
@@ -99,6 +131,11 @@ def reset_quiz():
     indices = list(range(len(st.session_state.questions)))
     random.shuffle(indices)
     st.session_state.question_order = indices
+    
+    # Exam mode
+    st.session_state.exam_mode = False
+    st.session_state.exam_start_time = None
+    st.session_state.exam_end_time = None
     
     st.session_state.current_question_index = 0
     st.session_state.answered = False
@@ -502,11 +539,19 @@ def finish_quiz():
     Finish the quiz early and show results
     """
     st.session_state.quiz_completed = True
+    if st.session_state.exam_mode and st.session_state.exam_end_time is None:
+        st.session_state.exam_end_time = datetime.now()
+
 
 def display_question():
     """
     Display the current question and its options
     """
+    # Live stopwatch for exam mode
+    if st.session_state.exam_mode and st.session_state.exam_start_time:
+        elapsed = datetime.now() - st.session_state.exam_start_time
+        minutes, seconds = divmod(int(elapsed.total_seconds()), 60)
+        st.markdown(f"⏱️ **Tiempo transcurrido:** {minutes:02d}:{seconds:02d}")
     if not st.session_state.questions:
         st.error("No questions available. Please check the questions.json file.")
         return
@@ -1066,6 +1111,12 @@ def display_results():
     # Calculate percentage based on questions answered, not total questions
     percentage = (correct_answers / total_answered * 100) if total_answered > 0 else 0
     
+    if st.session_state.exam_mode and st.session_state.exam_start_time and st.session_state.exam_end_time:
+        total_secs = int((st.session_state.exam_end_time -
+                        st.session_state.exam_start_time).total_seconds())
+        mm, ss = divmod(total_secs, 60)
+        st.metric("⏱️ Time taken", f"{mm} min {ss} sec")
+    
     # Create layout with columns
     col1, col2 = st.columns([2, 2])
     
@@ -1137,6 +1188,12 @@ def main():
     # Check if there are questions available
     if not st.session_state.questions:
         return
+    
+        # ------------- inside main(), before instructions -------------
+    exam_col, normal_col = st.columns([1, 2])
+    with exam_col:
+        st.button("🎯 Exam Mode (50 questions.)", on_click=start_exam_mode)
+
     
     # Add a message about navigating questions
     st.markdown("""
