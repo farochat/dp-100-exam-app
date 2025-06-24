@@ -22,3 +22,7 @@ Each question has its own format and **its own question id**. In case that a que
 A general idea of the app is showed below. Althou i sincerily reccomend you to try out the app and in case you would like to contribute, please feel free to do so.
 
 ![App demo](/media%20&%20backups/dp-app.gif)
+
+# Final Comment 
+
+I hope this app will be usefull to help you pass the exam. If that is the case, please follow [My Personal LinkedIn account](https://www.linkedin.com/in/jhsgarciamu/) for more c: and i hope you use and pass the exam!! I wish you bests!
