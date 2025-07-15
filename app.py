@@ -16,64 +16,26 @@ from themes import get_theme_css, get_themes_list
 st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
 
 
-# def get_n_questions(sample: int) -> list[int]:
-#     n_questions = len(st.session_state.questions)
-#     total = min(sample, n_questions)
-#     return random.sample(range(n_questions), total)
-
-
-# def switch_mode():
-#     if st.session_state.exam_mode:
-#         new_exam_state = {
-#             "status": 0,
-#             "start_time": None,
-#             "end_time": None,
-#             "content": None,
-#         }
-#         st.session_state.exam_state.update(new_exam_state)
-#     elif st.session_state.app_state == "training":
-#         new_exam_state = {
-#             "status": 1,
-#             "start_time": datetime.now(),
-#             "end_time": None,
-#             "content": get_n_questions(50),
-#         }
-#         st.session_state.exam_state.update(new_exam_state)
-#     else:
-#         st.error("Unknown state")
-
-#     st.session_state.exam_mode = not st.session_state.exam_mode
-
-
-# exam_mode = {"status": 0, "start_time": None, "end_time": None, "content": []}
-# training_mode = {
-#     "status": 0,
-#     "key_questions": {"status": 0, "content": []},
-#     "bookmarked_questions": {"status": 0, "content": []},
-# }
-# application_state = {
-#     "mode": ["training", "exam"],
-#     "status": [0, 1],
-# }
-
-# app_state = {
-#     "questions": [], # Serves as central data
-#     "n_questions": [], # For progress/statistics
-#     "current_question": None # Central when handling pages
-#     "question_mode": None, # Semi central when handling pages
-#     "training": {"status": [], "questions"]
-#     "exam": {"status": 0, "questions": [] # this is a subset of fixed lenght from questions},
-#     "key_questions": {"status": 0, "questions": []},
-# }
-
-
 def parse_args():
-    """Arguments."""
+    """Parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--questions", dest="questions_file", type=str, default="questions.json"
     )
     return parser.parse_args()
+
+
+def get_n_questions(sample: int = 50) -> list[int]:
+    """Return a sample out of question index list."""
+    total = min(sample, st.session_state.n_questions)
+    return random.sample(range(st.session_state.n_questions), total)
+
+
+def generate_random_order(n: int) -> list[int]:
+    """Generate a random list of index."""
+    ind = list(range(n))
+    random.shuffle(ind)
+    return ind
 
 
 def load_questions(questions_file):
@@ -94,36 +56,6 @@ def load_questions(questions_file):
         return []
 
 
-def generate_random_order(n: int) -> list[int]:
-    """Generate a random list of index."""
-    ind = list(range(n))
-    random.shuffle(ind)
-    return ind
-
-
-# def get_key_questions() -> list[int]:
-#     """Return key questions index."""
-#     key_question_indices = []
-
-#     for i, question in enumerate(st.session_state.questions):
-#         if question.get("type") in KEY_QUESTIONS:
-
-
-# KEY_QUESTIONS = ["ordering", "drag_and_drop_ordering"]
-# SESSION_STATE = {
-#     "questions": load_questions(),
-#     "question_order": generate_random_order(),
-#     # "key_questions":
-# }
-
-
-# def init_session_state():
-#     for attr, action in SESSION_STATE.items():
-#         if attr in st.session_state:
-#             continue
-#         st.session_state[attr] = action
-
-
 def initialize_session_state(args):
     """
     Initialize the session state variables if they don't exist
@@ -133,29 +65,23 @@ def initialize_session_state(args):
         if key not in st.session_state:
             st.session_state[key] = default
 
-    # questions should always exists, there's no point into having that dynamically set
-    # Load question and setup order
-    # TODO: question as data struct -> (json/data, metadata, order?)
-    # in the end, order is just a single call and create a sense of randomness
-    # What I think can help: question list, current_shuffled_index
     if "questions" not in st.session_state:
         questions_file = Path(args.questions_file).absolute()
-        st.session_state.questions = load_questions(questions_file)
-
-    n = len(st.session_state.questions)
-    st.session_state.n_questions = n
-    init_if_missing("question_order", generate_random_order(n))
+        questions = load_questions(questions_file)
+        # Shuffle questions and set session states
+        random.shuffle(questions)
+        st.session_state.questions = questions
+        st.session_state.n_questions = len(questions)
+        st.session_state.current_question_index = 0
 
     # Create a list of key questions (ordering type questions)
-    # TODO: still wondering about the necessity of "Key Questions" feature
     if "key_questions" not in st.session_state:
+        # Used to be based on pre-shuffled question order
         key_question_indices = []
         for i, question in enumerate(st.session_state.questions):
             if question.get("type") in ["ordering", "drag_and_drop_ordering"]:
                 key_question_indices.append(i)
         st.session_state.key_questions = key_question_indices
-
-    init_if_missing("current_question_index", 0)
 
     # Navigation and progress trackers
     init_if_missing("skipped_questions", [])
@@ -203,7 +129,8 @@ def start_exam_mode():
     # guard if bank < 50
     n = len(st.session_state.questions)
     total_q = min(50, n)
-    st.session_state.question_order = random.sample(range(n), total_q)
+    st.session_state.exam_questions = random.sample(range(n), total_q)
+    st.session_state.exam_questions = get_n_questions(50)
     st.session_state.exam_mode = True
     st.session_state.exam_start_time = datetime.now()
     st.session_state.exam_end_time = None
@@ -215,8 +142,15 @@ def reset_quiz():
     """
     Reset the quiz to start over
     """
-    n = len(st.session_state.questions)
-    st.session_state.question_order = generate_random_order(n)
+    random.shuffle(st.session_state.questions)
+    # Create a list of key questions (ordering type questions)
+    if "key_questions" not in st.session_state:
+        # Used to be based on pre-shuffled question order
+        key_question_indices = []
+        for i, question in enumerate(st.session_state.questions):
+            if question.get("type") in ["ordering", "drag_and_drop_ordering"]:
+                key_question_indices.append(i)
+        st.session_state.key_questions = key_question_indices
 
     # Exam mode
     st.session_state.exam_mode = False
@@ -298,7 +232,7 @@ def next_question():
     """
     Move to the next question
     """
-    n_questions = len(st.session_state.question_order)
+    n_questions = st.session_state.n_questions
     if st.session_state.current_question_index < n_questions - 1:
         # Not finished
         st.session_state.current_question_index += 1
@@ -475,17 +409,11 @@ def get_questions_info() -> tuple:
             return
 
         # Check if current index is valid for key questions
-        if st.session_state.current_question_index >= len(
-            st.session_state.key_questions
-        ):
-            st.session_state.current_question_index = 0
-
-        # Get the real question index from key_questions
-        real_idx = st.session_state.key_questions[
-            st.session_state.current_question_index
-        ]
-        question_idx = real_idx
         max_questions = len(st.session_state.key_questions)
+        if st.session_state.current_question_index >= max_questions:
+            st.session_state.current_question_index = 0
+        current_index = st.session_state.current_question_index
+        question_idx = st.session_state.key_questions[current_index]
     elif st.session_state.viewing_bookmarked_questions:
         if not st.session_state.bookmarked_questions:
             st.warning("No bookmarked questions available.")
@@ -493,22 +421,17 @@ def get_questions_info() -> tuple:
             return
 
         # Check if current index is valid for bookmarked questions
-        if st.session_state.current_question_index >= len(
-            st.session_state.bookmarked_questions
-        ):
+        max_questions = len(st.session_state.bookmarked_questions)
+        if st.session_state.current_question_index >= max_questions:
             st.session_state.current_question_index = 0
 
         # Get the real question index from bookmarked_questions
-        real_idx = st.session_state.bookmarked_questions[
-            st.session_state.current_question_index
-        ]
-        question_idx = st.session_state.question_order[real_idx]
-        max_questions = len(st.session_state.bookmarked_questions)
+        current_index = st.session_state.current_question_index
+        question_idx = st.session_state.bookmarked_questions[current_index]
     else:
         # Normal mode - get question from randomized order
-        if st.session_state.current_question_index >= len(
-            st.session_state.question_order
-        ):
+        max_questions = st.session_state.n_questions
+        if st.session_state.current_question_index >= max_questions:
             # In exam mode, show results popup when all questions are answered
             if st.session_state.exam_mode:
                 st.session_state.show_results_popup = True
@@ -516,11 +439,8 @@ def get_questions_info() -> tuple:
             else:
                 st.session_state.quiz_completed = True
                 return
+        question_idx = st.session_state.current_question_index
 
-        question_idx = st.session_state.question_order[
-            st.session_state.current_question_index
-        ]
-        max_questions = len(st.session_state.question_order)
     return st.session_state.questions[question_idx], question_idx, max_questions
 
 
@@ -816,7 +736,7 @@ def display_question():
         f"Question {st.session_state.current_question_index + 1} of {max_questions}"
     )
     # Display the question ID in small, subtle text
-    st.caption(f"Question ID: {question_idx}")
+    st.caption(f"Question ID: {current_question['question_id']}")
 
     ###TODO: THIS IS WHERE IT SHOULD BE SPLIT
     # Display if this is a key question
@@ -952,7 +872,7 @@ def create_donut_chart():
     count_correct = st.session_state.count_correct_answers
     count_incorrect = st.session_state.count_total_answered - count_correct
     remaining_questions = (
-        len(st.session_state.question_order) - st.session_state.count_total_answered
+        st.session_state.n_questions - st.session_state.count_total_answered
     )
 
     # Data for the pie chart
@@ -1016,7 +936,7 @@ def download_results():
     count_correct = st.session_state.count_correct_answers
     count_incorrect = st.session_state.count_total_answered - count_correct
     remaining_questions = (
-        len(st.session_state.question_order) - st.session_state.count_total_answered
+        st.session_state.n_questions - st.session_state.count_total_answered
     )
     success_rate = (
         (count_correct / st.session_state.count_total_answered * 100)
@@ -1118,7 +1038,7 @@ def download_results():
             </div>
 
             <h2>Summary</h2>
-            <p>You answered {st.session_state.count_total_answered} out of {len(st.session_state.question_order)} total questions.</p>
+            <p>You answered {st.session_state.count_total_answered} out of {st.session_state.n_questions} total questions.</p>
             <p>Your success rate is {success_rate:.1f}% based on the {st.session_state.count_total_answered} questions you answered.</p>
 
             <div class="footer">
@@ -1144,7 +1064,7 @@ def display_results():
         st.session_state.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Calculate the percentage based on answered questions only
-    total_questions = len(st.session_state.question_order)
+    total_questions = st.session_state.n_questions
     correct_answers = st.session_state.count_correct_answers
     total_answered = st.session_state.count_total_answered
     unanswered = total_questions - total_answered
