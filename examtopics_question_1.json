@@ -571,7 +571,7 @@
             {
                 "id": "C",
                 "text": "Recurrent Neural Networks (RNNs)",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -581,7 +581,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for (100%)\n",
+        "feedback": "",
         "include_in_bank": true
     },
     {
@@ -775,7 +775,7 @@
             {
                 "id": "C",
                 "text": "AmlCompute",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -785,7 +785,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for (100%)\n",
+        "feedback": "",
         "include_in_bank": true
     },
     {
@@ -1636,7 +1636,7 @@
             {
                 "id": "C",
                 "text": "mini_batch_size= \"6\"",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -1646,7 +1646,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for (100%)\n",
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n",
         "include_in_bank": true
     },
     {
@@ -2503,7 +2503,7 @@
             {
                 "id": "C",
                 "text": "choice",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -2513,7 +2513,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for (100%)\n",
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n",
         "include_in_bank": true
     },
     {
@@ -3334,7 +3334,7 @@
             {
                 "id": "C",
                 "text": "Remove entire row",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -3356,7 +3356,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for (100%)\n",
+        "feedback": "",
         "include_in_bank": true
     },
     {
@@ -4531,7 +4531,7 @@
             {
                 "id": "C",
                 "text": "Load the model and use it to predict labels from input data.",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -4547,7 +4547,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for (100%)\n",
+        "feedback": "",
         "include_in_bank": true
     },
     {

@@ -732,12 +732,24 @@ def render_question(question):
     else:
         st.error("Mode error.")
 
-    if mode == "ordering":
-        render_ordering_question()
-    else:
-        render_multiple_choice_question(mode)
+    if not st.session_state.answered:
+        if mode == "ordering":
+            render_ordering_question()
+        else:
+            render_multiple_choice_question(mode)
 
-    render_bottom_buttons(mode)
+        render_submit_skip_buttons(mode)
+    else:
+        if mode == "ordering":
+            render_feedback_ordering()
+        else:
+            render_feedback_multiple_choice()
+        # render_general_feedback()
+        st.write("---")
+        # Check if feedback exists in the question data
+        if "feedback" in question:
+            st.write(f"**Feedback:** {question.get('feedback', '')}")
+        render_navigation_buttons()
 
 
 def swap_elements(a: list, i: int, j: int):
@@ -858,20 +870,17 @@ def render_multiple_choice_question(mode):
         )
 
 
-def render_bottom_buttons(mode):
+def render_submit_skip_buttons(mode):
     col1, col2, col3 = st.columns([1, 1, 5])
     with col1:
         label = "Submit"
-        if mode == "multiple":
+        disabled = st.session_state.user_answer is None
+        if mode == "ordering":
+            st.button(label, on_click=handle_submit_ordering)
+        elif mode == "multiple":
             st.button(label, on_click=on_multiple_answer_selection)
         elif mode == "single":
-            st.button(
-                label,
-                on_click=check_answer,
-                disabled=st.session_state.user_answer is None,
-            )
-        elif mode == "ordering":
-            st.button(label, on_click=handle_submit_ordering)
+            st.button(label, on_click=check_answer_multiple_choice, disabled=disabled)
         else:
             st.error("Mode error.")
             raise ValueError("Mode error")
@@ -880,6 +889,92 @@ def render_bottom_buttons(mode):
     with col3:
         # Bookmark button - toggles bookmark status
         render_bookmark_button()
+
+
+def render_navigation_buttons():
+    # Navigation buttons
+    col1, col2, col3, col4 = st.columns([1, 1, 1, 4])
+    with col1:
+        st.button(
+            "Previous",
+            on_click=previous_question,
+            disabled=st.session_state.current_question_index == 0,
+        )
+    with col2:
+        st.button("Next", on_click=next_question)
+    with col3:
+        st.button(
+            "Retry", on_click=lambda: setattr(st.session_state, "answered", False)
+        )
+    with col4:
+        # Bookmark button - toggles bookmark status
+        render_bookmark_button()
+
+
+def render_feedback_ordering():
+    st.write("Your order:")
+    for option in st.session_state.user_answer:
+        option_id = option.get("id")
+        option_text = option.get("text", "Unknown option")
+        st.write(f"{option_id}. {option_text}")
+
+    if st.session_state.is_correct:
+        st.success("Correct answer! ✅")
+    else:
+        st.error("Incorrect answer ❌")
+        # Show the correct
+        st.write("Correct order:")
+        question, *_ = get_questions_info()
+        options = {option["id"]: option["text"] for option in question["options"]}
+        for option_id in st.session_state.correct_answer:
+            option_text = options[option_id]
+            st.success(f"{option_id}. {option_text}")
+
+
+def render_feedback_multiple_choice():
+    # Display the user's answers
+    st.write("Your answers:")
+    current_question, *_ = get_questions_info()
+    # Convert to set for easy comparison, ensure it's a list first
+    if isinstance(st.session_state.user_answer, list):
+        user_answers = set(st.session_state.user_answer)
+    else:
+        user_answers = set(st.session_state.user_answer[0])
+
+    options = {
+        option["id"]: (option["text"], option.get("explanation", ""))
+        for option in current_question["options"]
+    }
+    correct_options = set(st.session_state.correct_answer)
+    wrong_options = set(options).difference(correct_options)
+    missed_answers = correct_options.difference(user_answers)
+    wrong_answers = wrong_options.intersection(user_answers)
+    correct_answers = correct_options.intersection(user_answers)
+    for option_id, (option_text, explanation) in options.items():
+        text = f"{option_id}. {option_text}"
+        if option_id in correct_answers:
+            st.success(text + " ✅")
+        elif option_id in wrong_answers:
+            st.error(text + " ❌")
+        else:
+            if len(correct_options) > 1:
+                if option_id in missed_answers:
+                    st.warning(text + "❗ (Missed this correct answer)")
+                else:
+                    st.write(text + " (Not selected - correct)")
+            else:
+                st.write(text)
+
+        # Display explanation if available for this option
+        if explanation:
+            st.info(f"Explanation: {explanation}")
+
+    # Overall correctness
+    if len(correct_options) > 1:
+        if st.session_state.is_correct:
+            st.success("All correct options were selected!")
+        else:
+            st.error("At least partially wrong!")
 
 
 def display_question():
@@ -924,125 +1019,11 @@ def display_question():
     if "selected_options" not in st.session_state:
         st.session_state.selected_options = []
 
-    if not st.session_state.answered:
-        # Different UI based on question type
-        render_question(current_question)
+    render_question(current_question)
 
-    # If the question has been answered, show the feedback
-    # TODO: why is this part of display_question? better to use answer no?
-    else:
-        user_choice = st.session_state.user_answer
 
-        # Different feedback based on question type
-        if current_question.get("type") in ["ordering", "drag_and_drop_ordering"]:
-            render_feedback_ordering()
-
-        elif current_question.get("type") == "multiple_choice_multiple_answer":
-            # Display the user's answers
-            st.write("Your answers:")
-
-            # Convert to set for easy comparison, ensure it's a list first
-            user_answers = set(
-                user_choice if isinstance(user_choice, list) else [user_choice]
-            )
-
-            # Get all correct option IDs
-            correct_options = [
-                option.get("id")
-                for option in options
-                if option.get("is_correct", False)
-            ]
-
-            # Show each option and whether it was correct or not
-            for option in options:
-                option_id = option.get("id", "Unknown")
-                option_text = option.get("text", "Unknown option")
-
-                is_correct = option.get("is_correct", False)
-                was_selected = option_id in user_answers
-
-                # Four possible states:
-                # 1. Correct and selected (Good)
-                # 2. Correct but not selected (Missed)
-                # 3. Incorrect but selected (Wrong)
-                # 4. Incorrect and not selected (Good)
-
-                if is_correct and was_selected:
-                    st.success(f"{option_id}. {option_text} ✅ (Correct)")
-                elif is_correct and not was_selected:
-                    st.warning(
-                        f"{option_id}. {option_text} ❗ (Missed this correct answer)"
-                    )
-                elif not is_correct and was_selected:
-                    st.error(f"{option_id}. {option_text} ❌ (Incorrect)")
-                else:
-                    # Not correct and not selected - good to skip
-                    st.write(f"{option_id}. {option_text} (Not selected - correct)")
-
-                # Display explanation if available for this option
-                if option.get("explanation"):
-                    st.info(f"Explanation: {option.get('explanation')}")
-
-            # Overall correctness
-            if user_answers and user_answers == set(correct_options):
-                st.success(
-                    "Your answer is completely correct! All correct options were selected."
-                )
-            else:
-                st.error(
-                    "Your answer is not completely correct. You either missed some correct options or selected some incorrect ones."
-                )
-
-        else:  # Single choice or true/false questions
-            try:
-                correct_option = next(
-                    (option for option in options if option.get("is_correct", False)),
-                    None,
-                )
-
-                for option in options:
-                    option_id = option.get("id", "Unknown")
-                    option_text = option.get("text", "Unknown option")
-
-                    if option_id == user_choice:
-                        if option.get("is_correct", False):
-                            st.success(f"{option_id}. {option_text} ✅")
-                        else:
-                            st.error(f"{option_id}. {option_text} ❌")
-
-                        if option.get("explanation"):
-                            st.info(f"Explanation: {option.get('explanation')}")
-                    elif option.get("is_correct", False):
-                        st.success(f"{option_id}. {option_text} (Correct Answer)")
-                        if user_choice != option_id and option.get("explanation"):
-                            st.info(f"Explanation: {option.get('explanation')}")
-                    else:
-                        st.write(f"{option_id}. {option_text}")
-            except Exception as e:
-                st.error(f"Error displaying answer feedback: {str(e)}")
-
-        st.write("---")
-        # Check if feedback exists in the question data
-        if "feedback" in current_question:
-            st.write(f"**Feedback:** {current_question.get('feedback', '')}")
-
-        # Navigation buttons
-        col1, col2, col3, col4 = st.columns([1, 1, 1, 4])
-        with col1:
-            st.button(
-                "Previous",
-                on_click=previous_question,
-                disabled=st.session_state.current_question_index == 0,
-            )
-        with col2:
-            st.button("Next", on_click=next_question)
-        with col3:
-            st.button(
-                "Retry", on_click=lambda: setattr(st.session_state, "answered", False)
-            )
-        with col4:
-            # Bookmark button - toggles bookmark status
-            render_bookmark_button()
+def render_general_feedback():
+    pass
 
 
 def check_answer_ordering():
@@ -1064,26 +1045,6 @@ def check_answer_ordering():
     st.session_state.count_total_answered += 1
 
 
-def render_feedback_ordering():
-    st.write("Your order:")
-    for option in st.session_state.user_answer:
-        option_id = option.get("id")
-        option_text = option.get("text", "Unknown option")
-        st.write(f"{option_id}. {option_text}")
-
-    if st.session_state.is_correct:
-        st.success("Correct answer! ✅")
-    else:
-        st.error("Incorrect answer ❌")
-        # Show the correct
-        st.write("Correct order:")
-        question, *_ = get_questions_info()
-        options = {option["id"]: option["text"] for option in question["options"]}
-        for option_id in st.session_state.correct_answer:
-            option_text = options[option_id]
-            st.success(f"{option_id}. {option_text}")
-
-
 def _user_answer_exists() -> bool:
     if st.session_state.user_answer is None:
         st.error("No user answer found.")
@@ -1092,60 +1053,37 @@ def _user_answer_exists() -> bool:
         return True
 
 
-def check_answer():
-    """
-    Check if the selected answer is correct and update the session state
-    """
-    if st.session_state.user_answer is not None:
-        # Get the actual question index from the randomized order
-        current_question = get_current_question()
+def check_answer_multiple_choice():
+    # Consistency check for user answers
+    if not _user_answer_exists():
+        return
 
-        # Handle different question types
-        # TODO: drag and drop does not necessarily requires ordering
-        if current_question["type"] in ["ordering", "drag_and_drop_ordering"]:
-            # For ordering questions, check if the order matches the correct order
-            answer = current_question.get("correct_order", [])
-            user_answer = [option.get("id") for option in st.session_state.user_answer]
-            correct_answer = user_answer == answer
-        elif current_question["type"] == "multiple_choice_multiple_answer":
-            # For multiple choice with multiple correct answers
-            # Get all correct option IDs
-            correct_options = [
-                option.get("id")
-                for option in current_question.get("options", [])
-                if option.get("is_correct", False)
-            ]
+    # For multiple choice with multiple correct answers
+    # Get all correct option IDs
+    current_question, *_ = get_questions_info()
+    st.session_state.correct_answer = [
+        option.get("id")
+        for option in current_question.get("options", [])
+        if option.get("is_correct", False)
+    ]
 
-            # Check if user's answer matches all correct options (set comparison)
-            user_answer = set(
-                st.session_state.user_answer
-                if isinstance(st.session_state.user_answer, list)
-                else [st.session_state.user_answer]
-            )
-            if user_answer:
-                correct_answer = user_answer == set(correct_options)
-            else:
-                correct_answer = False
+    # Check if user's answer matches all correct options (set comparison)
+    if isinstance(st.session_state.user_answer, str):
+        user_answer = [st.session_state.user_answer[0]]
+        is_correct = user_answer == st.session_state.correct_answer
+    elif isinstance(st.session_state.user_answer, list):
+        is_correct = set(st.session_state.user_answer) == set(
+            st.session_state.correct_answer
+        )
+    else:
+        raise TypeError("Unexpected type for user answer.")
 
-        else:
-            correct_option = [
-                f"{option.get('id')}. {option.get('text')}"
-                for option in current_question.get("options", [])
-                if option.get("is_correct", False)
-            ]
-            if not correct_option:
-                st.error("No correct option.")
+    st.session_state.is_correct = is_correct
+    if is_correct:
+        st.session_state.count_correct_answers += 1
 
-            if len(correct_option) > 1:
-                st.warning("More than one correct option when there should be only one")
-
-            correct_option = correct_option[0]
-            correct_answer = correct_option == st.session_state.user_answer
-
-        st.session_state.count_total_answered += 1
-        st.session_state.answered = True
-        if correct_answer:
-            st.session_state.count_correct_answers += 1
+    st.session_state.count_total_answered += 1
+    st.session_state.answered = True
 
 
 def on_answer_selection():
@@ -1167,7 +1105,7 @@ def on_multiple_answer_selection():
             selected_options.append(option_id.replace("checkbox_", ""))
 
     st.session_state.user_answer = selected_options
-    check_answer()
+    check_answer_multiple_choice()
 
 
 def handle_submit_ordering():
@@ -1389,7 +1327,7 @@ def display_results():
 
     # Calculate the percentage based on answered questions only
     total_questions = len(st.session_state.question_order)
-    correct_answers = st.session_state.correct_answers
+    correct_answers = st.session_state.count_correct_answers
     total_answered = st.session_state.count_total_answered
     unanswered = total_questions - total_answered
 
