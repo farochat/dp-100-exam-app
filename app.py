@@ -5,6 +5,7 @@ import io
 import json
 import random
 from datetime import datetime
+from functools import partial
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -84,7 +85,7 @@ def initialize_session_state(args):
         st.session_state.key_questions = key_question_indices
 
     # Navigation and progress trackers
-    init_if_missing("skipped_questions", [])
+    init_if_missing("skipped_questions", set())
     init_if_missing("bookmarked_questions", [])
     init_if_missing("answered", False)
     init_if_missing("user_answer", None)
@@ -158,7 +159,7 @@ def reset_quiz():
     st.session_state.exam_end_time = None
 
     reset_states()
-    st.session_state.skipped_questions = []
+    st.session_state.skipped_questions = set()
     st.session_state.bookmarked_questions = []
 
     # Clear drag and drop state if it exists
@@ -174,17 +175,9 @@ def skip_question():
     """
     Skip the current question and mark it for later review
     """
-    # Add current question index to skipped questions if not already there
-    # if skipped_question is a set:
-    # ind = st.session_state.current_question_index
-    # st.session_state.skipped_questions.add(ind)
-    if (
-        st.session_state.current_question_index
-        not in st.session_state.skipped_questions
-    ):
-        st.session_state.skipped_questions.append(
-            st.session_state.current_question_index
-        )
+    # Add current question index to skipped questions
+    ind = st.session_state.current_question_index
+    st.session_state.skipped_questions.add(ind)
 
     # Move to the next question
     next_question()
@@ -218,7 +211,7 @@ def go_to_question(index):
     st.session_state.answered = False
     st.session_state.user_answer = None
     st.session_state.correct_answer = None
-
+    st.session_state.skipped_questions.discard(index)
     # Clear drag and drop state if it exists
     if "drag_drop_order" in st.session_state:
         del st.session_state.drag_drop_order
@@ -445,18 +438,20 @@ def get_questions_info() -> tuple:
 
 
 def display_skipped_questions():
+    skipped_questions = st.session_state.skipped_questions
     valid_state = (
-        st.session_state.skipped_questions
+        skipped_questions
         and not st.session_state.viewing_key_questions
         and not st.session_state.viewing_bookmarked_questions
     )
-    if valid_state:
-        with st.expander(
-            f"Skipped Questions ({len(st.session_state.skipped_questions)})"
-        ):
-            for i, idx in enumerate(st.session_state.skipped_questions):
-                if st.button(f"Go to Question {idx + 1}", key=f"skipped_{i}"):
-                    go_to_question(idx)
+    if not valid_state:
+        return
+
+    with st.expander(f"Skipped questions ({len(skipped_questions)})"):
+        for n, ind in enumerate(skipped_questions):
+            label = f"Question {ind + 1}"
+            key = f"skipped_{n}"
+            st.button(label, key=key, on_click=partial(go_to_question, ind))
 
 
 def render_question(question):
@@ -726,7 +721,6 @@ def display_question():
     _, question_idx, max_questions = get_questions_info()
     # Get the current question
     current_question = st.session_state.questions[question_idx]
-
     # Show skipped questions
     display_skipped_questions()
 
