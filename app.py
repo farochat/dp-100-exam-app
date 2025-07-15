@@ -1,9 +1,11 @@
+import argparse
 import base64
 import copy
 import io
 import json
 import random
 from datetime import datetime
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import streamlit as st
@@ -65,20 +67,27 @@ st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="cente
 # }
 
 
-def load_questions():
+def parse_args():
+    """Arguments."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--questions", dest="questions_file", type=str, default="questions.json"
+    )
+    return parser.parse_args()
+
+
+def load_questions(questions_file):
     """
     Load questions from the JSON file and return them as a list
     """
     try:
-        with open("examtopics_question_1.json", "r", encoding="utf-8") as file:
+        with open(questions_file, "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
-        st.error(
-            "Error: questions.json file not found. Please make sure it exists in the root directory."
-        )
+        st.error(f"Error: file {questions_file} not found.")
         return []
     except json.JSONDecodeError:
-        st.error("Error: Invalid JSON format in questions.json file.")
+        st.error(f"Error: invalid JSON format in {questions_file} file.")
         return []
     except Exception as e:
         st.error(f"An error occurred while loading questions: {str(e)}")
@@ -115,7 +124,7 @@ def generate_random_order(n: int) -> list[int]:
 #         st.session_state[attr] = action
 
 
-def initialize_session_state():
+def initialize_session_state(args):
     """
     Initialize the session state variables if they don't exist
     """
@@ -130,7 +139,8 @@ def initialize_session_state():
     # in the end, order is just a single call and create a sense of randomness
     # What I think can help: question list, current_shuffled_index
     if "questions" not in st.session_state:
-        st.session_state.questions = load_questions()
+        questions_file = Path(args.questions_file).absolute()
+        st.session_state.questions = load_questions(questions_file)
 
     n = len(st.session_state.questions)
     st.session_state.n_questions = n
@@ -1164,7 +1174,7 @@ def display_results():
         # Progress bar for visual representation
         st.progress(percentage / 100)
         st.caption(
-            f"Based on {total_answered} questions answered out of {total_questions} total questions"
+            f"Based on {total_answered} answers out of {total_questions} questions"
         )
 
         # Display a different message based on the score
@@ -1274,14 +1284,14 @@ def show_results_popup():
         st.markdown("</div>", unsafe_allow_html=True)
 
 
-def main():
+def main(args):
     """
     Main function to run the application
     """
     st.title("Interactive Quiz")
 
     # Initialize session state
-    initialize_session_state()
+    initialize_session_state(args)
 
     # Check if there are questions available
     if not st.session_state.questions:
@@ -1302,4 +1312,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())
