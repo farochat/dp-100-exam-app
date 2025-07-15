@@ -46,7 +46,8 @@ Questions are using the following format:
 To my knowledge there are no direct use for `question_id` which was initially intended to be used as an easy way to modify question but that is not currently functional, `include_in_bank` and it seems to be intended to filter upon loading them within the app, `explanation` is actively used only for certain question types.
 ## Supported types and comments
 The supported types are initially `multiple_choice_single_answer`, `multiple_choice_multiple_answer`, `ordering`, `drag_and_drop_ordering`, `true_false`.
-It also seems that there were no difference between `ordering` and `drag_and_drop_ordering`, even sometimes `drag_and_drop_ordering` question could technically be correct without correct order. `true_false` was modified to be a special case of `multiple_choice_single_answer` as that was the case in the original `questions.json`. But I believe it was intended to emulate the `yes/no` types of questions.
+
+It seems that there are no difference between `ordering` and `drag_and_drop_ordering`, even if some `drag_and_drop_ordering` questions could technically be correct without correct order. `true_false` was modified to be a special case of `multiple_choice_single_answer` as that was the case in the original `questions.json`. But I believe it was intended to emulate the `yes/no` types of questions.
 
 Currently the hotspot types (with dropdown list and fill in the blanks) are handled as special case of `multiple_choice_multiple_answers`.
 
@@ -55,6 +56,7 @@ Currently the hotspot types (with dropdown list and fill in the blanks) are hand
 * Exam mode/Practice mode: currently unclear, to be improved. Exam mode select a random set of 50 questions.
 * Key questions: currently still there, I believe it was intended to be used for the questions that are scenarios and/or case studies, it is currently only used for the ordering.
 * Bookmark questions
-* 
+
+
 # Comment from the original author
 > I hope this app will be usefull to help you pass the exam. If that is the case, please follow [My Personal LinkedIn account](https://www.linkedin.com/in/jhsgarciamu/) for more c: and i hope you use and pass the exam!! I wish you bests!
