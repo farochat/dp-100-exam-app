@@ -552,21 +552,18 @@ def render_answer_column():
 
 def render_ordering_question():
     # Create two columns for the "Options" and "Answer" panels
-    if not st.session_state.answered:
-        st.info("Select options and arrange them in the correct order")
-        left_col, right_col = st.columns(2)
+    st.info("Select options and arrange them in the correct order")
+    left_col, right_col = st.columns(2)
 
-        # Left panel - Available options
-        with left_col:
-            st.markdown("### Options")
-            render_options_column()
+    # Left panel - Available options
+    with left_col:
+        st.markdown("### Options")
+        render_options_column()
 
-        # Right panel - Selected options (answer)
-        with right_col:
-            st.markdown("### Answer")
-            render_answer_column()
-    else:
-        pass
+    # Right panel - Selected options (answer)
+    with right_col:
+        st.markdown("### Answer")
+        render_answer_column()
 
 
 def render_multiple_choice_question(mode):
