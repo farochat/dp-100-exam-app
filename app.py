@@ -13,9 +13,6 @@ import streamlit as st
 
 from themes import get_theme_css, get_themes_list
 
-# Set page configuration
-st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
-
 
 def parse_args():
     """Parse arguments."""
@@ -1202,8 +1199,9 @@ def main(args):
     """
     Main function to run the application
     """
+    # Set page configuration
+    st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
     st.title("Interactive Quiz")
-
     # Initialize session state
     initialize_session_state(args)
 
