@@ -23,6 +23,7 @@ def parse_args():
     return parser.parse_args()
 
 
+APP_MODES = ["practice", "exam", "key", "bookmark"]
 SESSION_QUESTION_FILE = Path(parse_args().questions_file).absolute()
 
 
@@ -87,7 +88,6 @@ def init_questions_states():
     questions = load_questions(SESSION_QUESTION_FILE)
     random.shuffle(questions)
     st.session_state.questions = questions
-    st.session_state.n_questions = len(questions)
     st.session_state.question_states = []
     st.session_state.key_indices = []
     for n, q in enumerate(questions):
@@ -106,45 +106,66 @@ def init_questions_states():
     st.session_state.n_key_questions = len(st.session_state.key_indices)
 
 
-def switch_mode(mode, exam_size=50):
+def switch_mode(mode, exam_size=3):
+    if "questions" not in st.session_state:
+        return
+
+    current_mode = st.session_state.get("mode")
+    if current_mode == mode:
+        return
+
     st.session_state.mode = mode
-    if mode == "practice":
+    if st.session_state.mode == "practice":
+        st.session_state.n_questions = len(st.session_state.questions)
         st.session_state.view_indices = list(range(st.session_state.n_questions))
-    elif mode == "exam":
+    elif st.session_state.mode == "exam":
         st.session_state.view_indices = get_n_questions(exam_size)
-        st.session_state.n_exam_questions = exam_size
+        st.session_state.n_questions = exam_size
         for i in st.session_state.view_indices:
             st.session_state.question_states[i]["answered"] = False
             st.session_state.question_states[i]["skipped"] = False
         st.session_state.exam_start_time = datetime.now()
         st.session_state.exam_end_time = None
-    elif mode == "key":
+    elif st.session_state.mode == "key":
         st.session_state.view_indices = st.session_state.key_indices
-    elif mode == "bookmark":
+        st.session_state.n_questions = len(st.session_state.key_indices)
+    elif st.session_state.mode == "bookmark":
         st.session_state.view_indices = st.session_state.bookmarked
+        st.session_state.n_questions = len(st.session_state.bookmarked)
     else:
         raise ValueError("Unknown mode")
+    reset_answers()
+
+
+def set_default_mode():
+    """Redundant for readibility."""
+    if not st.session_state.get("mode"):
+        switch_mode("practice")
+
+
+def is_exam_mode():
+    return st.session_state.mode == "exam"
 
 
 def initialize_session_state():
-    """
-    Initialize the session state variables if they don't exist
+    """Initialize streamlit session state.
+
+    Returns early if already initialized.
+    Runs fully upon start and reset.
     """
     if st.session_state.get("has_initialized"):
         return
 
-    # Set initialization
-    st.session_state.has_initialized = True
     # Load questions, shuffle and set default mode
     init_questions_states()
-    switch_mode("practice")
+    set_default_mode()
 
     # Initialize view position
     st.session_state.current_question = CurrentQuestion()
     st.session_state.current_view_pos = 0
 
     # Exam mode
-    st.session_state.exam_start_time = None
+    st.session_state.exam_start_time = datetime.now() if is_exam_mode() else None
     st.session_state.exam_end_time = None
 
     # Special modes
@@ -163,6 +184,9 @@ def initialize_session_state():
 
     st.session_state.show_results_popup = False
     st.session_state.theme = "One Dark"
+
+    # Set initialization
+    st.session_state.has_initialized = True
 
 
 def reset_quiz():
@@ -198,9 +222,7 @@ def toggle_key_questions():
     """
     mode = "key" if st.session_state.mode != "key" else "practice"
     switch_mode(mode)
-
     st.session_state.current_view_pos = 0
-    reset_answers()
 
 
 def go_to_question(index):
@@ -223,7 +245,7 @@ def next_question():
         go_to_question(ind)
         break
     else:
-        if st.session_state.mode == "exam":
+        if is_exam_mode():
             st.session_state.show_results_popup = True
         st.session_state.quiz_completed = True
 
@@ -261,9 +283,7 @@ def toggle_bookmarked_questions():
     """
     mode = "bookmark" if st.session_state.mode != "bookmark" else "practice"
     switch_mode(mode)
-
     st.session_state.current_view_pos = 0
-    reset_answers()
 
 
 def finish_quiz():
@@ -271,13 +291,13 @@ def finish_quiz():
     Finish the quiz early and show results
     """
     st.session_state.quiz_completed = True
-    if (st.session_state.mode == "exam") and st.session_state.exam_end_time is None:
+    if (is_exam_mode()) and st.session_state.exam_end_time is None:
         st.session_state.exam_end_time = datetime.now()
 
 
 def show_stopwatch_exam():
     """Live stopwatch for exam mode"""
-    if st.session_state.mode == "exam":
+    if is_exam_mode():
         elapsed = datetime.now() - st.session_state.exam_start_time
         minutes, seconds = divmod(int(elapsed.total_seconds()), 60)
         st.markdown(f"⏱️ **Time Elapsed:** {minutes:02d}:{seconds:02d}")
@@ -313,14 +333,21 @@ def make_layout():
             """
         )
 
+    def handle_exam_toggle():
+        if "exam_toggle" not in st.session_state:
+            return
+        new_mode = "exam" if st.session_state.exam_toggle else "practice"
+        switch_mode(new_mode)
+
     # Show exam mode button
     exam_col, finish_col, _ = st.columns([1, 1, 3])
     with exam_col:
-        mode = "exam" if st.session_state.mode != "exam" else "practice"
         st.toggle(
             "Exam mode",
-            value=st.session_state == "exam",
-            on_change=partial(switch_mode, mode),
+            key="exam_toggle",
+            value=is_exam_mode(),
+            on_change=handle_exam_toggle,
+            disabled=st.session_state.quiz_completed,
         )
     with finish_col:
         if not st.session_state.quiz_completed:
@@ -342,7 +369,12 @@ def make_layout():
         else:
             label = "Key Questions"
         key = "toggle_key_questions_button"
-        st.button(label, key=key, on_click=toggle_key_questions)
+        st.button(
+            label,
+            key=key,
+            on_click=toggle_key_questions,
+            disabled=is_exam_mode(),
+        )
     with col2:
         # Bookmarked questions
         if st.session_state.mode == "bookmark":
@@ -366,7 +398,7 @@ def render_bookmark_button():
     is_bookmarked = st.session_state.current_question.state["bookmarked"]
     icon = "🔖" if is_bookmarked else "📌"
     label = f"{icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
-    st.button(label, on_click=bookmark_question)
+    st.button(label, on_click=bookmark_question, disabled=is_exam_mode())
 
 
 def display_skipped_questions():
@@ -587,9 +619,7 @@ def render_navigation_buttons():
         def reset_answer():
             st.session_state.current_question.state["answered"] = False
 
-        st.button(
-            "Retry", on_click=reset_answer, disabled=st.session_state.mode == "exam"
-        )
+        st.button("Retry", on_click=reset_answer, disabled=is_exam_mode())
     with col4:
         # Bookmark button - toggles bookmark status
         render_bookmark_button()
@@ -663,17 +693,11 @@ def render_feedback_multiple_choice():
 
 
 def display_progress_bar():
-    match st.session_state.mode:
-        case "practice":
-            n_questions = st.session_state.n_questions
-        case "exam":
-            n_questions = st.session_state.n_exam_questions
-        case "bookmark":
-            n_questions = len(st.session_state.bookmarked)
-        case "key":
-            n_questions = len(st.session_state.key_indices)
-        case _:
-            raise ValueError("Unknown mode.")
+    mode = st.session_state.get("mode")
+    if mode not in APP_MODES:
+        raise ValueError("Unknown mode.")
+
+    n_questions = st.session_state.n_questions
     st.progress(st.session_state.current_view_pos / n_questions)
     st.write(f"Question {st.session_state.current_view_pos + 1} of {n_questions}")
 
@@ -1001,7 +1025,7 @@ def display_results():
     # Calculate percentage based on questions answered, not total questions
     percentage = (correct_answers / total_answered * 100) if total_answered > 0 else 0
 
-    if st.session_state.mode == "exam":
+    if is_exam_mode():
         total_secs = int(
             (
                 st.session_state.exam_end_time - st.session_state.exam_start_time
@@ -1088,21 +1112,15 @@ def show_results_popup():
             st.rerun()
 
 
-def main(args):
-    """
-    Main function to run the application
-    """
+def main():
+    """Run the application."""
     # Set page configuration
     st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
     st.title("Interactive Quiz")
+
     # Initialize session state
     initialize_session_state()
-    # Check if there are questions available
-    if not st.session_state.questions:
-        return
-
     make_layout()
-
     # Show results popup if needed
     if st.session_state.show_results_popup:
         show_results_popup()
@@ -1116,4 +1134,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(parse_args())
+    main()
