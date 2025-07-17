@@ -299,18 +299,20 @@ def make_layout():
             st.session_state.theme = selected_theme
             st.rerun()
     # Add a message about navigating questions
-    st.markdown(
-        """
-        ### Instructions:
-        - You can **skip** questions and return to them later.
-        - Use the **Key Questions** button to see only the ordering questions.
-        - Use the **Bookmarked** button to see questions you've bookmarked.
-        - **Bookmark** important questions for later review.
-        - Navigate with the **Previous** and **Next** buttons.
-        - You can **retry** questions you have already answered.
-        - After completing the quiz, you can **download your results**.
-        """
-    )
+    with st.expander("See instructions", expanded=True):
+        st.markdown(
+            """
+            ### Instructions:
+            - You can **skip** questions and return to them later.
+            - Use the **Key Questions** button to see only the ordering questions.
+            - Use the **Bookmarked** button to see questions you've bookmarked.
+            - **Bookmark** important questions for later review.
+            - Navigate with the **Previous** and **Next** buttons.
+            - You can **retry** questions you have already answered.
+            - After completing the quiz, you can **download your results**.
+            """
+        )
+
     # Show exam mode button
     exam_col, finish_col, _ = st.columns([1, 1, 3])
     with exam_col:
