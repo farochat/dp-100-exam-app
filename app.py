@@ -323,7 +323,15 @@ def make_layout():
             on_change=partial(switch_mode, mode),
         )
     with finish_col:
-        st.button("Finish Quiz", on_click=finish_quiz, type="primary")
+        if not st.session_state.quiz_completed:
+            st.button(
+                "Finish Quiz",
+                on_click=finish_quiz,
+                type="primary",
+            )
+        else:
+            # Button to restart the quiz
+            st.button("Start Over", on_click=reset_quiz)
 
     # Navigation buttons
     col1, col2, _ = st.columns([1, 1, 3])
@@ -1059,65 +1067,25 @@ def display_results():
             mime="text/html",
         )
 
-    # Button to restart the quiz
-    st.button("Start Over", on_click=reset_quiz)
-
 
 def show_results_popup():
     """
     Show a popup asking if the user wants to see results
     """
-    # Create a popup container
-    popup = st.container()
-    popup.markdown(
-        """
-        <style>
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            width: 300px;
-        }
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown("### Exam done")
+    st.write("Get results?")
 
-    # Show the popup content
-    popup.markdown("<div class='popup-overlay'></div>", unsafe_allow_html=True)
-    with popup:
-        st.markdown("<div class='popup'>", unsafe_allow_html=True)
-        st.markdown("### Has finalizado el examen")
-        st.write("¿Deseas ver los resultados?")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Sí"):
-                st.session_state.show_results_popup = False
-                st.session_state.quiz_completed = True
-                st.session_state.exam_end_time = datetime.now()
-                st.rerun()
-        with col2:
-            if st.button("No"):
-                st.session_state.show_results_popup = False
-                st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Yes"):
+            st.session_state.show_results_popup = False
+            st.session_state.quiz_completed = True
+            st.session_state.exam_end_time = datetime.now()
+            st.rerun()
+    with col2:
+        if st.button("No"):
+            st.session_state.show_results_popup = False
+            st.rerun()
 
 
 def main(args):
