@@ -1,76 +1,50 @@
+import argparse
 import base64
 import copy
 import io
 import json
 import random
 from datetime import datetime
+from functools import partial
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import streamlit as st
 
-# Set page configuration
-st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
+from themes import get_theme_css, get_themes_list
 
 
-# def get_n_questions(sample: int) -> list[int]:
-#     n_questions = len(st.session_state.questions)
-#     total = min(sample, n_questions)
-#     return random.sample(range(n_questions), total)
+def parse_args():
+    """Parse arguments."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--questions", dest="questions_file", type=str, default="questions.json"
+    )
+    return parser.parse_args()
 
 
-# def switch_mode():
-#     if st.session_state.exam_mode:
-#         new_exam_state = {
-#             "status": 0,
-#             "start_time": None,
-#             "end_time": None,
-#             "content": None,
-#         }
-#         st.session_state.exam_state.update(new_exam_state)
-#     elif st.session_state.app_state == "training":
-#         new_exam_state = {
-#             "status": 1,
-#             "start_time": datetime.now(),
-#             "end_time": None,
-#             "content": get_n_questions(50),
-#         }
-#         st.session_state.exam_state.update(new_exam_state)
-#     else:
-#         st.error("Unknown state")
-
-#     st.session_state.exam_mode = not st.session_state.exam_mode
+APP_MODES = ["practice", "exam", "key", "bookmark"]
+SESSION_QUESTION_FILE = Path(parse_args().questions_file).absolute()
 
 
-# exam_mode = {"status": 0, "start_time": None, "end_time": None, "content": []}
-# training_mode = {
-#     "status": 0,
-#     "key_questions": {"status": 0, "content": []},
-#     "bookmarked_questions": {"status": 0, "content": []},
-# }
-# application_state = {
-#     "mode": ["training", "exam"],
-#     "status": [0, 1],
-# }
+class CurrentQuestion:
+    @property
+    def index(self):
+        return st.session_state.view_indices[st.session_state.current_view_pos]
+
+    @property
+    def data(self):
+        return st.session_state.questions[self.index]
+
+    @property
+    def state(self):
+        return st.session_state.question_states[self.index]
 
 
-def load_questions():
-    """
-    Load questions from the JSON file and return them as a list
-    """
-    try:
-        with open("examtopics_question_1.json", "r", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        st.error(
-            "Error: questions.json file not found. Please make sure it exists in the root directory."
-        )
-        return []
-    except json.JSONDecodeError:
-        st.error("Error: Invalid JSON format in questions.json file.")
-        return []
-    except Exception as e:
-        st.error(f"An error occurred while loading questions: {str(e)}")
-        return []
+def get_n_questions(sample: int = 50) -> list[int]:
+    """Return a sample out of question index list."""
+    total = min(sample, st.session_state.n_questions)
+    return random.sample(range(st.session_state.n_questions), total)
 
 
 def generate_random_order(n: int) -> list[int]:
@@ -80,264 +54,226 @@ def generate_random_order(n: int) -> list[int]:
     return ind
 
 
-# def get_key_questions() -> list[int]:
-#     """Return key questions index."""
-#     key_question_indices = []
+def load_questions(questions_file):
+    """
+    Load questions from the JSON file and return them as a list
+    """
+    try:
+        with open(questions_file, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        st.error(f"Error: file {questions_file} not found.")
+        return []
+    except json.JSONDecodeError:
+        st.error(f"Error: invalid JSON format in {questions_file} file.")
+        return []
+    except Exception as e:
+        st.error(f"An error occurred while loading questions: {str(e)}")
+        return []
 
-#     for i, question in enumerate(st.session_state.questions):
-#         if question.get("type") in KEY_QUESTIONS:
+
+def question_mode(question):
+    mode = question.get("type", "")
+    if "single" in mode:
+        return "single"
+    elif "ordering" in mode:
+        return "ordering"
+    elif "multiple" in mode:
+        return "multiple"
+    else:
+        raise ValueError("Question type mismatch")
 
 
-# KEY_QUESTIONS = ["ordering", "drag_and_drop_ordering"]
-# SESSION_STATE = {
-#     "questions": load_questions(),
-#     "question_order": generate_random_order(),
-#     # "key_questions":
-# }
+def init_questions_states():
+    questions = load_questions(SESSION_QUESTION_FILE)
+    random.shuffle(questions)
+    st.session_state.questions = questions
+    st.session_state.question_states = []
+    st.session_state.key_indices = []
+    for n, q in enumerate(questions):
+        qtype = question_mode(q)
+        is_key = qtype == "ordering"
+        state = {
+            "type": qtype,
+            "answered": False,
+            "bookmarked": False,
+            "skipped": False,
+            "key": is_key,
+        }
+        st.session_state.question_states.append(state)
+        if is_key:
+            st.session_state.key_indices.append(n)
+    st.session_state.n_key_questions = len(st.session_state.key_indices)
 
 
-# def init_session_state():
-#     for attr, action in SESSION_STATE.items():
-#         if attr in st.session_state:
-#             continue
-#         st.session_state[attr] = action
+def switch_mode(mode, exam_size=3):
+    if "questions" not in st.session_state:
+        return
+
+    current_mode = st.session_state.get("mode")
+    if current_mode == mode:
+        return
+
+    st.session_state.mode = mode
+    if st.session_state.mode == "practice":
+        st.session_state.n_questions = len(st.session_state.questions)
+        st.session_state.view_indices = list(range(st.session_state.n_questions))
+    elif st.session_state.mode == "exam":
+        st.session_state.view_indices = get_n_questions(exam_size)
+        st.session_state.n_questions = exam_size
+        for i in st.session_state.view_indices:
+            st.session_state.question_states[i]["answered"] = False
+            st.session_state.question_states[i]["skipped"] = False
+        st.session_state.exam_start_time = datetime.now()
+        st.session_state.exam_end_time = None
+    elif st.session_state.mode == "key":
+        st.session_state.view_indices = st.session_state.key_indices
+        st.session_state.n_questions = len(st.session_state.key_indices)
+    elif st.session_state.mode == "bookmark":
+        st.session_state.view_indices = st.session_state.bookmarked
+        st.session_state.n_questions = len(st.session_state.bookmarked)
+    else:
+        raise ValueError("Unknown mode")
+    reset_answers()
+
+
+def set_default_mode():
+    """Redundant for readibility."""
+    if not st.session_state.get("mode"):
+        switch_mode("practice")
+
+
+def is_exam_mode():
+    return st.session_state.mode == "exam"
 
 
 def initialize_session_state():
+    """Initialize streamlit session state.
+
+    Returns early if already initialized.
+    Runs fully upon start and reset.
     """
-    Initialize the session state variables if they don't exist
-    """
+    if st.session_state.get("has_initialized"):
+        return
 
-    def init_if_missing(key, default):
-        if key not in st.session_state:
-            st.session_state[key] = default
+    # Load questions, shuffle and set default mode
+    init_questions_states()
+    set_default_mode()
 
-    # questions should always exists, there's no point into having that dynamically set
-    # Load question and setup order
-    # TODO: question as data struct -> (json/data, metadata, order?)
-    # in the end, order is just a single call and create a sense of randomness
-    # What I think can help: question list, current_shuffled_index
-    if "questions" not in st.session_state:
-        st.session_state.questions = load_questions()
-
-    n = len(st.session_state.questions)
-    init_if_missing("question_order", generate_random_order(n))
-
-    # Create a list of key questions (ordering type questions)
-    # TODO: still wondering about the necessity of "Key Questions" feature
-    if "key_questions" not in st.session_state:
-        key_question_indices = []
-        for i, question in enumerate(st.session_state.questions):
-            if question.get("type") in ["ordering", "drag_and_drop_ordering"]:
-                key_question_indices.append(i)
-        st.session_state.key_questions = key_question_indices
-
-    init_if_missing("current_question_index", 0)
-
-    # Navigation and progress trackers
-    init_if_missing("skipped_questions", [])
-    init_if_missing("bookmarked_questions", [])
-    init_if_missing("answered", False)
-    init_if_missing("user_answer", None)
-    init_if_missing("correct_answer", None)
-    init_if_missing("is_correct", False)
-    init_if_missing("count_correct_answers", 0)
-    init_if_missing("count_total_answered", 0)
-    init_if_missing("quiz_completed", False)
-
-    # Track if we're viewing key questions
-    # This feels redundant.
-    init_if_missing("viewing_key_questions", False)
-    init_if_missing("viewing_bookmarked_questions", False)
-
-    # Display and settings
-    # Theme selection
-    init_if_missing("theme", "One Dark")
-    init_if_missing("show_results_popup", False)
+    # Initialize view position
+    st.session_state.current_question = CurrentQuestion()
+    st.session_state.current_view_pos = 0
 
     # Exam mode
-    init_if_missing("exam_mode", False)
-    init_if_missing("exam_start_time", None)
-    init_if_missing("exam_end_time", None)
-
-
-def reset_states():
-    # fresh counters
-    st.session_state.current_question_index = 0
-    st.session_state.answered = False
-    st.session_state.user_answer = None
-    st.session_state.correct_answer = None
-    st.session_state.count_correct_answers = 0
-    st.session_state.count_total_answered = 0
-    st.session_state.quiz_completed = False
-    st.session_state.viewing_key_questions = False
-    st.session_state.viewing_bookmarked_questions = False
-    st.session_state.show_results_popup = False
-
-
-def start_exam_mode():
-    """Kick off a 50-question timed exam."""
-    # guard if bank < 50
-    n = len(st.session_state.questions)
-    total_q = min(50, n)
-    st.session_state.question_order = random.sample(range(n), total_q)
-    st.session_state.exam_mode = True
-    st.session_state.exam_start_time = datetime.now()
+    st.session_state.exam_start_time = datetime.now() if is_exam_mode() else None
     st.session_state.exam_end_time = None
 
-    reset_states()
+    # Special modes
+    st.session_state.bookmarked = []
+    st.session_state.skipped = set()
+
+    # Answers, navigation and progress trackers
+    st.session_state.user_answer = None
+    st.session_state.correct_answer = None
+    st.session_state.is_correct = False
+    st.session_state.count_correct_answers = 0
+    st.session_state.count_total_answered = 0
+    st.session_state.available_options = None
+    st.session_state.selected_options = None
+    st.session_state.quiz_completed = False
+
+    st.session_state.show_results_popup = False
+    st.session_state.theme = "One Dark"
+
+    # Set initialization
+    st.session_state.has_initialized = True
 
 
 def reset_quiz():
     """
     Reset the quiz to start over
     """
-    n = len(st.session_state.questions)
-    st.session_state.question_order = generate_random_order(n)
-
-    # Exam mode
-    st.session_state.exam_mode = False
-    st.session_state.exam_start_time = None
-    st.session_state.exam_end_time = None
-
-    reset_states()
-    st.session_state.skipped_questions = []
-    st.session_state.bookmarked_questions = []
-
-    # Clear drag and drop state if it exists
-    if "drag_drop_order" in st.session_state:
-        del st.session_state.drag_drop_order
-    if "available_options" in st.session_state:
-        del st.session_state.available_options
-    if "selected_options" in st.session_state:
-        del st.session_state.selected_options
+    st.session_state.has_initialized = False
+    initialize_session_state()
 
 
 def skip_question():
     """
     Skip the current question and mark it for later review
     """
-    # Add current question index to skipped questions if not already there
-    # if skipped_question is a set:
-    # ind = st.session_state.current_question_index
-    # st.session_state.skipped_questions.add(ind)
-    if (
-        st.session_state.current_question_index
-        not in st.session_state.skipped_questions
-    ):
-        st.session_state.skipped_questions.append(
-            st.session_state.current_question_index
-        )
+    # Add current question index to skipped questions
+    ind = st.session_state.current_view_pos
+    st.session_state.skipped.add(ind)
 
     # Move to the next question
     next_question()
+
+
+def reset_answers():
+    st.session_state.user_answer = None
+    st.session_state.correct_answer = None
+    st.session_state.available_options = None
+    st.session_state.selected_options = None
 
 
 def toggle_key_questions():
     """
     Toggle between showing all questions and only key questions
     """
-    st.session_state.viewing_key_questions = not st.session_state.viewing_key_questions
-    st.session_state.viewing_bookmarked_questions = False
-    st.session_state.current_question_index = 0
-    st.session_state.answered = False
-    st.session_state.user_answer = None
-    st.session_state.correct_answer = None
-
-    # Clear drag and drop state if it exists
-    if "drag_drop_order" in st.session_state:
-        del st.session_state.drag_drop_order
-    if "available_options" in st.session_state:
-        del st.session_state.available_options
-    if "selected_options" in st.session_state:
-        del st.session_state.selected_options
+    mode = "key" if st.session_state.mode != "key" else "practice"
+    switch_mode(mode)
+    st.session_state.current_view_pos = 0
 
 
 def go_to_question(index):
     """
     Go to a specific question index
     """
-    st.session_state.current_question_index = index
-    st.session_state.answered = False
-    st.session_state.user_answer = None
-    st.session_state.correct_answer = None
-
-    # Clear drag and drop state if it exists
-    if "drag_drop_order" in st.session_state:
-        del st.session_state.drag_drop_order
-    if "available_options" in st.session_state:
-        del st.session_state.available_options
-    if "selected_options" in st.session_state:
-        del st.session_state.selected_options
+    st.session_state.current_view_pos = index
+    st.session_state.skipped.discard(index)
+    reset_answers()
 
 
 def next_question():
     """
     Move to the next question
     """
-    n_questions = len(st.session_state.question_order)
-    if st.session_state.current_question_index < n_questions - 1:
-        # Not finished
-        st.session_state.current_question_index += 1
-        st.session_state.answered = False
-        st.session_state.user_answer = None
-
-        # Clear drag and drop state when moving to a new question
-        if "drag_drop_order" in st.session_state:
-            del st.session_state.drag_drop_order
-        if "available_options" in st.session_state:
-            del st.session_state.available_options
-        if "selected_options" in st.session_state:
-            del st.session_state.selected_options
+    n_questions = st.session_state.n_questions
+    for ind in range(st.session_state.current_view_pos + 1, n_questions):
+        if st.session_state.question_states[ind]["answered"]:
+            continue
+        go_to_question(ind)
+        break
     else:
-        # In exam mode, show results popup when all questions are answered
-        if st.session_state.exam_mode:
+        if is_exam_mode():
             st.session_state.show_results_popup = True
-        else:
-            st.session_state.quiz_completed = True
+        st.session_state.quiz_completed = True
 
 
 def previous_question():
     """
     Move to the previous question
     """
-    if st.session_state.current_question_index > 0:
-        st.session_state.current_question_index -= 1
-        st.session_state.answered = False
-        st.session_state.user_answer = None
-
-        # Clear drag and drop state when moving to a new question
-        if "drag_drop_order" in st.session_state:
-            del st.session_state.drag_drop_order
-        if "available_options" in st.session_state:
-            del st.session_state.available_options
-        if "selected_options" in st.session_state:
-            del st.session_state.selected_options
-
-
-def get_current_question() -> dict:
-    # Get the actual question index from the randomized order
-    current_id = st.session_state.current_question_index
-    question_id = st.session_state.question_order[current_id]
-    return st.session_state.questions[question_id]
+    ind = st.session_state.current_view_pos
+    for ind in range(st.session_state.current_view_pos, -1, -1):
+        if st.session_state.question_states[ind]["answered"]:
+            continue
+        go_to_question(ind)
+        break
 
 
 def bookmark_question():
     """
     Bookmark the current question for later review
     """
-    if (
-        st.session_state.current_question_index
-        not in st.session_state.bookmarked_questions
-    ):
-        st.session_state.bookmarked_questions.append(
-            st.session_state.current_question_index
-        )
+    ind = st.session_state.current_question.index
+    if ind not in st.session_state.bookmarked:
+        st.session_state.bookmarked.append(ind)
+        st.session_state.current_question.state["bookmarked"] = True
         st.success("Question bookmarked!")
     else:
-        st.session_state.bookmarked_questions.remove(
-            st.session_state.current_question_index
-        )
+        st.session_state.bookmarked.remove(ind)
+        st.session_state.current_question.state["bookmarked"] = False
         st.info("Bookmark removed")
 
 
@@ -345,219 +281,9 @@ def toggle_bookmarked_questions():
     """
     Toggle between showing all questions and only bookmarked questions
     """
-    st.session_state.viewing_bookmarked_questions = (
-        not st.session_state.viewing_bookmarked_questions
-    )
-    st.session_state.viewing_key_questions = False
-    st.session_state.current_question_index = 0
-    st.session_state.answered = False
-    st.session_state.user_answer = None
-
-    # Clear drag and drop state if it exists
-    if "drag_drop_order" in st.session_state:
-        del st.session_state.drag_drop_order
-    if "available_options" in st.session_state:
-        del st.session_state.available_options
-    if "selected_options" in st.session_state:
-        del st.session_state.selected_options
-
-
-def get_theme_css(theme_name):
-    """
-    Return CSS for the selected theme
-    """
-    themes = {
-        "One Dark": {
-            "bg": "#282c34",
-            "text": "#abb2bf",
-            "button_bg": "#3b4048",
-            "button_text": "#e5c07b",
-            "button_border": "#528bff",
-            "hover_bg": "#3e4451",
-            "hover_text": "#98c379",
-            "hover_border": "#56b6c2",
-            "heading": "#61afef",
-            "progress": "#98c379",
-            "radio_bg": "#353b45",
-            "success_bg": "rgba(152, 195, 121, 0.2)",
-            "success_text": "#98c379",
-            "success_border": "#98c379",
-            "info_bg": "rgba(97, 175, 239, 0.2)",
-            "info_text": "#61afef",
-            "info_border": "#61afef",
-            "warning_bg": "rgba(229, 192, 123, 0.2)",
-            "warning_text": "#e5c07b",
-            "warning_border": "#e5c07b",
-            "error_bg": "rgba(224, 108, 117, 0.2)",
-            "error_text": "#e06c75",
-            "error_border": "#e06c75",
-        },
-        "Solarized Dark": {
-            "bg": "#002b36",
-            "text": "#839496",
-            "button_bg": "#073642",
-            "button_text": "#b58900",
-            "button_border": "#268bd2",
-            "hover_bg": "#073642",
-            "hover_text": "#2aa198",
-            "hover_border": "#859900",
-            "heading": "#268bd2",
-            "progress": "#859900",
-            "radio_bg": "#073642",
-            "success_bg": "rgba(133, 153, 0, 0.2)",
-            "success_text": "#859900",
-            "success_border": "#859900",
-            "info_bg": "rgba(38, 139, 210, 0.2)",
-            "info_text": "#268bd2",
-            "info_border": "#268bd2",
-            "warning_bg": "rgba(181, 137, 0, 0.2)",
-            "warning_text": "#b58900",
-            "warning_border": "#b58900",
-            "error_bg": "rgba(220, 50, 47, 0.2)",
-            "error_text": "#dc322f",
-            "error_border": "#dc322f",
-        },
-        "Monokai": {
-            "bg": "#272822",
-            "text": "#f8f8f2",
-            "button_bg": "#3e3d32",
-            "button_text": "#e6db74",
-            "button_border": "#66d9ef",
-            "hover_bg": "#49483e",
-            "hover_text": "#a6e22e",
-            "hover_border": "#fd971f",
-            "heading": "#66d9ef",
-            "progress": "#a6e22e",
-            "radio_bg": "#3e3d32",
-            "success_bg": "rgba(166, 226, 46, 0.2)",
-            "success_text": "#a6e22e",
-            "success_border": "#a6e22e",
-            "info_bg": "rgba(102, 217, 239, 0.2)",
-            "info_text": "#66d9ef",
-            "info_border": "#66d9ef",
-            "warning_bg": "rgba(230, 219, 116, 0.2)",
-            "warning_text": "#e6db74",
-            "warning_border": "#e6db74",
-            "error_bg": "rgba(249, 38, 114, 0.2)",
-            "error_text": "#f92672",
-            "error_border": "#f92672",
-        },
-        "Dracula": {
-            "bg": "#282a36",
-            "text": "#f8f8f2",
-            "button_bg": "#44475a",
-            "button_text": "#f1fa8c",
-            "button_border": "#8be9fd",
-            "hover_bg": "#44475a",
-            "hover_text": "#50fa7b",
-            "hover_border": "#ff79c6",
-            "heading": "#8be9fd",
-            "progress": "#50fa7b",
-            "radio_bg": "#44475a",
-            "success_bg": "rgba(80, 250, 123, 0.2)",
-            "success_text": "#50fa7b",
-            "success_border": "#50fa7b",
-            "info_bg": "rgba(139, 233, 253, 0.2)",
-            "info_text": "#8be9fd",
-            "info_border": "#8be9fd",
-            "warning_bg": "rgba(241, 250, 140, 0.2)",
-            "warning_text": "#f1fa8c",
-            "warning_border": "#f1fa8c",
-            "error_bg": "rgba(255, 85, 85, 0.2)",
-            "error_text": "#ff5555",
-            "error_border": "#ff5555",
-        },
-        "Nord": {
-            "bg": "#2e3440",
-            "text": "#d8dee9",
-            "button_bg": "#3b4252",
-            "button_text": "#ebcb8b",
-            "button_border": "#88c0d0",
-            "hover_bg": "#434c5e",
-            "hover_text": "#a3be8c",
-            "hover_border": "#81a1c1",
-            "heading": "#88c0d0",
-            "progress": "#a3be8c",
-            "radio_bg": "#3b4252",
-            "success_bg": "rgba(163, 190, 140, 0.2)",
-            "success_text": "#a3be8c",
-            "success_border": "#a3be8c",
-            "info_bg": "rgba(136, 192, 208, 0.2)",
-            "info_text": "#88c0d0",
-            "info_border": "#88c0d0",
-            "warning_bg": "rgba(235, 203, 139, 0.2)",
-            "warning_text": "#ebcb8b",
-            "warning_border": "#ebcb8b",
-            "error_bg": "rgba(191, 97, 106, 0.2)",
-            "error_text": "#bf616a",
-            "error_border": "#bf616a",
-        },
-    }
-
-    theme = themes.get(theme_name, themes["One Dark"])
-
-    css = f"""
-    <style>
-    .stApp {{
-        background-color: {theme["bg"]};
-        color: {theme["text"]};
-    }}
-    .stButton>button {{
-        background-color: {theme["button_bg"]};
-        color: {theme["button_text"]};
-        border: 1px solid {theme["button_border"]};
-    }}
-    .stButton>button:hover {{
-        background-color: {theme["hover_bg"]};
-        color: {theme["hover_text"]};
-        border: 1px solid {theme["hover_border"]};
-    }}
-    .stMarkdown {{
-        color: {theme["text"]};
-    }}
-    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
-        color: {theme["heading"]};
-    }}
-    .stProgress > div > div {{
-        background-color: {theme["progress"]};
-    }}
-    .stRadio > div {{
-        background-color: {theme["radio_bg"]};
-        border-radius: 5px;
-        padding: 10px;
-    }}
-    .stSuccess {{
-        background-color: {theme["success_bg"]};
-        color: {theme["success_text"]};
-        border: 1px solid {theme["success_border"]};
-        border-radius: 5px;
-        padding: 10px;
-    }}
-    .stInfo {{
-        background-color: {theme["info_bg"]};
-        color: {theme["info_text"]};
-        border: 1px solid {theme["info_border"]};
-        border-radius: 5px;
-        padding: 10px;
-    }}
-    .stWarning {{
-        background-color: {theme["warning_bg"]};
-        color: {theme["warning_text"]};
-        border: 1px solid {theme["warning_border"]};
-        border-radius: 5px;
-        padding: 10px;
-    }}
-    .stError {{
-        background-color: {theme["error_bg"]};
-        color: {theme["error_text"]};
-        border: 1px solid {theme["error_border"]};
-        border-radius: 5px;
-        padding: 10px;
-    }}
-    </style>
-    """
-
-    return css
+    mode = "bookmark" if st.session_state.mode != "bookmark" else "practice"
+    switch_mode(mode)
+    st.session_state.current_view_pos = 0
 
 
 def finish_quiz():
@@ -565,13 +291,13 @@ def finish_quiz():
     Finish the quiz early and show results
     """
     st.session_state.quiz_completed = True
-    if st.session_state.exam_mode and st.session_state.exam_end_time is None:
+    if (is_exam_mode()) and st.session_state.exam_end_time is None:
         st.session_state.exam_end_time = datetime.now()
 
 
 def show_stopwatch_exam():
     """Live stopwatch for exam mode"""
-    if st.session_state.exam_mode and st.session_state.exam_start_time:
+    if is_exam_mode():
         elapsed = datetime.now() - st.session_state.exam_start_time
         minutes, seconds = divmod(int(elapsed.total_seconds()), 60)
         st.markdown(f"⏱️ **Time Elapsed:** {minutes:02d}:{seconds:02d}")
@@ -585,7 +311,7 @@ def make_layout():
     theme_col, _ = st.columns([1, 4])
 
     with theme_col:
-        themes = ["One Dark", "Solarized Dark", "Monokai", "Dracula", "Nord"]
+        themes = get_themes_list()
         selected_theme = st.selectbox(
             "Select Theme", themes, index=themes.index(st.session_state.theme)
         )
@@ -593,43 +319,73 @@ def make_layout():
             st.session_state.theme = selected_theme
             st.rerun()
     # Add a message about navigating questions
-    st.markdown(
-        """
-        ### Instructions:
-        - You can **skip** questions and return to them later.
-        - Use the **Key Questions** button to see only the ordering questions.
-        - Use the **Bookmarked** button to see questions you've bookmarked.
-        - **Bookmark** important questions for later review.
-        - Navigate with the **Previous** and **Next** buttons.
-        - You can **retry** questions you have already answered.
-        - After completing the quiz, you can **download your results**.
-        """
-    )
+    with st.expander("See instructions", expanded=True):
+        st.markdown(
+            """
+            ### Instructions:
+            - You can **skip** questions and return to them later.
+            - Use the **Key Questions** button to see only the ordering questions.
+            - Use the **Bookmarked** button to see questions you've bookmarked.
+            - **Bookmark** important questions for later review.
+            - Navigate with the **Previous** and **Next** buttons.
+            - You can **retry** questions you have already answered.
+            - After completing the quiz, you can **download your results**.
+            """
+        )
+
+    def handle_exam_toggle():
+        if "exam_toggle" not in st.session_state:
+            return
+        new_mode = "exam" if st.session_state.exam_toggle else "practice"
+        switch_mode(new_mode)
+
     # Show exam mode button
-    exam_col, _, finish_col = st.columns([2, 2, 1])
+    exam_col, finish_col, _ = st.columns([1, 1, 3])
     with exam_col:
-        st.button("🎯 Exam Mode (50 questions)", on_click=start_exam_mode)
+        st.toggle(
+            "Exam mode",
+            key="exam_toggle",
+            value=is_exam_mode(),
+            on_change=handle_exam_toggle,
+            disabled=st.session_state.quiz_completed,
+        )
     with finish_col:
-        st.button("Finish Quiz", on_click=finish_quiz, type="primary")
+        if not st.session_state.quiz_completed:
+            st.button(
+                "Finish Quiz",
+                on_click=finish_quiz,
+                type="primary",
+            )
+        else:
+            # Button to restart the quiz
+            st.button("Start Over", on_click=reset_quiz)
 
     # Navigation buttons
     col1, col2, _ = st.columns([1, 1, 3])
     with col1:
         # Key questions
-        if st.session_state.viewing_key_questions:
+        if st.session_state.mode == "key":
             label = "All Questions"
         else:
             label = "Key Questions"
         key = "toggle_key_questions_button"
-        st.button(label, key=key, on_click=toggle_key_questions)
+        st.button(
+            label,
+            key=key,
+            on_click=toggle_key_questions,
+            disabled=is_exam_mode(),
+        )
     with col2:
         # Bookmarked questions
-        if st.session_state.viewing_bookmarked_questions:
+        if st.session_state.mode == "bookmark":
             label = "All Questions"
         else:
             label = "Bookmarked"
         key = "toggle_bookmarked_questions"
-        st.button(label, key=key, on_click=toggle_bookmarked_questions)
+        disabled = False if st.session_state.bookmarked else True
+        st.button(
+            label, key=key, on_click=toggle_bookmarked_questions, disabled=disabled
+        )
 
 
 def check_questions(attr=None):
@@ -639,116 +395,63 @@ def check_questions(attr=None):
 
 
 def render_bookmark_button():
-    is_bookmarked = (
-        st.session_state.current_question_index in st.session_state.bookmarked_questions
-    )
+    is_bookmarked = st.session_state.current_question.state["bookmarked"]
     icon = "🔖" if is_bookmarked else "📌"
     label = f"{icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
-    st.button(label, on_click=bookmark_question)
-
-
-def get_questions_info() -> tuple:
-    """Returns question id and max number of questions."""
-    # If viewing key questions, use the key_questions list
-    if st.session_state.viewing_key_questions:
-        if not st.session_state.key_questions:
-            st.warning("No key questions (drag and drop type) available.")
-            st.session_state.viewing_key_questions = False
-            return
-
-        # Check if current index is valid for key questions
-        if st.session_state.current_question_index >= len(
-            st.session_state.key_questions
-        ):
-            st.session_state.current_question_index = 0
-
-        # Get the real question index from key_questions
-        real_idx = st.session_state.key_questions[
-            st.session_state.current_question_index
-        ]
-        question_idx = real_idx
-        max_questions = len(st.session_state.key_questions)
-    elif st.session_state.viewing_bookmarked_questions:
-        if not st.session_state.bookmarked_questions:
-            st.warning("No bookmarked questions available.")
-            st.session_state.viewing_bookmarked_questions = False
-            return
-
-        # Check if current index is valid for bookmarked questions
-        if st.session_state.current_question_index >= len(
-            st.session_state.bookmarked_questions
-        ):
-            st.session_state.current_question_index = 0
-
-        # Get the real question index from bookmarked_questions
-        real_idx = st.session_state.bookmarked_questions[
-            st.session_state.current_question_index
-        ]
-        question_idx = st.session_state.question_order[real_idx]
-        max_questions = len(st.session_state.bookmarked_questions)
-    else:
-        # Normal mode - get question from randomized order
-        if st.session_state.current_question_index >= len(
-            st.session_state.question_order
-        ):
-            # In exam mode, show results popup when all questions are answered
-            if st.session_state.exam_mode:
-                st.session_state.show_results_popup = True
-                return
-            else:
-                st.session_state.quiz_completed = True
-                return
-
-        question_idx = st.session_state.question_order[
-            st.session_state.current_question_index
-        ]
-        max_questions = len(st.session_state.question_order)
-    return st.session_state.questions[question_idx], question_idx, max_questions
+    st.button(label, on_click=bookmark_question, disabled=is_exam_mode())
 
 
 def display_skipped_questions():
-    valid_state = (
-        st.session_state.skipped_questions
-        and not st.session_state.viewing_key_questions
-        and not st.session_state.viewing_bookmarked_questions
+    skipped_questions = st.session_state.skipped
+    if not skipped_questions:
+        return
+    valid_mode = st.session_state.mode in ["practice", "exam"]
+    if not valid_mode:
+        return
+
+    with st.expander(f"Skipped questions ({len(skipped_questions)})"):
+        for n, ind in enumerate(skipped_questions):
+            label = f"Question {ind + 1}"
+            key = f"skipped_{n}"
+            st.button(label, key=key, on_click=partial(go_to_question, ind))
+
+
+def render_question():
+    question_type = st.session_state.current_question.state["type"]
+    # Display the question ID in small, subtle text
+    st.caption(f"Question ID: {st.session_state.current_question.data['question_id']}")
+
+    # Display if this is a key question
+    if question_type == "ordering":
+        st.info("⭐ Key Question ⭐")
+
+    # Display the question itself
+    question = st.session_state.current_question.data
+    question_content = question.get("question", "No questions found.")
+    st.subheader(question_content)
+
+    # Get options from the question (handle both list and dictionary formats)
+    options = question.get("options", [])
+    if not options:
+        st.warning("No options available for this questions.")
+
+    st.session_state.available_options = (
+        st.session_state.available_options or copy.deepcopy(options)
     )
-    if valid_state:
-        with st.expander(
-            f"Skipped Questions ({len(st.session_state.skipped_questions)})"
-        ):
-            for i, idx in enumerate(st.session_state.skipped_questions):
-                if st.button(f"Go to Question {idx + 1}", key=f"skipped_{i}"):
-                    go_to_question(idx)
+    st.session_state.selected_options = st.session_state.selected_options or []
 
-
-def render_question(question):
-    mode = question.get("type", "")
-    if "single" in mode:
-        mode = "single"
-    elif "ordering" in mode:
-        mode = "ordering"
-    elif "multiple" in mode:
-        mode = "multiple"
-    else:
-        st.error("Mode error.")
-
-    if not st.session_state.answered:
-        if mode == "ordering":
+    if not st.session_state.current_question.state["answered"]:
+        if question_type == "ordering":
             render_ordering_question()
         else:
-            render_multiple_choice_question(mode)
+            render_multiple_choice_question(question_type)
 
-        render_submit_skip_buttons(mode)
+        render_submit_skip_buttons(question_type)
     else:
-        if mode == "ordering":
+        if question_type == "ordering":
             render_feedback_ordering()
         else:
             render_feedback_multiple_choice()
-        # render_general_feedback()
-        st.write("---")
-        # Check if feedback exists in the question data
-        if "feedback" in question:
-            st.write(f"**Feedback:** {question.get('feedback', '')}")
         render_navigation_buttons()
 
 
@@ -822,21 +525,18 @@ def render_answer_column():
 
 def render_ordering_question():
     # Create two columns for the "Options" and "Answer" panels
-    if not st.session_state.answered:
-        st.info("Select options and arrange them in the correct order")
-        left_col, right_col = st.columns(2)
+    st.info("Select options and arrange them in the correct order")
+    left_col, right_col = st.columns(2)
 
-        # Left panel - Available options
-        with left_col:
-            st.markdown("### Options")
-            render_options_column()
+    # Left panel - Available options
+    with left_col:
+        st.markdown("### Options")
+        render_options_column()
 
-        # Right panel - Selected options (answer)
-        with right_col:
-            st.markdown("### Answer")
-            render_answer_column()
-    else:
-        pass
+    # Right panel - Selected options (answer)
+    with right_col:
+        st.markdown("### Answer")
+        render_answer_column()
 
 
 def render_multiple_choice_question(mode):
@@ -891,6 +591,18 @@ def render_submit_skip_buttons(mode):
         render_bookmark_button()
 
 
+def disable_previous():
+    for i in range(st.session_state.current_view_pos, -1, -1):
+        if st.session_state.question_states[i]["answered"]:
+            continue
+        else:
+            break
+    else:
+        return True
+
+    return False
+
+
 def render_navigation_buttons():
     # Navigation buttons
     col1, col2, col3, col4 = st.columns([1, 1, 1, 4])
@@ -898,14 +610,16 @@ def render_navigation_buttons():
         st.button(
             "Previous",
             on_click=previous_question,
-            disabled=st.session_state.current_question_index == 0,
+            disabled=disable_previous(),
         )
     with col2:
         st.button("Next", on_click=next_question)
     with col3:
-        st.button(
-            "Retry", on_click=lambda: setattr(st.session_state, "answered", False)
-        )
+
+        def reset_answer():
+            st.session_state.current_question.state["answered"] = False
+
+        st.button("Retry", on_click=reset_answer, disabled=is_exam_mode())
     with col4:
         # Bookmark button - toggles bookmark status
         render_bookmark_button()
@@ -924,8 +638,10 @@ def render_feedback_ordering():
         st.error("Incorrect answer ❌")
         # Show the correct
         st.write("Correct order:")
-        question, *_ = get_questions_info()
-        options = {option["id"]: option["text"] for option in question["options"]}
+        options = {
+            option["id"]: option["text"]
+            for option in st.session_state.current_question.data["options"]
+        }
         for option_id in st.session_state.correct_answer:
             option_text = options[option_id]
             st.success(f"{option_id}. {option_text}")
@@ -934,7 +650,6 @@ def render_feedback_ordering():
 def render_feedback_multiple_choice():
     # Display the user's answers
     st.write("Your answers:")
-    current_question, *_ = get_questions_info()
     # Convert to set for easy comparison, ensure it's a list first
     if isinstance(st.session_state.user_answer, list):
         user_answers = set(st.session_state.user_answer)
@@ -943,7 +658,7 @@ def render_feedback_multiple_choice():
 
     options = {
         option["id"]: (option["text"], option.get("explanation", ""))
-        for option in current_question["options"]
+        for option in st.session_state.current_question.data["options"]
     }
     correct_options = set(st.session_state.correct_answer)
     wrong_options = set(options).difference(correct_options)
@@ -977,49 +692,25 @@ def render_feedback_multiple_choice():
             st.error("At least partially wrong!")
 
 
+def display_progress_bar():
+    mode = st.session_state.get("mode")
+    if mode not in APP_MODES:
+        raise ValueError("Unknown mode.")
+
+    n_questions = st.session_state.n_questions
+    st.progress(st.session_state.current_view_pos / n_questions)
+    st.write(f"Question {st.session_state.current_view_pos + 1} of {n_questions}")
+
+
 def display_question():
     """
     Display the current question and its options
     """
     show_stopwatch_exam()
     check_questions()
-
-    # Get question infos depending on state (bookmark, key, etc...)
-    _, question_idx, max_questions = get_questions_info()
-    # Get the current question
-    current_question = st.session_state.questions[question_idx]
-
-    # Show skipped questions
     display_skipped_questions()
-
-    # Display progress
-    st.progress((st.session_state.current_question_index) / max_questions)
-    st.write(
-        f"Question {st.session_state.current_question_index + 1} of {max_questions}"
-    )
-    # Display the question ID in small, subtle text
-    st.caption(f"Question ID: {question_idx}")
-
-    ###TODO: THIS IS WHERE IT SHOULD BE SPLIT
-    # Display if this is a key question
-    if current_question.get("type") in ["ordering", "drag_and_drop_ordering"]:
-        st.info("⭐ Key Question ⭐")
-
-    # Display the question itself
-    question_content = current_question.get("question", "No questions found.")
-    st.subheader(question_content)
-
-    # Get options from the question (handle both list and dictionary formats)
-    options = current_question.get("options", [])
-    if not options:
-        st.warning("No options available for this questions.")
-
-    if "available_options" not in st.session_state:
-        st.session_state.available_options = copy.deepcopy(options)
-    if "selected_options" not in st.session_state:
-        st.session_state.selected_options = []
-
-    render_question(current_question)
+    display_progress_bar()
+    render_question()
 
 
 def render_general_feedback():
@@ -1031,8 +722,9 @@ def check_answer_ordering():
     if not _user_answer_exists():
         return
 
-    current_question, *_ = get_questions_info()
-    st.session_state.correct_answer = current_question.get("correct_order", [])
+    st.session_state.correct_answer = st.session_state.current_question.data.get(
+        "correct_order", []
+    )
 
     # Render feedback and get user answer
     user_answer = [option.get("id") for option in st.session_state.user_answer]
@@ -1041,8 +733,8 @@ def check_answer_ordering():
     if is_correct:
         st.session_state.count_correct_answers += 1
     st.session_state.is_correct = is_correct
-    st.session_state.answered = True
     st.session_state.count_total_answered += 1
+    st.session_state.current_question.state["answered"] = True
 
 
 def _user_answer_exists() -> bool:
@@ -1060,10 +752,9 @@ def check_answer_multiple_choice():
 
     # For multiple choice with multiple correct answers
     # Get all correct option IDs
-    current_question, *_ = get_questions_info()
     st.session_state.correct_answer = [
         option.get("id")
-        for option in current_question.get("options", [])
+        for option in st.session_state.current_question.data["options"]
         if option.get("is_correct", False)
     ]
 
@@ -1083,7 +774,7 @@ def check_answer_multiple_choice():
         st.session_state.count_correct_answers += 1
 
     st.session_state.count_total_answered += 1
-    st.session_state.answered = True
+    st.session_state.current_question.state["answered"] = True
 
 
 def on_answer_selection():
@@ -1134,7 +825,7 @@ def create_donut_chart():
     count_correct = st.session_state.count_correct_answers
     count_incorrect = st.session_state.count_total_answered - count_correct
     remaining_questions = (
-        len(st.session_state.question_order) - st.session_state.count_total_answered
+        st.session_state.n_questions - st.session_state.count_total_answered
     )
 
     # Data for the pie chart
@@ -1198,7 +889,7 @@ def download_results():
     count_correct = st.session_state.count_correct_answers
     count_incorrect = st.session_state.count_total_answered - count_correct
     remaining_questions = (
-        len(st.session_state.question_order) - st.session_state.count_total_answered
+        st.session_state.n_questions - st.session_state.count_total_answered
     )
     success_rate = (
         (count_correct / st.session_state.count_total_answered * 100)
@@ -1300,7 +991,7 @@ def download_results():
             </div>
 
             <h2>Summary</h2>
-            <p>You answered {st.session_state.count_total_answered} out of {len(st.session_state.question_order)} total questions.</p>
+            <p>You answered {st.session_state.count_total_answered} out of {st.session_state.n_questions} total questions.</p>
             <p>Your success rate is {success_rate:.1f}% based on the {st.session_state.count_total_answered} questions you answered.</p>
 
             <div class="footer">
@@ -1326,7 +1017,7 @@ def display_results():
         st.session_state.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Calculate the percentage based on answered questions only
-    total_questions = len(st.session_state.question_order)
+    total_questions = st.session_state.n_questions
     correct_answers = st.session_state.count_correct_answers
     total_answered = st.session_state.count_total_answered
     unanswered = total_questions - total_answered
@@ -1334,11 +1025,7 @@ def display_results():
     # Calculate percentage based on questions answered, not total questions
     percentage = (correct_answers / total_answered * 100) if total_answered > 0 else 0
 
-    if (
-        st.session_state.exam_mode
-        and st.session_state.exam_start_time
-        and st.session_state.exam_end_time
-    ):
+    if is_exam_mode():
         total_secs = int(
             (
                 st.session_state.exam_end_time - st.session_state.exam_start_time
@@ -1356,7 +1043,7 @@ def display_results():
         # Progress bar for visual representation
         st.progress(percentage / 100)
         st.caption(
-            f"Based on {total_answered} questions answered out of {total_questions} total questions"
+            f"Based on {total_answered} answers out of {total_questions} questions"
         )
 
         # Display a different message based on the score
@@ -1369,13 +1056,12 @@ def display_results():
             st.warning("You might want to review the material and try again.")
 
         # Show bookmarked questions if any
-        if st.session_state.bookmarked_questions:
+        if st.session_state.bookmarked:
             st.subheader("Bookmarked Questions")
             st.write("You might want to review these questions:")
-            for idx in st.session_state.bookmarked_questions:
+            for idx in st.session_state.bookmarked:
                 try:
-                    question_idx = st.session_state.question_order[idx]
-                    question = st.session_state.questions[question_idx]
+                    question = st.session_state.questions[idx]
                     st.write(f"- {question.get('question', 'Unknown question')}")
                 except Exception as e:
                     st.warning(f"Could not load bookmarked question: {str(e)}")
@@ -1405,82 +1091,36 @@ def display_results():
             mime="text/html",
         )
 
-    # Button to restart the quiz
-    st.button("Start Over", on_click=reset_quiz)
-
 
 def show_results_popup():
     """
     Show a popup asking if the user wants to see results
     """
-    # Create a popup container
-    popup = st.container()
-    popup.markdown(
-        """
-        <style>
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            width: 300px;
-        }
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown("### Exam done")
+    st.write("Get results?")
 
-    # Show the popup content
-    popup.markdown("<div class='popup-overlay'></div>", unsafe_allow_html=True)
-    with popup:
-        st.markdown("<div class='popup'>", unsafe_allow_html=True)
-        st.markdown("### Has finalizado el examen")
-        st.write("¿Deseas ver los resultados?")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Sí"):
-                st.session_state.show_results_popup = False
-                st.session_state.quiz_completed = True
-                st.session_state.exam_end_time = datetime.now()
-                st.rerun()
-        with col2:
-            if st.button("No"):
-                st.session_state.show_results_popup = False
-                st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Yes"):
+            st.session_state.show_results_popup = False
+            st.session_state.quiz_completed = True
+            st.session_state.exam_end_time = datetime.now()
+            st.rerun()
+    with col2:
+        if st.button("No"):
+            st.session_state.show_results_popup = False
+            st.rerun()
 
 
 def main():
-    """
-    Main function to run the application
-    """
+    """Run the application."""
+    # Set page configuration
+    st.set_page_config(page_title="Interactive Quiz", page_icon="❓", layout="centered")
     st.title("Interactive Quiz")
 
     # Initialize session state
     initialize_session_state()
-
-    # Check if there are questions available
-    if not st.session_state.questions:
-        return
-
     make_layout()
-
     # Show results popup if needed
     if st.session_state.show_results_popup:
         show_results_popup()
