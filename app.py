@@ -1,6 +1,5 @@
 import argparse
 import base64
-import copy
 import io
 import json
 import random
@@ -39,6 +38,33 @@ class CurrentQuestion:
     @property
     def state(self):
         return st.session_state.question_states[self.index]
+
+    @property
+    def correct_answer(self):
+        return self.state["correct_answer"]
+
+    @property
+    def user_answer(self):
+        return self.state["user_answer"]
+
+    @user_answer.setter
+    def user_answer(self, answer):
+        self.state["user_answer"] = answer
+
+    @property
+    def type(self):
+        return self.state["type"]
+
+    @property
+    def is_correct(self):
+        if self.type == "ordering":
+            return self.user_answer == self.correct_answer
+        else:
+            return set(self.user_answer) == set(self.correct_answer)
+
+    @property
+    def available_options(self):
+        return self.state["available_options"]
 
 
 def get_n_questions(sample: int = 50) -> list[int]:
@@ -84,6 +110,25 @@ def question_mode(question):
         raise ValueError("Question type mismatch")
 
 
+def get_answers(question, question_type):
+    if question_type == "ordering":
+        return question.get("correct_order", [])
+    else:
+        return [
+            option.get("id")
+            for option in question["options"]
+            if option.get("is_correct", False)
+        ]
+
+
+def get_options(question):
+    options = [
+        f"{option.get('id', '')}. {option.get('text', 'No text available')}"
+        for option in question.get("options", [])
+    ]
+    return options
+
+
 def init_questions_states():
     questions = load_questions(SESSION_QUESTION_FILE)
     random.shuffle(questions)
@@ -99,14 +144,18 @@ def init_questions_states():
             "bookmarked": False,
             "skipped": False,
             "key": is_key,
+            "correct_answer": get_answers(q, qtype),
+            "user_answer": None,
+            "available_options": get_options(q),
         }
         st.session_state.question_states.append(state)
         if is_key:
             st.session_state.key_indices.append(n)
     st.session_state.n_key_questions = len(st.session_state.key_indices)
+    st.session_state.current_view_pos = 0
 
 
-def switch_mode(mode, exam_size=3):
+def switch_mode(mode, exam_size=50):
     if "questions" not in st.session_state:
         return
 
@@ -115,6 +164,7 @@ def switch_mode(mode, exam_size=3):
         return
 
     st.session_state.mode = mode
+    st.session_state.current_view_pos = 0
     if st.session_state.mode == "practice":
         st.session_state.n_questions = len(st.session_state.questions)
         st.session_state.view_indices = list(range(st.session_state.n_questions))
@@ -162,7 +212,6 @@ def initialize_session_state():
 
     # Initialize view position
     st.session_state.current_question = CurrentQuestion()
-    st.session_state.current_view_pos = 0
 
     # Exam mode
     st.session_state.exam_start_time = datetime.now() if is_exam_mode() else None
@@ -173,12 +222,8 @@ def initialize_session_state():
     st.session_state.skipped = set()
 
     # Answers, navigation and progress trackers
-    st.session_state.user_answer = None
-    st.session_state.correct_answer = None
-    st.session_state.is_correct = False
     st.session_state.count_correct_answers = 0
     st.session_state.count_total_answered = 0
-    st.session_state.available_options = None
     st.session_state.selected_options = None
     st.session_state.quiz_completed = False
 
@@ -210,9 +255,10 @@ def skip_question():
 
 
 def reset_answers():
-    st.session_state.user_answer = None
-    st.session_state.correct_answer = None
-    st.session_state.available_options = None
+    if not st.session_state.get("has_initialized"):
+        return
+    st.session_state.current_question.state["answered"] = False
+    st.session_state.current_question.user_answer = None
     st.session_state.selected_options = None
 
 
@@ -222,7 +268,6 @@ def toggle_key_questions():
     """
     mode = "key" if st.session_state.mode != "key" else "practice"
     switch_mode(mode)
-    st.session_state.current_view_pos = 0
 
 
 def go_to_question(index):
@@ -239,10 +284,11 @@ def next_question():
     Move to the next question
     """
     n_questions = st.session_state.n_questions
-    for ind in range(st.session_state.current_view_pos + 1, n_questions):
+    for i in range(st.session_state.current_view_pos + 1, n_questions):
+        ind = st.session_state.view_indices[i]
         if st.session_state.question_states[ind]["answered"]:
             continue
-        go_to_question(ind)
+        go_to_question(i)
         break
     else:
         if is_exam_mode():
@@ -255,10 +301,11 @@ def previous_question():
     Move to the previous question
     """
     ind = st.session_state.current_view_pos
-    for ind in range(st.session_state.current_view_pos, -1, -1):
+    for i in range(st.session_state.current_view_pos, -1, -1):
+        ind = st.session_state.view_indices[i]
         if st.session_state.question_states[ind]["answered"]:
             continue
-        go_to_question(ind)
+        go_to_question(i)
         break
 
 
@@ -283,7 +330,6 @@ def toggle_bookmarked_questions():
     """
     mode = "bookmark" if st.session_state.mode != "bookmark" else "practice"
     switch_mode(mode)
-    st.session_state.current_view_pos = 0
 
 
 def finish_quiz():
@@ -319,7 +365,7 @@ def make_layout():
             st.session_state.theme = selected_theme
             st.rerun()
     # Add a message about navigating questions
-    with st.expander("See instructions", expanded=True):
+    with st.expander("See instructions", expanded=False):
         st.markdown(
             """
             ### Instructions:
@@ -373,7 +419,7 @@ def make_layout():
             label,
             key=key,
             on_click=toggle_key_questions,
-            disabled=is_exam_mode(),
+            disabled=is_exam_mode() or st.session_state.quiz_completed,
         )
     with col2:
         # Bookmarked questions
@@ -435,16 +481,13 @@ def render_question():
     if not options:
         st.warning("No options available for this questions.")
 
-    st.session_state.available_options = (
-        st.session_state.available_options or copy.deepcopy(options)
-    )
     st.session_state.selected_options = st.session_state.selected_options or []
 
     if not st.session_state.current_question.state["answered"]:
         if question_type == "ordering":
             render_ordering_question()
         else:
-            render_multiple_choice_question(question_type)
+            render_multiple_choice_question()
 
         render_submit_skip_buttons(question_type)
     else:
@@ -452,6 +495,7 @@ def render_question():
             render_feedback_ordering()
         else:
             render_feedback_multiple_choice()
+        render_general_feedback()
         render_navigation_buttons()
 
 
@@ -460,17 +504,15 @@ def swap_elements(a: list, i: int, j: int):
 
 
 def render_options_column():
-    for option in st.session_state.available_options:
-        option_id = option.get("id")
-        option_text = option.get("text", "No text available")
+    for n, option in enumerate(st.session_state.current_question.available_options):
         option_container = st.container()
         opt_cols = option_container.columns([8, 2])
         with opt_cols[0]:
-            st.markdown(f"**{option_id}.** {option_text}")
+            st.markdown(option)
         with opt_cols[1]:
-            if st.button("Add →", key=f"add_{option_id}"):
+            if st.button("Add →", key=f"add_{n}"):
                 # Move option from available to selected
-                st.session_state.available_options.remove(option)
+                # st.session_state.current_question.available_options.remove(option)
                 st.session_state.selected_options.append(option)
                 st.rerun()
 
@@ -480,27 +522,25 @@ def render_answer_column():
         st.info("Add options from the left panel to build your answer")
 
     for i, option in enumerate(st.session_state.selected_options):
-        option_id = option.get("id")
-        option_text = option.get("text", "No text available")
         answer_container = st.container()
         ans_cols = answer_container.columns([1, 6, 1, 1])
         # Swap question columns
         with ans_cols[0]:
             is_button_pressed = False
             if i > 0:
-                is_button_pressed = st.button("↑", key=f"up_{option_id}")
+                is_button_pressed = st.button("↑", key=f"up_{i}")
 
             if is_button_pressed:
                 swap_elements(st.session_state.selected_options, i, i - 1)
                 st.rerun()
 
         with ans_cols[1]:
-            st.markdown(f"**{option_id}.** {option_text}")
+            st.markdown(option)
         # Down button
         with ans_cols[2]:
             is_button_pressed = False
             if i < len(st.session_state.selected_options) - 1:
-                is_button_pressed = st.button("↓", key=f"down_{option_id}")
+                is_button_pressed = st.button("↓", key=f"down_{i}")
 
             if is_button_pressed:
                 swap_elements(st.session_state.selected_options, i, i + 1)
@@ -508,17 +548,19 @@ def render_answer_column():
 
         # Remove button
         with ans_cols[3]:
-            if st.button("✕", key=f"remove_{option_id}"):
+            if st.button("✕", key=f"remove_{i}"):
                 # Move option from selected back to available
                 st.session_state.selected_options.remove(option)
-                st.session_state.available_options.append(option)
+                st.session_state.current_question.available_options.append(option)
                 st.rerun()
 
     # Clear all button
     if st.session_state.selected_options:
         if st.button("Clear all", key="clear_selected"):
             # Move all selected options back to available
-            st.session_state.available_options.extend(st.session_state.selected_options)
+            st.session_state.current_question.available_options.extend(
+                st.session_state.selected_options
+            )
             st.session_state.selected_options = []
             st.rerun()
 
@@ -539,42 +581,28 @@ def render_ordering_question():
         render_answer_column()
 
 
-def render_multiple_choice_question(mode):
-    # Display instructions
-    if mode == "single":
-        pass
-    elif mode == "multiple":
-        st.info("Select all correct answers (multiple selections allowed).")
-    else:
-        st.error("Wrong mode.")
-
-    # Create checkboxes for each option
-    labels = []
-    for option in st.session_state.available_options:
-        option_id = option.get("id", "")
-        option_text = option.get("text", "No text available")
-
-        # Create a checkbox
-        label = f"{option_id}. {option_text}"
-        labels.append(label)
-        if mode == "multiple":
-            st.checkbox(label, key=f"checkbox_{option_id}", value=False)
-
-    if labels and mode == "single":
+def render_multiple_choice_question():
+    current_question = st.session_state.current_question
+    if current_question.type == "single":
         st.radio(
             "Select your answer:",
-            labels,
+            current_question.available_options,
             index=None,
             key="selected_option",
             on_change=on_answer_selection,
         )
+    elif current_question.type == "multiple":
+        for option in current_question.available_options:
+            st.checkbox(option, key=f"checkbox_{option[0]}", value=False)
+    else:
+        st.error("Wrong mode.")
 
 
 def render_submit_skip_buttons(mode):
     col1, col2, col3 = st.columns([1, 1, 5])
     with col1:
         label = "Submit"
-        disabled = st.session_state.user_answer is None
+        disabled = st.session_state.current_question.user_answer is None
         if mode == "ordering":
             st.button(label, on_click=handle_submit_ordering)
         elif mode == "multiple":
@@ -593,7 +621,8 @@ def render_submit_skip_buttons(mode):
 
 def disable_previous():
     for i in range(st.session_state.current_view_pos, -1, -1):
-        if st.session_state.question_states[i]["answered"]:
+        ind = st.session_state.view_indices[i]
+        if st.session_state.question_states[ind]["answered"]:
             continue
         else:
             break
@@ -615,11 +644,7 @@ def render_navigation_buttons():
     with col2:
         st.button("Next", on_click=next_question)
     with col3:
-
-        def reset_answer():
-            st.session_state.current_question.state["answered"] = False
-
-        st.button("Retry", on_click=reset_answer, disabled=is_exam_mode())
+        st.button("Retry", on_click=reset_answers, disabled=is_exam_mode())
     with col4:
         # Bookmark button - toggles bookmark status
         render_bookmark_button()
@@ -627,40 +652,34 @@ def render_navigation_buttons():
 
 def render_feedback_ordering():
     st.write("Your order:")
-    for option in st.session_state.user_answer:
-        option_id = option.get("id")
-        option_text = option.get("text", "Unknown option")
-        st.write(f"{option_id}. {option_text}")
+    current_question = st.session_state.current_question
+    options = {
+        option["id"]: option["text"] for option in current_question.data["options"]
+    }
+    for option_id in current_question.user_answer:
+        st.write(f"{option_id}. {options[option_id]}")
 
-    if st.session_state.is_correct:
+    if current_question.is_correct:
         st.success("Correct answer! ✅")
     else:
         st.error("Incorrect answer ❌")
         # Show the correct
         st.write("Correct order:")
-        options = {
-            option["id"]: option["text"]
-            for option in st.session_state.current_question.data["options"]
-        }
-        for option_id in st.session_state.correct_answer:
-            option_text = options[option_id]
-            st.success(f"{option_id}. {option_text}")
+        for option_id in current_question.correct_answer:
+            st.success(f"{option_id}. {options[option_id]}")
 
 
 def render_feedback_multiple_choice():
     # Display the user's answers
     st.write("Your answers:")
-    # Convert to set for easy comparison, ensure it's a list first
-    if isinstance(st.session_state.user_answer, list):
-        user_answers = set(st.session_state.user_answer)
-    else:
-        user_answers = set(st.session_state.user_answer[0])
-
+    # Convert to set for easy comparison
+    current_question = st.session_state.current_question
+    user_answers = set(current_question.user_answer)
     options = {
         option["id"]: (option["text"], option.get("explanation", ""))
-        for option in st.session_state.current_question.data["options"]
+        for option in current_question.data["options"]
     }
-    correct_options = set(st.session_state.correct_answer)
+    correct_options = set(current_question.correct_answer)
     wrong_options = set(options).difference(correct_options)
     missed_answers = correct_options.difference(user_answers)
     wrong_answers = wrong_options.intersection(user_answers)
@@ -686,7 +705,7 @@ def render_feedback_multiple_choice():
 
     # Overall correctness
     if len(correct_options) > 1:
-        if st.session_state.is_correct:
+        if current_question.is_correct:
             st.success("All correct options were selected!")
         else:
             st.error("At least partially wrong!")
@@ -714,7 +733,9 @@ def display_question():
 
 
 def render_general_feedback():
-    pass
+    feedback = st.session_state.current_question.data.get("feedback", "")
+    if feedback:
+        st.markdown(feedback)
 
 
 def check_answer_ordering():
@@ -722,23 +743,14 @@ def check_answer_ordering():
     if not _user_answer_exists():
         return
 
-    st.session_state.correct_answer = st.session_state.current_question.data.get(
-        "correct_order", []
-    )
-
-    # Render feedback and get user answer
-    user_answer = [option.get("id") for option in st.session_state.user_answer]
-    is_correct = user_answer == st.session_state.correct_answer
-    st.session_state.correct_answer = st.session_state.correct_answer
-    if is_correct:
+    if st.session_state.current_question.is_correct:
         st.session_state.count_correct_answers += 1
-    st.session_state.is_correct = is_correct
     st.session_state.count_total_answered += 1
     st.session_state.current_question.state["answered"] = True
 
 
 def _user_answer_exists() -> bool:
-    if st.session_state.user_answer is None:
+    if st.session_state.current_question.user_answer is None:
         st.error("No user answer found.")
         return False
     else:
@@ -750,27 +762,7 @@ def check_answer_multiple_choice():
     if not _user_answer_exists():
         return
 
-    # For multiple choice with multiple correct answers
-    # Get all correct option IDs
-    st.session_state.correct_answer = [
-        option.get("id")
-        for option in st.session_state.current_question.data["options"]
-        if option.get("is_correct", False)
-    ]
-
-    # Check if user's answer matches all correct options (set comparison)
-    if isinstance(st.session_state.user_answer, str):
-        user_answer = [st.session_state.user_answer[0]]
-        is_correct = user_answer == st.session_state.correct_answer
-    elif isinstance(st.session_state.user_answer, list):
-        is_correct = set(st.session_state.user_answer) == set(
-            st.session_state.correct_answer
-        )
-    else:
-        raise TypeError("Unexpected type for user answer.")
-
-    st.session_state.is_correct = is_correct
-    if is_correct:
+    if st.session_state.current_question.is_correct:
         st.session_state.count_correct_answers += 1
 
     st.session_state.count_total_answered += 1
@@ -781,7 +773,10 @@ def on_answer_selection():
     """
     Function to handle when a user selects an answer for single-choice questions
     """
-    st.session_state.user_answer = st.session_state.selected_option
+    # Select 1st character and put in list
+    st.session_state.current_question.user_answer = [
+        st.session_state.selected_option[0]
+    ]
 
 
 def on_multiple_answer_selection():
@@ -795,7 +790,7 @@ def on_multiple_answer_selection():
             # Extract the option ID from the checkbox key (remove 'checkbox_' prefix)
             selected_options.append(option_id.replace("checkbox_", ""))
 
-    st.session_state.user_answer = selected_options
+    st.session_state.current_question.user_answer = selected_options
     check_answer_multiple_choice()
 
 
@@ -805,9 +800,11 @@ def handle_submit_ordering():
     """
     # Only use the selected options that were moved to the "Answer" side
     if "selected_options" in st.session_state:
-        st.session_state.user_answer = st.session_state.selected_options
+        st.session_state.current_question.user_answer = [
+            elt[0] for elt in st.session_state.selected_options
+        ]
     else:
-        st.session_state.user_answer = []
+        st.session_state.current_question.user_answer = []
 
     # Call check_answer to evaluate the submission and show feedback
     check_answer_ordering()
