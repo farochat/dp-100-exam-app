@@ -200,3 +200,7 @@ def get_theme_css(theme_name):
 def get_themes_list():
     """Return keys."""
     return list(THEMES)
+
+
+def get_theme(name):
+    return THEMES[name]

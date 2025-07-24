@@ -10,7 +10,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import streamlit as st
 
-from themes import get_theme_css, get_themes_list
+from themes import get_theme, get_theme_css, get_themes_list
 
 
 def parse_args():
@@ -155,7 +155,8 @@ def init_questions_states():
     st.session_state.current_view_pos = 0
 
 
-def switch_mode(mode, exam_size=50):
+def switch_mode(mode, exam_size=None):
+    exam_size = exam_size or random.randint(40, 60)
     if "questions" not in st.session_state:
         return
 
@@ -810,6 +811,33 @@ def handle_submit_ordering():
     check_answer_ordering()
 
 
+def compute_statistics():
+    # This allows for duplicated questions
+
+    count_correct = st.session_state.count_correct_answers
+    count_incorrect = st.session_state.count_total_answered - count_correct
+    total_answered = sum(
+        (
+            st.session_state.question_states[i]["answered"]
+            for i in st.session_state.view_indices
+        )
+    )
+    count_unanswered = st.session_state.n_questions - total_answered
+    count_duplicate = st.session_state.count_total_answered - total_answered
+    score = (
+        count_correct / st.session_state.count_total_answered
+        if st.session_state.count_total_answered > 0
+        else 0
+    )
+    return (
+        count_correct,
+        count_incorrect,
+        count_unanswered,
+        count_duplicate,
+        score,
+    )
+
+
 def create_donut_chart():
     """
     Create a donut chart showing the correct vs. incorrect answers
@@ -819,45 +847,62 @@ def create_donut_chart():
     fig.patch.set_facecolor("none")  # Transparent background for the figure
 
     # Data
-    count_correct = st.session_state.count_correct_answers
-    count_incorrect = st.session_state.count_total_answered - count_correct
-    remaining_questions = (
-        st.session_state.n_questions - st.session_state.count_total_answered
-    )
-
+    (
+        count_correct,
+        count_incorrect,
+        count_unanswered,
+        count_duplicate,
+        _,
+    ) = compute_statistics()
+    # count_correct = st.session_state.count_correct_answers
+    # count_incorrect = st.session_state.count_total_answered - count_correct
+    # remaining_questions = max(
+    #     0, st.session_state.n_questions - st.session_state.count_total_answered
+    # ) + len(st.session_state.skipped)
+    theme = get_theme(st.session_state.theme)
+    bg_color = theme["bg"]
+    font_color = theme["text"]
     # Data for the pie chart
-    sizes = [count_correct, count_incorrect, remaining_questions]
+    sizes = [count_correct, count_incorrect, count_unanswered]
     labels = ["Correct", "Incorrect", "Unanswered"]
-    colors = ["#4CAF50", "#F44336", "#9E9E9E"]
+    colors = ["#19831C", "#CE1111", bg_color]
+    # Restrict to counts greater than 0
+    labels = [elt for n, elt in enumerate(labels) if sizes[n]]
+    colors = [elt for n, elt in enumerate(colors) if sizes[n]]
+    sizes = [elt for n, elt in enumerate(sizes) if sizes[n]]
+
+    def autopct_format(pct):
+        return f"{pct:.1f}%" if pct > 0 else ""
 
     # Create a donut chart
     _, texts, autotexts = ax.pie(
         sizes,
         labels=labels,
         colors=colors,
-        autopct="%1.1f%%",
+        autopct=autopct_format,
         startangle=90,
-        wedgeprops={"width": 0.4, "edgecolor": "w"},
+        wedgeprops={"width": 0.4, "edgecolor": theme["hover_bg"]},
+        pctdistance=0.8,
     )
 
     # Equal aspect ratio ensures that pie is drawn as a circle
     ax.axis("equal")
-    plt.setp(autotexts, size=10, weight="bold", color="white")
-    plt.setp(texts, size=12)
+    plt.setp(autotexts, size=12, weight="bold", color=font_color)
+    plt.setp(texts, size=14, weight="bold", color=font_color)
 
     # Title in the center
     ax.text(
         0,
         0,
-        f"{count_correct}/{st.session_state.count_total_answered}",
+        f"{count_correct}/{st.session_state.n_questions + count_duplicate}",
         ha="center",
         va="center",
         fontsize=20,
         fontweight="bold",
+        color=font_color,
     )
-
     # Add a subtitle
-    ax.text(0, -0.12, "Score", ha="center", va="center", fontsize=12)
+    ax.text(0, -0.12, "Score", ha="center", va="center", fontsize=14, color=font_color)
 
     # Return the figure
     return fig
@@ -883,16 +928,13 @@ def download_results():
     img_str = get_chart_as_base64(fig)
 
     # Data for the report
-    count_correct = st.session_state.count_correct_answers
-    count_incorrect = st.session_state.count_total_answered - count_correct
-    remaining_questions = (
-        st.session_state.n_questions - st.session_state.count_total_answered
-    )
-    success_rate = (
-        (count_correct / st.session_state.count_total_answered * 100)
-        if st.session_state.count_total_answered > 0
-        else 0
-    )
+    (
+        count_correct,
+        count_incorrect,
+        count_unanswered,
+        _,
+        score,
+    ) = compute_statistics()
 
     # Create HTML report
     html = f"""
@@ -960,7 +1002,7 @@ def download_results():
         <div class="container">
             <div class="header">
                 <h1>Quiz Results Summary</h1>
-                <p>Generated on {st.session_state.get("date_completed", "Not completed")}</p>
+                <p>Generated on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
             </div>
 
             <h2>Performance Overview</h2>
@@ -974,22 +1016,18 @@ def download_results():
                     <div class="stat-label">Incorrect</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">{remaining_questions}</div>
+                    <div class="stat-value">{count_unanswered}</div>
                     <div class="stat-label">Unanswered</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">{success_rate:.1f}%</div>
+                    <div class="stat-value">{100 * score:.1f}%</div>
                     <div class="stat-label">Success Rate</div>
                 </div>
             </div>
 
             <div class="chart">
-                <img src="data:image/png;base64,{img_str}" alt="Quiz Results Chart" width="400">
+                <img src="data:image/png;base64,{img_str}" width="400">
             </div>
-
-            <h2>Summary</h2>
-            <p>You answered {st.session_state.count_total_answered} out of {st.session_state.n_questions} total questions.</p>
-            <p>Your success rate is {success_rate:.1f}% based on the {st.session_state.count_total_answered} questions you answered.</p>
 
             <div class="footer">
                 <p>This report was generated by Interactive Quiz Application</p>
@@ -1007,20 +1045,7 @@ def display_results():
     """
     Display the final results of the quiz
     """
-    st.title("Quiz Completed!")
-
-    # Set the completion date if not already set
-    if "date_completed" not in st.session_state:
-        st.session_state.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    # Calculate the percentage based on answered questions only
-    total_questions = st.session_state.n_questions
-    correct_answers = st.session_state.count_correct_answers
-    total_answered = st.session_state.count_total_answered
-    unanswered = total_questions - total_answered
-
-    # Calculate percentage based on questions answered, not total questions
-    percentage = (correct_answers / total_answered * 100) if total_answered > 0 else 0
+    st.header("Quiz Completed!")
 
     if is_exam_mode():
         total_secs = int(
@@ -1032,71 +1057,70 @@ def display_results():
         st.metric("⏱️ Time taken", f"{mm} min {ss} sec")
 
     # Create layout with columns
-    col1, col2 = st.columns([2, 2])
+    # Calculate the percentage based on answered questions only
+    (
+        count_correct,
+        count_incorrect,
+        count_unanswered,
+        count_duplicate,
+        score,
+    ) = compute_statistics()
+    total_questions = st.session_state.n_questions
+    total_answered = total_questions + count_duplicate - count_unanswered
 
-    with col1:
-        st.header(f"Your Score: {correct_answers}/{total_answered} ({percentage:.1f}%)")
+    st.subheader(f"Your Score: {count_correct}/{total_answered} ({100 * score:.1f}%)")
+    # Display a different message based on the score
+    if score >= 0.8:
+        st.balloons()
+        st.success("Great job! You have excellent knowledge!")
+    elif score >= 0.6:
+        st.info("Good work! Keep learning and improving!")
+    else:
+        st.warning("You might want to review the material and try again.")
 
-        # Progress bar for visual representation
-        st.progress(percentage / 100)
-        st.caption(
-            f"Based on {total_answered} answers out of {total_questions} questions"
-        )
+    # Show bookmarked questions if any
+    if st.session_state.bookmarked:
+        st.subheader("Bookmarked Questions")
+        st.write("You might want to review these questions:")
+        for idx in st.session_state.bookmarked:
+            try:
+                question = st.session_state.questions[idx]
+                st.write(f"- {question.get('question', 'Unknown question')}")
+            except Exception as e:
+                st.warning(f"Could not load bookmarked question: {str(e)}")
 
-        # Display a different message based on the score
-        if percentage >= 80:
-            st.balloons()
-            st.success("Great job! You have excellent knowledge!")
-        elif percentage >= 60:
-            st.info("Good work! Keep learning and improving!")
-        else:
-            st.warning("You might want to review the material and try again.")
+    # Statistics
+    st.subheader("Quiz Statistics")
+    with st.expander(""):
+        st.metric(label="Total Questions", value=f"{total_questions}")
+        st.metric(label="Answers ✅", value=f"{count_correct}")
+        st.metric(label="Answers ❌", value=f"{count_incorrect}")
+        st.metric(label="Retries", value=f"{count_duplicate}")
+        st.metric(label="Unanswered", value=f"{count_unanswered}")
 
-        # Show bookmarked questions if any
-        if st.session_state.bookmarked:
-            st.subheader("Bookmarked Questions")
-            st.write("You might want to review these questions:")
-            for idx in st.session_state.bookmarked:
-                try:
-                    question = st.session_state.questions[idx]
-                    st.write(f"- {question.get('question', 'Unknown question')}")
-                except Exception as e:
-                    st.warning(f"Could not load bookmarked question: {str(e)}")
+    # Display donut chart
+    st.subheader("Performance Summary")
+    fig = create_donut_chart()
+    st.pyplot(fig)
 
-        # Statistics
-        st.subheader("Quiz Statistics")
-        stats_col1, stats_col2 = st.columns(2)
-        with stats_col1:
-            st.metric(label="Correct Answers", value=f"{correct_answers}")
-            st.metric(label="Total Questions", value=f"{total_questions}")
-        with stats_col2:
-            st.metric(label="Questions Answered", value=f"{total_answered}")
-            st.metric(label="Unanswered Questions", value=f"{unanswered}")
-
-    with col2:
-        # Display donut chart
-        st.subheader("Performance Summary")
-        fig = create_donut_chart()
-        st.pyplot(fig)
-
-        # Download button for results
-        html_results = download_results()
-        st.download_button(
-            label="Download Results Report",
-            data=html_results,
-            file_name="quiz_results.html",
-            mime="text/html",
-        )
+    # Download button for results
+    html_results = download_results()
+    st.download_button(
+        label="Download Results Report",
+        data=html_results,
+        file_name="quiz_results.html",
+        mime="text/html",
+    )
 
 
 def show_results_popup():
     """
     Show a popup asking if the user wants to see results
     """
-    st.markdown("### Exam done")
-    st.write("Get results?")
+    st.title("Exam done")
+    st.subheader("Check your result?")
 
-    col1, col2 = st.columns(2)
+    col1, col2, _ = st.columns([1, 1, 3])
     with col1:
         if st.button("Yes"):
             st.session_state.show_results_popup = False
