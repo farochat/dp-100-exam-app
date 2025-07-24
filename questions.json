@@ -4885,7 +4885,7 @@
     },
     {
         "question_id": "q_020",
-        "type": "multiple_choice_single_answer",
+        "type": "multiple_choice_multiple_answer",
         "question": "You need to write a batch inference script using `ParallelRunStep`\n\nWhich two functions must be included?",
         "options": [
             {
@@ -4903,7 +4903,7 @@
             {
                 "id": "C",
                 "text": "run(mini_batch)",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -4914,7 +4914,7 @@
             },
             {
                 "id": "E",
-                "text": "execute(mini_batch)  \n\n**Correct answers:**",
+                "text": "execute(mini_batch)",
                 "is_correct": false,
                 "explanation": ""
             }
