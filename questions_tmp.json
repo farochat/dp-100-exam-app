@@ -1,0 +1,362 @@
+[
+    {
+        "question_id": "q_003",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to create a compute instance that would support running ML pipeline training using the Azure Machine Learning designer v2\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": "**Machine Learning compute clusters** are the ideal infrastructure for running pipelines within Designer v2 in Azure Machine Learning. They are scalable and designed for batch or flow training jobs."
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "**Correct answer:** A. Yes  \n\n**Explanation:**  \n**Machine Learning compute clusters** are the ideal infrastructure for running pipelines within Designer v2 in Azure Machine Learning. They are scalable and designed for batch or flow training jobs. \n- [Azure ML Compute Targets](https://learn.microsoft.com/en-us/azure/machine-learning/concept-compute-target)\n\n---",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_004",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to create a compute instance that would support running ML pipeline training using the Azure Machine Learning designer v2\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": "Azure Databricks can integrate with Azure ML pipelines, but **it cannot be directly used in Designer v2 as a training target**. Databricks is more suitable for distributed processing with Spark."
+            }
+        ],
+        "feedback": "\n\n**Correct answer:** B. No  \n\n**Explanation:**  \nAzure Databricks can integrate with Azure ML pipelines, but **it cannot be directly used in Designer v2 as a training target**. Databricks is more suitable for distributed processing with Spark.   \n\n**Reference:**  \n- [What is Designer (v2) in Azure ML?](https://learn.microsoft.com/en-us/azure/machine-learning/concept-designer-overview)\n\n## Case Study 1: Monitoring jobs in Azure Machine Learning",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_005",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to create a compute instance that would support running ML pipeline training using the Azure Machine Learning designer v2\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": "\n\n**Correct answer:** B. No  \n\n**Explanation:**  \nHDInsight, like Databricks, is based on Apache Spark and can execute Machine Learning jobs, but **it is not compatible as a direct target within Azure ML Designer**. Designer requires dedicated clusters of type **AML compute cluster**.\n\n**Reference:**  \n- [Configure and submit training jobs](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-train-cli)\n\n---\n## Case Study 2: Tracking Metrics and Job Execution in Azure Machine Learning"
+            }
+        ],
+        "feedback": "HDInsight, like Databricks, is based on Apache Spark and can execute Machine Learning jobs, but **it is not compatible as a direct target within Azure ML Designer**. Designer requires dedicated clusters of type **AML compute cluster**.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_006",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to log metrics data from your job runs using MLflow\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": "The `mlflow.log_metric()` method is the correct way to log metrics (accuracy, loss, etc.). It takes the metric name and its value as arguments and can be used multiple times to capture the evolution during training."
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "\n**Correct answer:** B. Yes  \n\n**Explanation:**  \nThe `mlflow.log_metric()` method is the correct way to log metrics (accuracy, loss, etc.). It takes the metric name and its value as arguments and can be used multiple times to capture the evolution during training.\n\n---",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_007",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to log data from your job runs using MLflow\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": "`Run.log()` belongs to the Azure ML SDK, not MLflow. While it allows logging artifacts and values, it is not the appropriate tool when using MLflow as the tracking engine."
+            }
+        ],
+        "feedback": "`Run.log()` belongs to the Azure ML SDK, not MLflow. While it allows logging artifacts and values, it is not the appropriate tool when using MLflow as the tracking engine.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_6ccb3ec185b94fc8a4ba75a13fd89ce9",
+        "type": "multiple_choice_single_answer",
+        "question": "Case study \nOverview \nYou are a data scientist in a company that provides data science for professional sporting events. Models will use global and local market data to meet the following business goals:\n\nUnderstand sentiment of mobile device users at sporting events based on audio from crowd reactions.\n\nAssess a user's tendency to respond to an advertisement.\n\nCustomize styles of ads served on mobile devices.\n\nUse video to detect penalty events\n\nCurrent environment \nMedia used for penalty event detection will be provided by consumer devices. Media may include images and videos captured during the sporting event and shared using social media. The images and videos will have varying sizes and formats.\n\nThe data available for model building comprises of seven years of sporting event media. The sporting event media includes; recorded video transcripts or radio commentary, and logs from related social media feeds captured during the sporting events.\n\nCrowd sentiment will include audio recordings submitted by event attendees in both mono and stereo formats.\n\nPenalty detection and sentiment \nData scientists must build an intelligent solution by using multiple machine learning models for penalty event detection.\n\nData scientists must build notebooks in a local environment using automatic feature engineering and model building in machine learning pipelines.\n\nNotebooks must be deployed to retrain by using Spark instances with dynamic worker allocation.\n\nNotebooks must execute with the same code on new Spark instances to recode only the source of the data.\n\nGlobal penalty detection models must be trained by using dynamic runtime graph computation during training.\n\nLocal penalty detection models must be written by using BrainScript.\n\nExperiments for local crowd sentiment models must combine local penalty detection data.\n\nCrowd sentiment models must identify known sounds such as cheers and known catch phrases. Individual crowd sentiment models will detect similar sounds.\n\nAll shared features for local models are continuous variables.\n\nShared features must use double precision. Subsequent layers must have aggregate running mean and standard deviation metrics available.\n\nAdvertisements \nDuring the initial weeks in production, the following was observed:\n\nAd response rated declined.\n\nDrops were not consistent across ad styles.\n\nThe distribution of features across training and production data are not consistent\n\nAnalysis shows that, of the 100 numeric features on user location and behavior, the 47 features that come from location sources are being used as raw features. A suggested experiment to remedy the bias and variance issue is to engineer 10 linearly uncorrelated features.\n\nInitial data discovery shows a wide range of densities of target states in training data used for crowd sentiment models.\n\nAll penalty detection models show inference phases using a Stochastic Gradient Descent (SGD) are running too slow.\n\nAudio samples show that the length of a catch phrase varies between 25%-47% depending on region\n\nThe performance of the global penalty detection models shows lower variance but higher bias when comparing training and validation sets.\n\nBefore implementing any feature changes, you must confirm the bias and variance using all training and validation cases.\n\nAd response models must be trained at the beginning of each event and applied during the sporting event.\n\nMarket segmentation models must optimize for similar ad response history.\n\nSampling must guarantee mutual and collective exclusively between local and global segmentation models that share the same features.\n\nLocal market segmentation models will be applied before determining a user's propensity to respond to an advertisement.\n\nAd response models must support non-linear boundaries of features.\n\nThe ad propensity model uses a cut threshold is 0.45 and retrains occur if weighted Kappa deviated from 0.1 +/- 5%.\n\nThe ad propensity model uses cost factors shown in the following diagram:\n\nActual\n\nPa}IPald\n\n\n\nThe ad propensity model uses proposed cost factors shown in the following diagram:\n\nActual\n\nPa}1Pald\n\n\n\nPerformance curves of current and proposed cost factor scenarios are shown in the following diagram:\n\nScenario\n\u00ab Scenario1\n\nScenario2\n\n\u00a2Scenario3\n\n\nYou need to implement a new cost factor scenario for the ad response models as illustrated in the performance curve exhibit.\n\nWhich technique should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Set the threshold to 0.5 and retrain if weighted Kappa deviates +/- 5% from 0.45.",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Set the threshold to 0.05 and retrain if weighted Kappa deviates +/- 5% from 0.5.",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Set the threshold to 0.2 and retrain if weighted Kappa deviates +/- 5% from 0.6.",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Set the threshold to 0.75 and retrain if weighted Kappa deviates +/- 5% from 0.15.",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_011",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to perform real-time scoring of the ML model and to deploy and debug locally by using local endpoints\n\nYou need to create a deployment named `mydep` under the local endpoint\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": "Azure ML Studio does not support configuring or deploying local endpoints. To do so, you must use Azure CLI v2 or the Azure ML Python SDK v2 with the `local=True` parameter, which leverages Docker for local testing."
+            }
+        ],
+        "feedback": "Azure ML Studio does not support configuring or deploying local endpoints. To do so, you must use Azure CLI v2 or the Azure ML Python SDK v2 with the `local=True` parameter, which leverages Docker for local testing.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_012",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to implement a scalable and maintainable solution to automate the retraining of an image classification model using MLOps\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": "Azure Data Factory enables the creation of pipelines that integrate, transform, and trigger retraining automatically when changes occur in the database. It is ideal for MLOps scenarios with large volumes of data."
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Azure Data Factory enables the creation of pipelines that integrate, transform, and trigger retraining automatically when changes occur in the database. It is ideal for MLOps scenarios with large volumes of data.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_2a4661a5fc414670b99b70443a1749ab",
+        "type": "multiple_choice_single_answer",
+        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution. modelfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou create an Azure Machine Learning service datastore in a workspace. The datastore contains the following files:\n\n\u2711 /data/2018/Q1.csv\n\n\u2711 /data/2018/Q2.csv\n\n\u2711 /data/2018/Q3.csv\n\n\u2711 /data/2018/Q4.csv\n\n\u2711 /data/2019/Q1.csv\n\nAll files store data in the following format:\n\nid,f1,f2,I\n\n1,1,2,0\n\n2,1,1,1\n\n3,2,1,0\n\n4,2,2,1\n\nYou run the following code:\n\ndata_store = Datastore.register_azure_blob_container (workspace=ws,\ndatastore_name= 'data_store\u2019,\ncontainer_name= 'quarterly data\u2019,\naccount_name= 'companydata\u2019,\naccount_key=\u2019 NRPxk8duxbM3...\u2019\ncreate_if_ not_exists=False)\n\n\nYou need to create a dataset named training_data and load the data from all files into a single data frame by using the following code:\n\nSolution: Run the following code:\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_009",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to perform real-time scoring of the ML model and to deploy and debug locally by using local endpoints\n\nYou need to create a deployment named `mydep` under the local endpoint\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": "The solution meets the goal. Azure CLI \u2265 2.38.0 allows creating local endpoints and deployments using the `--local` flag, which leverages Docker for local testing. YAML files are used to define both the endpoint and the deployment, enabling debugging and real-time scoring locally."
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "The solution meets the goal. Azure CLI \u2265 2.38.0 allows creating local endpoints and deployments using the `--local` flag, which leverages Docker for local testing. YAML files are used to define both the endpoint and the deployment, enabling debugging and real-time scoring locally.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_2326c004abba4406b839ea568cd1668b",
+        "type": "multiple_choice_single_answer",
+        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou have the following Azure subscriptions and Azure Machine Learning service workspaces:\n\nSubscription Workspace Comment\n385bdfe5-4cef-4ad4-b977- ml-default | This is default subscription.\n386d92727c9\n5a5891d1-557a-4234-9b83- ml-project | The information required to uniquely identify this\n2e90412b1068 workspace is stored in the file config json in the same folder as the Python script.\n\n\n\nYou need to obtain a reference to the ml-project workspace.\n\nSolution: Run the following Python code:\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_4eb919312e3f4e77b4b6e4300db69985",
+        "type": "multiple_choice_single_answer",
+        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou have the following Azure subscriptions and Azure Machine Learning service workspaces:\n\nSubscription Workspace Comment\n385bdfe5-4cef-4ad4-b977- ml-default | This is default subscription.\n386d92727c9\n5a5891d1-557a-4234-9b83- ml-project | The information required to uniquely identify this\n2e90412b1068 workspace is stored in the file config json in the same folder as the Python script.\n\n\n\nYou need to obtain a reference to the ml-project workspace.\n\nSolution: Run the following Python code:\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_010",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to perform real-time scoring of the ML model and to deploy and debug locally by using local endpoints\n\nYou need to create a deployment named `mydep` under the local endpoint\n\nYou use Azure ML Python SDK v2 with the following:",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": "Azure ML SDK v2 allows the creation and testing of local endpoints using the `local=True` parameter, running in a Docker environment. The `ml_client` object manages resources such as endpoints, deployments, and jobs, facilitating local testing and debugging."
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Azure ML SDK v2 allows the creation and testing of local endpoints using the `local=True` parameter, running in a Docker environment. The `ml_client` object manages resources such as endpoints, deployments, and jobs, facilitating local testing and debugging.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_d1061a1b1e4a4ae59a81f2307e344727",
+        "type": "multiple_choice_single_answer",
+        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou have the following Azure subscriptions and Azure Machine Learning service workspaces:\n\nSubscription Workspace Comment\n385bdfe5-4cef-4ad4-b977- ml-default | This is default subscription.\n386d92727c9\n5a5891d1-557a-4234-9b83- ml-project | The information required to uniquely identify this\n2e90412b1068 workspace is stored in the file config json in the same folder as the Python script.\n\n\n\nYou need to obtain a reference to the ml-project workspace.\n\nSolution: Run the following Python code:\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "ExamTopics answer: A.\nCommunity:\n83% for B\n17% for A(17%)\n",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "examtopics_a1876461d2fe4facbdf3b085556da83d",
+        "type": "multiple_choice_single_answer",
+        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution. modelfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou create an Azure Machine Learning service datastore in a workspace. The datastore contains the following files:\n\n\u2711 /data/2018/Q1.csv\n\n\u2711 /data/2018/Q2.csv\n\n\u2711 /data/2018/Q3.csv\n\n\u2711 /data/2018/Q4.csv\n\n\u2711 /data/2019/Q1.csv modelll files store data in the following format:\n\nid,f1,f2,I\n\n1,1,2,0\n\n2,1,1,1\n\n3,2,1,0\n\n4,2,2,1\n\nYou run the following code:\n\ndata_store = Datastore.register_azure_blob_container (workspace=ws,\ndatastore_name= 'data_store\u2019,\ncontainer_name= 'quarterly data\u2019,\naccount_name= 'companydata\u2019,\naccount_key=\u2019 NRPxk8duxbM3...\u2019\ncreate_if_ not_exists=False)\n\n\nYou need to create a dataset named training_data and load the data from all files into a single data frame by using the following code:\n\nSolution: Run the following code:\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "q_041",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You need a compute resource that supports AutoML, multi\u2011step pipelines, and the Azure ML Designer interface\n\n",
+        "options": [
+            {
+                "id": "A",
+                "text": "Deploy an Azure Machine Learning compute cluster.",
+                "is_correct": true,
+                "explanation": "An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag\u2011and\u2011drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI."
+            },
+            {
+                "id": "B",
+                "text": "Install the Azure ML SDK on your local computer.",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Create and deploy a remote virtual machine.",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Deploy Azure Databricks as a compute target.",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag\u2011and\u2011drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI. An Azure ML compute cluster provides elastic scaling across multiple nodes and is fully integrated with AutoML, pipeline orchestration, and the drag\u2011and\u2011drop Designer experience. Local SDK installations and remote VMs lack seamless workspace integration and scalability, while Databricks is not supported by the Designer UI.",
+        "include_in_bank": true
+    }
+]
