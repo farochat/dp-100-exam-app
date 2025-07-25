@@ -5,7 +5,7 @@ import io
 import json
 import random
 from datetime import datetime
-from functools import partial
+from functools import partial, wraps
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -18,7 +18,10 @@ def parse_args():
     """Parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--questions", dest="questions_file", type=str, default="questions.json"
+        "--questions",
+        dest="questions_file",
+        type=str,
+        default="questions.json",
     )
     return parser.parse_args()
 
@@ -66,6 +69,19 @@ class CurrentQuestion:
     @property
     def available_options(self):
         return self.state["available_options"]
+
+
+def require(*required_keys):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if not all(key in st.session_state for key in required_keys):
+                return
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 def get_n_questions(sample: int = 50) -> list[int]:
@@ -157,11 +173,9 @@ def init_questions_states():
     st.session_state.current_view_pos = 0
 
 
+@require("questions")
 def switch_mode(mode, exam_size=None):
     exam_size = exam_size or random.randint(40, 60)
-    if "questions" not in st.session_state:
-        return
-
     current_mode = st.session_state.get("mode")
     if current_mode == mode:
         return
@@ -175,8 +189,14 @@ def switch_mode(mode, exam_size=None):
         st.session_state.n_questions = exam_size
         st.session_state.view_indices = get_n_questions(exam_size)
         for i in st.session_state.view_indices:
-            st.session_state.question_states[i]["answered"] = False
-            st.session_state.question_states[i]["skipped"] = False
+            question_state = st.session_state.question_states[i]
+            question_state["answered"] = False
+            question_state["skipped"] = False
+            if question_state["type"] == "ordering" and question_state["user_answer"]:
+                question_state["available_options"].extend(
+                    question_state["user_answer"]
+                )
+            question_state["user_answer"] = None
         st.session_state.exam_start_time = datetime.now()
         st.session_state.exam_end_time = None
     elif st.session_state.mode == "key":
@@ -187,7 +207,6 @@ def switch_mode(mode, exam_size=None):
         st.session_state.n_questions = len(st.session_state.bookmarked)
     else:
         raise ValueError("Unknown mode")
-    reset_answers()
 
 
 def set_default_mode():
@@ -256,11 +275,10 @@ def skip_question():
     next_question()
 
 
-def reset_answers():
+def handle_retry():
     if not st.session_state.get("has_initialized"):
         return
     st.session_state.current_question.state["answered"] = False
-    st.session_state.current_question.user_answer = None
 
 
 def toggle_key_questions():
@@ -277,7 +295,6 @@ def go_to_question(index):
     """
     st.session_state.current_view_pos = index
     st.session_state.skipped.discard(index)
-    reset_answers()
 
 
 def next_question():
@@ -380,9 +397,8 @@ def make_layout():
             """
         )
 
+    @require("exam_toggle")
     def handle_exam_toggle():
-        if "exam_toggle" not in st.session_state:
-            return
         new_mode = "exam" if st.session_state.exam_toggle else "practice"
         switch_mode(new_mode)
 
@@ -503,18 +519,14 @@ def swap_elements(a: list, i: int, j: int):
     a[i], a[j] = a[j], a[i]
 
 
+@require("current_question")
 def callback_arrow(i: int, up: bool):
-    if "current_question" not in st.session_state:
-        return
-    if up:
-        swap_elements(st.session_state.current_question.user_answer, i, i - 1)
-    else:
-        swap_elements(st.session_state.current_question.user_answer, i, i + 1)
+    j = i - 1 if up else i + 1
+    swap_elements(st.session_state.current_question.user_answer, i, j)
 
 
+@require("current_question")
 def callback_add_remove(options, add=True):
-    if "current_question" not in st.session_state:
-        return
     current_question = st.session_state.current_question
     if not isinstance(options, list):
         options = [options]
@@ -594,17 +606,26 @@ def render_ordering_question():
 def render_multiple_choice_question():
     current_question = st.session_state.current_question
     if current_question.type == "single":
+        st.session_state.selected_option = (
+            current_question.user_answer[0] if current_question.user_answer else None
+        )
         st.radio(
             "Select your answer:",
             current_question.available_options,
             format_func=lambda x: x[0],
-            index=None,
             key="selected_option",
             on_change=on_answer_selection,
         )
     elif current_question.type == "multiple":
         for option_text, option_id in current_question.available_options:
-            st.checkbox(option_text, key=f"checkbox_{option_id}", value=False)
+            st.session_state[f"checkbox_{option_id}"] = option_id in [
+                elt[1] for elt in current_question.user_answer
+            ]
+            st.checkbox(
+                option_text,
+                key=f"checkbox_{option_id}",
+                on_change=on_multiple_answer_selection,
+            )
     else:
         st.error("Wrong mode.")
 
@@ -615,15 +636,7 @@ def render_submit_skip_buttons():
     with col1:
         label = "Submit"
         disabled = len(current_question.user_answer) == 0
-        if current_question.type == "ordering":
-            st.button(label, on_click=handle_submit_ordering)
-        elif current_question.type == "multiple":
-            st.button(label, on_click=on_multiple_answer_selection)
-        elif current_question.type == "single":
-            st.button(label, on_click=check_answer_multiple_choice, disabled=disabled)
-        else:
-            st.error("Mode error.")
-            raise ValueError("Mode error")
+        st.button(label, on_click=check_answer, disabled=disabled)
     with col2:
         st.button("Skip", key="skip_button", on_click=skip_question)
     with col3:
@@ -656,7 +669,7 @@ def render_navigation_buttons():
     with col2:
         st.button("Next", on_click=next_question)
     with col3:
-        st.button("Retry", on_click=reset_answers, disabled=is_exam_mode())
+        st.button("Retry", on_click=handle_retry, disabled=is_exam_mode())
     with col4:
         # Bookmark button - toggles bookmark status
         render_bookmark_button()
@@ -760,7 +773,8 @@ def render_general_feedback():
         st.markdown(feedback)
 
 
-def check_answer_ordering():
+@require("current_question")
+def check_answer():
     # Consistency check for user answers
     if not _user_answer_exists():
         return
@@ -779,18 +793,6 @@ def _user_answer_exists() -> bool:
         return True
 
 
-def check_answer_multiple_choice():
-    # Consistency check for user answers
-    if not _user_answer_exists():
-        return
-
-    if st.session_state.current_question.is_correct:
-        st.session_state.count_correct_answers += 1
-
-    st.session_state.count_total_answered += 1
-    st.session_state.current_question.state["answered"] = True
-
-
 def on_answer_selection():
     """
     Function to handle when a user selects an answer for single-choice questions
@@ -799,6 +801,7 @@ def on_answer_selection():
     st.session_state.current_question.user_answer = [st.session_state.selected_option]
 
 
+@require("current_question")
 def on_multiple_answer_selection():
     """
     Function to handle when a user selects answers for multiple-choice questions
@@ -814,21 +817,6 @@ def on_multiple_answer_selection():
         selected_options.append(("", option_id.replace("checkbox_", "")))
 
     st.session_state.current_question.user_answer = selected_options
-    check_answer_multiple_choice()
-
-
-def handle_submit_ordering():
-    """
-    Handle the submission of a drag and drop ordering question
-    """
-    if "current_question" not in st.session_state:
-        return
-
-    st.session_state.current_question.available_options.extend(
-        st.session_state.current_question.user_answer
-    )
-    # Call check_answer to evaluate the submission and show feedback
-    check_answer_ordering()
 
 
 def compute_statistics():
