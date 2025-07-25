@@ -250,7 +250,6 @@ def initialize_session_state():
     st.session_state.count_total_answered = 0
     st.session_state.quiz_completed = False
 
-    st.session_state.show_results_popup = False
     st.session_state.theme = "One Dark"
 
     # Set initialization
@@ -311,9 +310,11 @@ def next_question():
         go_to_question(i)
         break
     else:
-        if is_exam_mode():
-            st.session_state.show_results_popup = True
-        st.session_state.quiz_completed = True
+        for i in st.session_state.skipped:
+            go_to_question(i)
+            break
+        else:
+            st.session_state.quiz_completed = True
 
 
 def previous_question():
@@ -357,8 +358,6 @@ def finish_quiz():
     Finish the quiz early and show results
     """
     st.session_state.quiz_completed = True
-    if (is_exam_mode()) and st.session_state.exam_end_time is None:
-        st.session_state.exam_end_time = datetime.now()
 
 
 def show_stopwatch_exam():
@@ -473,12 +472,12 @@ def display_skipped_questions():
     valid_mode = st.session_state.mode in ["practice", "exam"]
     if not valid_mode:
         return
-
-    with st.expander(f"Skipped questions ({len(skipped_questions)})"):
-        for n, ind in enumerate(skipped_questions):
-            label = f"Question {ind + 1}"
-            key = f"skipped_{n}"
-            st.button(label, key=key, on_click=go_to_question, args=(ind,))
+    if not is_exam_mode():
+        with st.expander(f"Skipped questions ({len(skipped_questions)})"):
+            for n, ind in enumerate(skipped_questions):
+                label = f"Question {ind + 1}"
+                key = f"skipped_{n}"
+                st.button(label, key=key, on_click=go_to_question, args=(ind,))
 
 
 def render_question():
@@ -879,11 +878,6 @@ def create_donut_chart():
         count_duplicate,
         _,
     ) = compute_statistics()
-    # count_correct = st.session_state.count_correct_answers
-    # count_incorrect = st.session_state.count_total_answered - count_correct
-    # remaining_questions = max(
-    #     0, st.session_state.n_questions - st.session_state.count_total_answered
-    # ) + len(st.session_state.skipped)
     theme = get_theme(st.session_state.theme)
     bg_color = theme["bg"]
     font_color = theme["text"]
@@ -1073,13 +1067,11 @@ def display_results():
     st.header("Quiz Completed!")
 
     if is_exam_mode():
-        total_secs = int(
-            (
-                st.session_state.exam_end_time - st.session_state.exam_start_time
-            ).total_seconds()
-        )
+        total_secs = (datetime.now() - st.session_state.exam_start_time).total_seconds()
         mm, ss = divmod(total_secs, 60)
-        st.metric("⏱️ Time taken", f"{mm} min {ss} sec")
+        st.metric(
+            "⏱️ Time taken", f"{mm:.0f} min {ss:.0f} sec" if mm > 0 else f"{ss:.0f} sec"
+        )
 
     # Create layout with columns
     # Calculate the percentage based on answered questions only
@@ -1148,14 +1140,10 @@ def show_results_popup():
     col1, col2, _ = st.columns([1, 1, 3])
     with col1:
         if st.button("Yes"):
-            st.session_state.show_results_popup = False
             st.session_state.quiz_completed = True
-            st.session_state.exam_end_time = datetime.now()
-            st.rerun()
     with col2:
         if st.button("No"):
-            st.session_state.show_results_popup = False
-            st.rerun()
+            st.session_state.quiz_completed = False
 
 
 def main():
@@ -1167,10 +1155,6 @@ def main():
     # Initialize session state
     initialize_session_state()
     make_layout()
-    # Show results popup if needed
-    if st.session_state.show_results_popup:
-        show_results_popup()
-        return
 
     # Check if the quiz is completed
     if st.session_state.quiz_completed:
