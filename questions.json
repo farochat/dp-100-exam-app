@@ -2,7 +2,7 @@
     {
         "question_id": "1",
         "type": "multiple_choice_single_answer",
-        "question": "You trained a machine learning model\n\n* You must deploy the model as a real-time inference service for testing\n\n* The service requires low CPU utilization and less than 48 MB of RAM\n\n* The compute target for the deployed service must initialize automatically while minimizing cost and administrative overhead\n\n**Which compute target should you use?**",
+        "question": "You trained a machine learning model\n\n* You must deploy the model as a real-time inference service for testing\n* The service requires low CPU utilization and less than 48 MB of RAM\n* The compute target for the deployed service must initialize automatically while minimizing cost and administrative overhead\n\n**Which compute target should you use?**",
         "options": [
             {
                 "id": "A",
@@ -1464,44 +1464,6 @@
         "feedback": "This question reinforces the correct method for capturing custom metrics using the SDK v2, where MLflow is the default logging interface. You can use `mlflow.log_metric(name, value)` inside the entry script or scoring script to persist and visualize metrics in Azure ML Studio. See Microsoft documentation for [tracking metrics](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-train-ml-models#monitor-your-experiment-runs)."
     },
     {
-        "question_id": "52A",
-        "type": "multiple_choice_single_answer",
-        "question": "You create a multi-class image classification deep learning model that uses a set of labeled bird photographs collected by experts\n\nAll photographs are stored in an Azure blob container\n\nYou need to access the bird photograph files from Azure ML service workspace for training, minimizing data movement\n\nWhat should you do?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Create and register a dataset by using TabularDataset class that references the Azure blob storage containing bird photographs.",
-                "is_correct": false,
-                "explanation": "TabularDataset is intended for structured/tabular data. Since the data consists of images, it is not appropriate."
-            },
-            {
-                "id": "B",
-                "text": "Copy the bird photographs to the blob datastore that was created with your Azure Machine Learning service workspace.",
-                "is_correct": false,
-                "explanation": "Copying the images introduces unnecessary data movement, which the question states must be minimized."
-            },
-            {
-                "id": "C",
-                "text": "Register the Azure blob storage containing the bird photographs as a datastore in Azure Machine Learning service.",
-                "is_correct": true,
-                "explanation": "Registering the existing Azure Blob container as a datastore allows the workspace to access the files directly without duplication or unnecessary transfer of data."
-            },
-            {
-                "id": "D",
-                "text": "Create an Azure Data Lake store and move the bird photographs to the store.",
-                "is_correct": false,
-                "explanation": "Creating a new storage and moving data contradicts the requirement of minimizing data movement."
-            },
-            {
-                "id": "E",
-                "text": "Create an Azure Cosmos DB database and attach the Azure Blob containing bird photographs storage to the database.",
-                "is_correct": false,
-                "explanation": "Azure Cosmos DB is not a suitable or efficient storage for large-scale image data like photographs."
-            }
-        ],
-        "feedback": "To minimize data movement in Azure Machine Learning, the best practice is to register the existing Azure Blob Storage as a datastore. This allows scripts and training components to access the JPG images directly from the blob container without copying or duplicating the data. This is especially important when working with large-scale datasets such as image files in deep learning scenarios."
-    },
-    {
         "question_id": "53",
         "type": "multiple_choice_single_answer",
         "question": "You are working with convolutional neural network (CNN)\n\n extracts useful features from input images using several layers, and then passes those features into fully connected layers to make predictions.\n\nThe early layers of a CNN reduce the high-dimensional pixel input into a smaller set of learned features that are more useful for classification.\n\nCNNs are composed of multiple layers, each with a distinct role — such as feature extraction or classification.\n\n**Which layer type is being described below?**\n\n>After extracting feature values from images, these layers are used to reduce the number of feature values while retaining the key differentiating features that have been extracted",
@@ -2070,7 +2032,7 @@
     {
         "question_id": "69",
         "type": "multiple_choice_single_answer",
-        "question": "Which of the following is best described by: 'These construct not just one decision tree, but a large number of trees \u2013 allowing better predictions on more complex data\n\nWidely used in machine learning and science due to their strong prediction abilities'?",
+        "question": "Match the description\n\n>These construct not just one decision tree, but a large number of trees allowing better predictions on more complex data\n\n>Widely used in machine learning and science due to their strong prediction abilities",
         "options": [
             {
                 "id": "A",
@@ -2102,7 +2064,7 @@
     {
         "question_id": "70",
         "type": "multiple_choice_single_answer",
-        "question": "Dr\n\nKarl Malus is creating a convolutional neural network and wants to reduce the size of the feature maps that are generated by a convolutional layer\n\nWhat should he do?",
+        "question": "Dr. Karl Malus is creating a convolutional neural network and wants to reduce the size of the feature maps that are generated by a convolutional layer\n\nWhat should he do?",
         "options": [
             {
                 "id": "A",
@@ -2394,66 +2356,6 @@
         "options": [
             {
                 "id": "A",
-                "text": "Azure Container Service",
-                "is_correct": false,
-                "explanation": "Azure Container Service (deprecated) is not a supported compute target for deploying an Azure Machine Learning workspace."
-            },
-            {
-                "id": "B",
-                "text": "Azure Data Lake Analytics",
-                "is_correct": false,
-                "explanation": "Azure Data Lake Analytics is a big data analytics service and is not used for deploying Azure ML workspaces."
-            },
-            {
-                "id": "C",
-                "text": "Apache Spark for HDInsight",
-                "is_correct": false,
-                "explanation": "Apache Spark for HDInsight is used for large-scale data processing but is not intended as a compute target for Azure ML workspaces."
-            },
-            {
-                "id": "D",
-                "text": "Azure Databricks",
-                "is_correct": true,
-                "explanation": "Azure Databricks can be used as a compute target in Azure Machine Learning. It integrates with Azure ML for running distributed training jobs and is commonly used for collaborative data science workflows."
-            }
-        ],
-        "feedback": "Azure Databricks is a recommended compute target when working with Azure Machine Learning for large-scale data science and machine learning projects. It supports integration with Azure ML SDK v2 and allows scalable training, distributed computing, and advanced collaboration through notebooks."
-    },
-    {
-        "question_id": "78A",
-        "type": "multiple_choice_single_answer",
-        "question": "You are developing a data science workspace that uses an Azure Machine Learning service for your company\n\nYou need to select a compute target to deploy the workspace\n\nWhat should you use?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Azure Container Service",
-                "is_correct": false
-            },
-            {
-                "id": "B",
-                "text": "Azure Data Lake Analytics",
-                "is_correct": false
-            },
-            {
-                "id": "C",
-                "text": "Apache Spark for HDInsight",
-                "is_correct": false
-            },
-            {
-                "id": "D",
-                "text": "Azure Databricks",
-                "is_correct": true
-            }
-        ],
-        "feedback": "Azure Databricks is a powerful analytics platform optimized for big data and machine learning. It integrates natively with Azure Machine Learning and is one of the supported compute targets when creating or attaching a workspace. While other services listed are useful in data engineering or analytics, they do not serve as deployable compute targets for Azure ML workspaces."
-    },
-    {
-        "question_id": "78B",
-        "type": "multiple_choice_single_answer",
-        "question": "You are developing a data science workspace that uses an Azure Machine Learning service for your company\n\nYou need to select a compute target to deploy the workspace\n\nWhat should you use?",
-        "options": [
-            {
-                "id": "A",
                 "text": "Azure Container Instance",
                 "is_correct": true,
                 "explanation": "Azure Container Instances (ACI) is a lightweight, serverless compute target ideal for deploying models and workspaces during development and testing phases. It is commonly used for hosting Azure ML services with minimal setup and cost."
@@ -2477,7 +2379,7 @@
                 "explanation": "Azure Databricks is an analytics platform optimized for Apache Spark and can be used to run ML workloads, but it is not used to deploy or host Azure ML workspaces. It integrates with Azure ML but is not a workspace compute target."
             }
         ],
-        "feedback": "The correct answer is Azure Container Service (ACI), which is used as a lightweight compute target to deploy Azure Machine Learning models or workspaces, especially during development. The other options are analytics services or data processing engines and are not valid for deploying Azure ML workspaces."
+        "feedback": "The correct answer is Azure Container Instance (ACI), which is used as a lightweight compute target to deploy Azure Machine Learning models or workspaces, especially during development. The other options are analytics services or data processing engines and are not valid for deploying Azure ML workspaces."
     },
     {
         "question_id": "79",
@@ -2854,38 +2756,6 @@
         "feedback": "To monitor data drift in SDK v2, you define a MonitorSchedule object and associate it with a Monitor and a DataDriftSignal configuration. This enables you to periodically compare a baseline dataset to a target dataset. MonitorSchedule defines the frequency of the monitoring job."
     },
     {
-        "question_id": "91A",
-        "type": "multiple_choice_single_answer",
-        "question": "You are using Azure Machine Learning SDK v2 to monitor data drift\n\nYou have registered a baseline dataset (dataset1) and a target dataset (dataset2)\n\nYou want to schedule the drift detection to run every week and track changes in a specific table\n\nWhich configuration object should you use to set up this monitoring schedule?",
-        "options": [
-            {
-                "id": "A",
-                "text": "DataDriftDetector.run()",
-                "is_correct": false,
-                "explanation": "This method belongs to SDK v1 and is not applicable in SDK v2."
-            },
-            {
-                "id": "B",
-                "text": "ml_client.data_drift.create_schedule()",
-                "is_correct": false,
-                "explanation": "This method does not exist in the SDK v2 and would raise an error."
-            },
-            {
-                "id": "C",
-                "text": "MonitorSchedule()",
-                "is_correct": true,
-                "explanation": "Correct. In SDK v2, you use MonitorSchedule to define when and how often to trigger drift monitoring."
-            },
-            {
-                "id": "D",
-                "text": "DataQualitySignal()",
-                "is_correct": false,
-                "explanation": "This is used to monitor data quality, not specifically data drift."
-            }
-        ],
-        "feedback": "To monitor data drift in SDK v2, you define a MonitorSchedule object and associate it with a Monitor and a DataDriftSignal configuration. This enables you to periodically compare a baseline dataset to a target dataset. MonitorSchedule defines the frequency of the monitoring job."
-    },
-    {
         "question_id": "92",
         "type": "multiple_choice_single_answer",
         "question": "True or False: A major difference between clustering and classification models is that clustering is a \u2018supervised\u2019 method, where \u2018training\u2019 is done with labels\n\n",
@@ -3107,7 +2977,7 @@
     {
         "question_id": "100",
         "type": "multiple_choice_single_answer",
-        "question": "Your team is building a data engineering and data science development environment\n\nThe environment must support the following requirements:\n- support Python and Scala\n- compose data storage, movement, and processing services into automated data pipelines\n- the same tool should be used for the orchestration of both data engineering and data science\n- support workload isolation and interactive workloads\n- enable scaling across a cluster of machines\nYou need to create the environment\n\nWhat should you do?",
+        "question": "Your team is building a data engineering and data science development environment\n\nThe environment must support the following requirements:\n\n* support Python and Scala\n* compose data storage, movement, and processing services into automated data pipelines\n* the same tool should be used for the orchestration of both data engineering and data science\n* support workload isolation and interactive workloads\n* enable scaling across a cluster of machines\n\nYou need to create the environment\n\nWhat should you do?",
         "options": [
             {
                 "id": "A",
@@ -4453,7 +4323,7 @@
     {
         "question_id": "q_008",
         "type": "multiple_choice_single_answer",
-        "question": "You need to log data from your job runs using MLflow\n\n. You are interested in logging metrics.\n\n You use `mlflow.log_param()`\n\n Does the solution meet the requirements?",
+        "question": "You need to log data from your job runs using MLflow\n\nYou are interested in logging metrics.\n\n You use `mlflow.log_param()`\n\n Does the solution meet the requirements?",
         "options": [
             {
                 "id": "A",
@@ -4572,8 +4442,8 @@
             {
                 "id": "A",
                 "text": "Create a v2 job using `Dataset.File.from_files()` and submit with `ml_client.jobs.create_or_update()`",
-                "is_correct": true,
-                "explanation": "`AssetTypes.URI_FOLDER` is used to reference an entire folder (rather than individual files) as an input or output. In this case, it ensures your Parquet data folder is mounted into the job environment so your script can read and write directly to it."
+                "is_correct": false,
+                "explanation": ""
             },
             {
                 "id": "B",
@@ -5275,25 +5145,25 @@
         "options": [
             {
                 "id": "A",
-                "text": "Use mlflow.log_metrics({'accuracy': 0.92, 'precision': 0.88})",
+                "text": "Use mlflow.log_metrics",
                 "is_correct": true,
                 "explanation": "mlflow.log_metrics() accepts a dictionary to log multiple metrics at once."
             },
             {
                 "id": "B",
-                "text": "Use mlflow.set_tags()",
+                "text": "Use mlflow.set_tags",
                 "is_correct": false,
                 "explanation": "Tags are used for metadata, not for metrics logging."
             },
             {
                 "id": "C",
-                "text": "Use mlflow.save_metrics()",
+                "text": "Use mlflow.save_metrics",
                 "is_correct": false,
                 "explanation": "This function does not exist in MLflow."
             },
             {
                 "id": "D",
-                "text": "Use mlflow.log_param()",
+                "text": "Use mlflow.log_param",
                 "is_correct": false,
                 "explanation": "log_param() is used for model parameters, not performance metrics."
             }
@@ -6392,39 +6262,6 @@
         "include_in_bank": true
     },
     {
-        "question_id": "examtopics_c018e723c7af42508cc746f7711ccebe",
-        "type": "multiple_choice_single_answer",
-        "question": "You train a machine learning model.\n\nYou must deploy the model as a real-time inference service for testing. The service requires low CPU utilization and less than 48 MB of RAM. The compute target for the deployed service must initialize automatically while minimizing cost and administrative overhead.\n\nWhich compute target should you use?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Azure Container Instance (ACI)",
-                "is_correct": true,
-                "explanation": ""
-            },
-            {
-                "id": "B",
-                "text": "attached Azure Databricks cluster",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "C",
-                "text": "Azure Kubernetes Service (AKS) inference cluster",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "D",
-                "text": "Azure Machine Learning compute cluster",
-                "is_correct": false,
-                "explanation": ""
-            }
-        ],
-        "feedback": "",
-        "include_in_bank": true
-    },
-    {
         "question_id": "examtopics_513db85da45e4d9caadd2f67418fe20e",
         "type": "multiple_choice_single_answer",
         "question": "You are building a machine learning model for translating English language textual content into French language textual content.\n\nYou need to build and train the machine learning model to learn the sequence of the textual content.\n\nWhich type of neural network should you use?",
@@ -6643,7 +6480,7 @@
     {
         "question_id": "examtopics_fc461bff476a4c6389756628baefd6b8",
         "type": "multiple_choice_single_answer",
-        "question": "You create a batch inference pipeline by using the Azure ML SDK. You configure the pipeline parameters by executing the following code:\n\n```python\nfrom azureml.contrib.pipeline.steps import ParallelRunConfig\nparallel_run_config = ParallelRunConfig(\n    source_directory=scripts_folder,\n    entry_script=batch_pipeline.py,\n    mini_batch_size=5,\n    error_threshold=10,\n    output_action=append_row,\n    environment=batch_env,\n    compute_target=compute_target,\n    logging_level=DEBUG,\n    node_count=4\n)\n```\n\nYou need to obtain the output from the pipeline execution.\n\nWhere will you find the output?",
+        "question": "You create a batch inference pipeline by using the Azure ML SDK.\n\nYou configure the pipeline parameters by executing the following code:\n\n```python\nfrom azureml.contrib.pipeline.steps import ParallelRunConfig\nparallel_run_config = ParallelRunConfig(\n    source_directory=scripts_folder,\n    entry_script=batch_pipeline.py,\n    mini_batch_size=5,\n    error_threshold=10,\n    output_action=append_row,\n    environment=batch_env,\n    compute_target=compute_target,\n    logging_level=DEBUG,\n    node_count=4\n)\n```\n\nYou need to obtain the output from the pipeline execution.\n\nWhere will you find the output?",
         "options": [
             {
                 "id": "A",
@@ -7255,31 +7092,31 @@
     {
         "question_id": "examtopics_b461ef03fb084c65a57a1765039d37e9",
         "type": "multiple_choice_single_answer",
-        "question": "You make use of Azure Machine Learning Studio to develop a linear regression model. You perform an experiment to assess various algorithms.\n\nWhich of the following is an algorithm that reduces the variances between actual and predicted values?",
+        "question": "You are comparing different regression algorithms using Azure Machine Learning Studio\n\nWhich algorithm works by iteratively reducing the difference between predicted and actual values to improve model accuracy?",
         "options": [
             {
                 "id": "A",
                 "text": "Fast Forest Quantile Regression",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Predicts quantiles rather than point estimates, and is not focused on minimizing overall prediction error iteratively"
             },
             {
                 "id": "B",
                 "text": "Poisson Regression",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Used for count data, not specifically aimed at minimizing variance in regression predictions"
             },
             {
                 "id": "C",
                 "text": "Boosted Decision Tree Regression",
-                "is_correct": false,
-                "explanation": ""
+                "is_correct": true,
+                "explanation": "Building a series of decision trees sequentially, each tree tries to correct the errors made by the previous one. The model is refined iteratively to reduce the residuals, which helps to improve accuracy."
             },
             {
                 "id": "D",
                 "text": "Linear Regression",
-                "is_correct": true,
-                "explanation": ""
+                "is_correct": false,
+                "explanation": "Fits a linear model once; it doesn’t iteratively improve upon prediction errors"
             }
         ],
         "feedback": "ExamTopics answer: C.\nCommunity:\n70% for D\n25% for C\n",
@@ -7576,7 +7413,7 @@
     {
         "question_id": "examtopics_6455abb427664db5b88e34212b46120f",
         "type": "multiple_choice_multiple_answer",
-        "question": "You train and register a model in your Azure Machine Learning workspace.\n\nYou must publish a pipeline that enables client applications to use the model for batch inferencing. You must use a pipeline with a single\n\nParallelRunStep step that runs a Python inferencing script to get predictions from the input data.\n\nYou need to create the inferencing script for the ParallelRunStep pipeline step.\n\nWhich two functions should you include? Each correct answer presents part of the solution.",
+        "question": "You train and register a model in your Azure Machine Learning workspace.\n\nYou must publish a pipeline that enables client applications to use the model for batch inferencing. You must use a pipeline with a single `ParallelRunStep` step that runs a Python inferencing script to get predictions from the input data.\n\nYou need to create the inferencing script for the `ParallelRunStep` pipeline step.\n\nWhich two functions should you include? Each correct answer presents part of the solution.",
         "options": [
             {
                 "id": "A",
@@ -7741,37 +7578,37 @@
     {
         "question_id": "examtopics_2062c63a92d5410bb695c9c63d92b3dd",
         "type": "multiple_choice_single_answer",
-        "question": "You are a lead data scientist for a project that tracks the health and migration of birds. You create a multi-class image classification deep learning model that uses a set of labeled bird photographs collected by experts.\n\nYou have 100,000 photographs of birds. All photographs use the JPG format and are stored in an Azure blob container in an Azure subscription.\n\nYou need to access the bird photograph files in the Azure blob container from the Azure Machine Learning service workspace that will be used for deep learning model training. You must minimize data movement.\n\nWhat should you do?",
+        "question": "You are a lead data scientist for a project that tracks the health and migration of birds.\n\nYou create a multi-class image classification deep learning model that uses a set of labeled bird photographs collected by experts.\n\nYou have 100,000 photographs of birds. All photographs use the JPG format and are stored in an Azure blob container in an Azure subscription.\n\nYou need to access the bird photograph files in the Azure blob container from the Azure Machine Learning service workspace that will be used for deep learning model training. You must minimize data movement.\n\nWhat should you do?",
         "options": [
             {
                 "id": "A",
                 "text": "Create an Azure Data Lake store and move the bird photographs to the store.",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Creating a new storage and moving data contradicts the requirement of minimizing data movement."
             },
             {
                 "id": "B",
                 "text": "Create an Azure Cosmos DB database and attach the Azure Blob containing bird photographs storage to the database.",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Azure Cosmos DB is not a suitable or efficient storage for large-scale image data like photographs."
             },
             {
                 "id": "C",
                 "text": "Create and register a dataset by using TabularDataset class that references the Azure blob storage containing bird photographs.",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "TabularDataset is intended for structured/tabular data. Since the data consists of images, it is not appropriate."
             },
             {
                 "id": "D",
                 "text": "Register the Azure blob storage containing the bird photographs as a datastore in Azure Machine Learning service.",
                 "is_correct": true,
-                "explanation": ""
+                "explanation": "Registering the existing Azure Blob container as a datastore allows the workspace to access the files directly without duplication or unnecessary transfer of data."
             },
             {
                 "id": "E",
                 "text": "Copy the bird photographs to the blob datastore that was created with your Azure Machine Learning service workspace.",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Copying the images introduces unnecessary data movement, which the question states must be minimized."
             }
         ],
         "feedback": "",
@@ -8044,7 +7881,7 @@
     {
         "question_id": "examtopics_c602b0ec0f24452d8cdda175a97a9e29",
         "type": "multiple_choice_multiple_answer",
-        "question": "You create a multi-class image classification deep learning model that uses the PyTorch deep learning framework.\n\nYou must configure Azure Machine Learning Hyperdrive to optimize the hyperparameters for the classification model.\n\nYou need to define a primary metric to determine the hyperparameter values that result in the model with the best accuracy score.\n\nWhich three actions must you perform? Each correct answer presents part of the solution.",
+        "question": "You create a multi-class image classification deep learning model that uses the PyTorch deep learning framework.\n\nYou must configure Azure Machine Learning Hyperdrive to optimize the hyperparameters for the classification model.\n\nYou need to define a primary metric to determine the hyperparameter values that result in the model with the best accuracy score.\n\nWhich actions must you perform?",
         "options": [
             {
                 "id": "A",
@@ -8666,39 +8503,6 @@
         "include_in_bank": true
     },
     {
-        "question_id": "examtopics_1ece7b80f89c4e5da7b0599247b50e4a",
-        "type": "multiple_choice_single_answer",
-        "question": "You are developing a data science workspace that uses an Azure Machine Learning service.\n\nYou need to select a compute target to deploy the workspace.\n\nWhat should you use?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Azure Data Lake Analytics",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "B",
-                "text": "Azure Databricks",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "C",
-                "text": "Azure Container Service",
-                "is_correct": true,
-                "explanation": ""
-            },
-            {
-                "id": "D",
-                "text": "Apache Spark for HDInsight",
-                "is_correct": false,
-                "explanation": ""
-            }
-        ],
-        "feedback": "",
-        "include_in_bank": true
-    },
-    {
         "question_id": "examtopics_538668590d6f45d7aab5168b4ee1ef28",
         "type": "multiple_choice_single_answer",
         "question": "You construct a machine learning experiment via Azure Machine Learning Studio.\n\nYou would like to split data into two separate datasets.\n\nWhich of the following actions should you take?",
@@ -8734,7 +8538,7 @@
     {
         "question_id": "examtopics_91cbb8a0bab14755a6f320e2fcf83a8f",
         "type": "multiple_choice_single_answer",
-        "question": "A set of CSV files contains sales records. All the CSV files have the same data schema.\n\nEach CSV file contains the sales record for a particular month and has the filename sales.csv. Each file is stored in a folder that indicates the month and year when the data was recorded. The folders are in an Azure blob container for which a datastore has been defined in an Azure\n\nMachine Learning workspace. The folders are organized in a parent folder named sales to create the following hierarchical structure:\n\n/sales\n/01-2019\n/sales.csv\n/02-2019\n/sales.csv\n/03-2019\n/sales.csv\n\n\nAt the end of each month, a new folder with that month's sales file is added to the sales folder.\n\nYou plan to use the sales data to train a machine learning model based on the following requirements\n\n* You must define a dataset that loads all of the sales data to date into a structure that can be easily converted to a dataframe.\n* You must be able to create experiments that use only data that was created before a specific previous month, ignoring any data that was added\n\nafter that month.\n* You must register the minimum number of datasets possible.\n\nYou need to register the sales data as a dataset in Azure Machine Learning service workspace.\n\nWhat should you do?",
+        "question": "A set of CSV files contains sales records. All the CSV files have the same data schema.\n\nEach CSV file contains the sales record for a particular month and has the filename sales.csv. Each file is stored in a folder that indicates the month and year when the data was recorded. The folders are in an Azure blob container for which a datastore has been defined in an Azure\n\nMachine Learning workspace. The folders are organized in a parent folder named sales to create the following hierarchical structure:\n\n/sales\n/01-2019\n/sales.csv\n/02-2019\n/sales.csv\n/03-2019\n/sales.csv\n\n\nAt the end of each month, a new folder with that month's sales file is added to the sales folder.\n\nYou plan to use the sales data to train a machine learning model based on the following requirements\n\n* You must define a dataset that loads all of the sales data to date into a structure that can be easily converted to a dataframe.\n* You must be able to create experiments that use only data that was created before a specific previous month, ignoring any data that was added after that month.\n* You must register the minimum number of datasets possible.\n\nYou need to register the sales data as a dataset in Azure Machine Learning service workspace.\n\nWhat should you do?",
         "options": [
             {
                 "id": "A",
@@ -9107,39 +8911,6 @@
             }
         ],
         "feedback": "ExamTopics answer: BD.\nCommunity:\n100% for BC\n",
-        "include_in_bank": true
-    },
-    {
-        "question_id": "examtopics_247f0e4af5d343b8b54ef4844d5e94d8",
-        "type": "multiple_choice_single_answer",
-        "question": "You create a multi-class image classification deep learning model.\n\nYou train the model by using PyTorch version 1.2.\n\nYou need to ensure that the correct version of PyTorch can be identified for the inferencing environment when the model is deployed.\n\nWhat should you do?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Save the model locally as a.pt file, and deploy the model as a local web service.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "B",
-                "text": "Deploy the model on computer that is configured to use the default Azure Machine Learning conda environment.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "C",
-                "text": "Register the model with a .pt file extension and the default version property.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "D",
-                "text": "Register the model, specifying the model_framework and model_framework_version properties.",
-                "is_correct": true,
-                "explanation": ""
-            }
-        ],
-        "feedback": "",
         "include_in_bank": true
     },
     {
@@ -10692,6 +10463,765 @@
             }
         ],
         "feedback": "Use `pandas.read_sql_query()` to load data from a relational database like Azure SQL into a DataFrame. Ensure you have an established connection using `pyodbc` or `sqlalchemy`.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-1",
+        "type": "multiple_choice_single_answer",
+        "question": "You are creating a compute resource to train an image classification model using the Azure Machine Learning VS Code extension.\n\nYou need to configure a compute instance using a YAML file to scale down to one instance after one hour of inactivity.\n\nHow should you set the YAML file parameters?",
+        "options": [
+            {
+                "id": "A",
+                "text": "\n\n```yaml\nmin_instances: 1\nidle_time_before_scale_down: 3600\n```",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "\n\n```yaml\nmin_instances: 0\nidle_time_before_scale_down: 3600\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "\n\n```yaml\nidle_time_before_scale_down: 120\nmin_instances: 1\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "\n\n```yaml\nsize: Standard_NC12\nmax_instances: 1\n```",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-2",
+        "type": "multiple_choice_single_answer",
+        "question": "A company is using MLflow to manage experiments in Azure Machine Learning.\n\nYou need to log metrics, model parameters, and model artifacts automatically when training a model.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Use the print() command to log all metrics",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Use the MLflow model registry",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Run the mlflow.autolog() command",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Run the mlflow.set_tracking_uri() command",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-3",
+        "type": "multiple_choice_single_answer",
+        "question": "You have a machine learning project.\n\nYou install the azureml-mlflow package and create an Azure Machine Learning workspace.\n\nYou need to use MLflow to track local experiments.\n\nWhat should you do first?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Set up the tracking environment",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Set the experiment name",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Start the training run",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Create an Azure Databricks resource",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-4",
+        "type": "multiple_choice_single_answer",
+        "question": "You have an Azure Machine Learning project. You train a model for anomaly detection.\n\nYou need to explain which features are influencing the results for a new prediction.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Analyze the local feature importance",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Enable Application Insights",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Analyze the recall for a cohort",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Analyze the global feature importance",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-5",
+        "type": "multiple_choice_single_answer",
+        "question": "You have an Azure Machine Learning project. You train a model to detect anomalies in purchase orders.\n\nYou need to ensure the model is fair when the age of the buyer is used as one of the features.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Analyze the selection rate of different cohorts",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Analyze the recall of different cohorts",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Analyze the global influencers",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Enable Application Insights",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-6",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to create anomaly detection for a company's purchasing system.\n\nYou need to train an autoencoder on a GPU compute.\n\nWhich virtual machine (VM) series should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "DSv3",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "ESv3",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "HBv3",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "NVv3",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-7",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on a machine learning project.\n\nYou need to run a training script by using Azure ML Python SDK v2.\n\nWhich class should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "environment",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "command",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "MLClient",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "DefaultAzureCredential",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-8",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to reduce the cost of training machine learning models.\n\nThe models are all trained using pipelines and expensive GPU machines.\n\nYou have the following requirements:\n\n* Use pipelines to keep the GPU machines for the model training.\n* Uphold the performance of the model training.\n* You need to recommend a solution to meet the requirements.\n\nWhich solution should you recommend?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Move memory-heavy data processing components to high-memory CPU machines",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Select less expensive GPU machines",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Move all components to CPU machines",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Move all components to memory optimized machines",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-9",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to optimize a machine learning workflow by using pipelines.\n\nYou need to create a reference to the data source location to pass as data to the first component.\n\nWhich class should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Input",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Output",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "AmlTokenConfiguration",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "MLClient",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-10",
+        "type": "multiple_choice_single_answer",
+        "question": "A company hired you to debug its Azure Machine Learning pipelines.\n\nYou need to monitor the status of the pipeline after submitting it from the authoring page.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Check the pipeline job link in the submission list",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Monitor the status in the authoring page",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Publish the pipeline as endpoint",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Refresh the authoring page",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-11",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to create a pipeline for a machine learning model training.\n\nThe pipeline will have the following two steps:\n\n* Prepare the data.\n* Train the model.\n\nYou need to pass data between the two pipeline steps by using Azure Python ML SDK v2.\n\nWhich code segment should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "\n\n```python\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(name='Prepare Data', script_name='data_prep.py')\nstep2 = PythonScriptStep(name='Train Model', script_name='data_prep.py')\n```",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Question was generated by Microsoft Learn practice exam. While solvable, it does not describe the content of the Python SDK v2",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-12",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to run a machine learning model training pipeline at periodic intervals.\n\nYou need to schedule the pipeline to run every Wednesday at 1:15 PM Eastern Standard Time (EST) by using cron syntax.\n\nWhat is the appropriate cron syntax?",
+        "options": [
+            {
+                "id": "A",
+                "text": "15 1 * * 3",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "1 15 * * 3",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "15 13 3 * *",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "15 13 * * 3",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-13",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to train and deploy a new customer segmentation model.\n\nYou need to recommend a tool to deploy the trained model without specifying an environment or a scoring script.\n\nWhich service should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "MLflow",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Azure Machine Learning Endpoint",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "ONNX Runtime",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Batch Endpoint",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-14",
+        "type": "multiple_choice_single_answer",
+        "question": "You have a large machine learning project. The project team writes Jupyter notebooks.\n\nYou need to enable automatic code quality checks in the continuous integration (CI) process.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Refactor the Jupyter notebooks into .py files",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Write a series of checks for the Jupyter notebooks",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Publish a pipeline that has some checks",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Refactor the Jupyter notebooks into R Scripts",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-15",
+        "type": "multiple_choice_single_answer",
+        "question": "You configure an existing model and a new model as online deployments.\n\nYou plan to use the ManagedOnlineEndpoint class of the Azure Machine Learning Python SDK v2 to duplicate a percentage of invocations to both models.\n\nYou need to identify which parameter to use.\n\nWhich parameter should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "traffic",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "kind",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "tags",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "mirror_traffic",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-16",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to deploy an online endpoint for price forecasting.\n\nYou need to specify the name of the endpoint, its instance type, its environment, and its code configuration.\n\nWhich class should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "ManagedOnlineDeployment",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "NetworkSettings",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "OnlineEndpoint",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Model",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-17",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on a machine learning project to predict a person's height based on their weight given in pounds.\n\nYou plan to implement Machine Learning Operations (MLOPS) practices by triggering the machine learning model training pipeline to retrain the model if the weight is in kilograms.\n\nYou need to recommend an event type to listen to that will be used to trigger the pipeline.\n\nWhich event type should you recommend?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Microsoft.MachineLearningServices.DatasetDriftDetected",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Microsoft.MachineLearningServices.RunStatusChanged",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Microsoft.MachineLearningServices.RunCompleted",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Microsoft.MachineLearningServices.ModelDeployed",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Generated by MS learn practice exam.\n\nLet's be clear that by no means it should be retrained in this particular case.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-18",
+        "type": "multiple_choice_single_answer",
+        "question": "You have an Image Classification machine learning project.\n\n`ml_client` is configured.\n\nYou need to use Azure Python ML SDK v2 to load multiple images for the machine learning model training.\n\nWhich code segment should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.MLTABLE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FILE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-19",
+        "type": "multiple_choice_single_answer",
+        "question": "You are wrangling tabular data to train a new model using pandas on your local laptop.\n\nYou just learned that there is exponentially more data to process and that it needs to be done as soon as possible.\n\nYou need to use Azure Machine Learning to wrangle the data with as little overhead as possible.\n\nWhich tool should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "compute instance",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "NumPy",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "stand-alone Spark job",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Spark component in a pipeline job",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Generated by Microsoft Learn practice exam.\n\n They say stand-alone Spark job but it feels wrong as it's not directly integrated within Azure Machine Learning, whereas using Spark component in a pipeline seems ok.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-20",
+        "type": "multiple_choice_single_answer",
+        "question": "A company creates a machine learning pipeline with the Azure Machine Learning designer.\n\nThe company wants to improve data cleaning in the pipeline with a new Python script.\n\nYou need to use the Execute Python Script component to implement a specific method to run.\n\nWhich method should you implement?",
+        "options": [
+            {
+                "id": "A",
+                "text": "load_data",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "train",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "azureml_main",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "predict",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "An Execute Python Script component must implement an azureml_main method. A Create Python Model component must implement a train and predict methods. The load_data method is used to construct a data object but is not part of the Execute Python Script component.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-21",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on an Azure Machine Learning project.\n\nYou have the following requirements:\n\n* You need to create a reference to the data in its storage, with a copy of its metadata.\n* No data should be copied.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Register the datastore where your data is located",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Create a dataset",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Create a pipeline to transfer the metadata only",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Use Azure Data Factory to ingest the data",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Creating a dataset will create a reference to the data, with a copy of its metadata. It will not copy the data. Registering a datastore will not create a reference to the data with a copy of its metadata. Creating a pipeline is used to create a machine learning workflow, not to create a reference to data in a datastore. Using Azure Data Factory is for ETL processes when moving the data is needed, not for creating a reference to the data.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-22",
+        "type": "multiple_choice_single_answer",
+        "question": "You are joining a new data science team working on a natural language processing application.\n\nYou need to implement a solution that meets the following requirements:\n\n* Connect to an existing Azure Machine Learning Workspace.\n* Use the workspaces module in the MLClient class of the Azure Machine Learning Python SDK v2.\n* Use the existing workspace's name, subscription id, and resource group.\n\nWhich method should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "begin_delete()",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "get()",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "begin_create()",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "list()",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mslearn-23",
+        "type": "multiple_choice_single_answer",
+        "question": "You manage a data science team and want to experiment with low-priority virtual machines (VMs) to lower inference costs.\n\nYou need to identify a good use case to use.\n\nWhich use case should you identify?",
+        "options": [
+            {
+                "id": "A",
+                "text": "a sychronous, real-time fraud detection model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "an asynchronous, batch inference pricing model",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "a synchronous, batch inference credit risk model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "an asynchronous, real-time document processing model",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Synchronous or real time use cases are not appropriate for low priority VM’s since they cannot be guaranteed to be available and can be pre-empted mid execution. For this reason, asynchronous batch use cases are more appropriate, since the completion time for such jobs is more flexible and execution is distributed across many VMs.",
         "include_in_bank": true
     }
 ]
