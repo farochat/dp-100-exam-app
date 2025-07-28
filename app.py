@@ -1095,17 +1095,6 @@ def display_results():
     else:
         st.warning("You might want to review the material and try again.")
 
-    # Show bookmarked questions if any
-    if st.session_state.bookmarked:
-        st.subheader("Bookmarked Questions")
-        st.write("You might want to review these questions:")
-        for idx in st.session_state.bookmarked:
-            try:
-                question = st.session_state.questions[idx]
-                st.write(f"- {question.get('question', 'Unknown question')}")
-            except Exception as e:
-                st.warning(f"Could not load bookmarked question: {str(e)}")
-
     # Statistics
     st.subheader("Quiz Statistics")
     with st.expander(""):
