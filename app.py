@@ -5,7 +5,7 @@ import io
 import json
 import random
 from datetime import datetime
-from functools import partial, wraps
+from functools import wraps
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -476,7 +476,7 @@ def display_skipped_questions():
         for n, ind in enumerate(skipped_questions):
             label = f"Question {ind + 1}"
             key = f"skipped_{n}"
-            st.button(label, key=key, on_click=partial(go_to_question, ind))
+            st.button(label, key=key, on_click=go_to_question, args=(ind,))
 
 
 def render_question():
@@ -547,8 +547,13 @@ def render_options_column():
         with opt_cols[0]:
             st.markdown(option[0])
         with opt_cols[1]:
-            cb = partial(callback_add_remove, option, add=True)
-            st.button("Add →", key=f"add_{n}", on_click=cb)
+            st.button(
+                "Add →",
+                key=f"add_{n}",
+                on_click=callback_add_remove,
+                args=(option,),
+                kwargs={"add": True},
+            )
 
 
 def render_answer_column():
@@ -566,25 +571,35 @@ def render_answer_column():
         # Up button
         with up_col:
             if i > 0:
-                cb = partial(callback_arrow, i, True)
-                st.button("↑", key=f"up_{i}", on_click=cb)
+                args = (i, True)
+                st.button("↑", key=f"up_{i}", on_click=callback_arrow, args=args)
 
         # Down button
         with down_col:
             if i < len(selected_options) - 1:
-                cb = partial(callback_arrow, i, False)
-                st.button("↓", key=f"down_{i}", on_click=cb)
+                args = (i, False)
+                st.button("↓", key=f"down_{i}", on_click=callback_arrow, args=args)
 
         # Remove button
         with clear_col:
-            cb = partial(callback_add_remove, option, add=False)
-            st.button("✕", key=f"remove_{i}", on_click=cb)
+            st.button(
+                "✕",
+                key=f"remove_{i}",
+                on_click=callback_add_remove,
+                args=(option,),
+                kwargs={"add": False},
+            )
 
     # Clear all button
     if selected_options:
         options = copy.deepcopy(selected_options)
-        cb = partial(callback_add_remove, options, add=False)
-        st.button("Clear all", key="clear_selected", on_click=cb)
+        st.button(
+            "Clear all",
+            key="clear_selected",
+            on_click=callback_add_remove,
+            args=(options,),
+            kwargs={"add": False},
+        )
 
 
 def render_ordering_question():
