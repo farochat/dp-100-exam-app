@@ -3512,71 +3512,72 @@
     },
     {
         "question_id": "117",
-        "type": "drag_and_drop_ordering",
+        "type": "drag_and_drop",
         "question": "You are planning to host practical training to acquaint staff with Docker for Windows\n\nStaff devices must support the installation of Docker\n\nWhich of the following are requirements for this installation? Arrange the correct requirements in order\n\n",
         "options": [
             {
                 "id": "1",
-                "text": "2 GB of system RAM"
+                "text": "2 GB of system RAM",
+                "is_correct": false
             },
             {
                 "id": "2",
-                "text": "4 GB of system RAM"
+                "text": "4 GB of system RAM",
+                "is_correct": true
             },
             {
                 "id": "3",
-                "text": "BIOS-enabled virtualization"
+                "text": "BIOS-enabled virtualization",
+                "is_correct": true
             },
             {
                 "id": "4",
-                "text": "Microsoft Hardware-Assisted Virtualization Detection Tool"
+                "text": "Microsoft Hardware-Assisted Virtualization Detection Tool",
+                "is_correct": false
             },
             {
                 "id": "5",
-                "text": "Windows 10 64-bit"
+                "text": "Windows 10 64-bit",
+                "is_correct": true
             },
             {
                 "id": "6",
-                "text": "Windows 10 32-bit"
+                "text": "Windows 10 32-bit",
+                "is_correct": false
             }
-        ],
-        "correct_order": [
-            "2",
-            "3",
-            "5"
         ],
         "feedback": "(Order does not matter). To install Docker Desktop on Windows, the system must meet the following requirements: at least 4 GB of RAM (not 2 GB), virtualization enabled in BIOS, and Windows 10 64-bit. Options like Windows 10 32-bit or diagnostic tools like the Virtualization Detection Tool are not direct installation requirements."
     },
     {
         "question_id": "116",
-        "type": "drag_and_drop_ordering",
+        "type": "drag_and_drop",
         "question": "You have been tasked with moving data into Azure Blob Storage for the purpose of supporting Azure Machine Learning\n\nWhich of the following can be used to complete your task? Arrange the options that are valid in the correct order\n\n",
         "options": [
             {
                 "id": "1",
-                "text": "AzCopy"
+                "text": "AzCopy",
+                "is_correct": true
             },
             {
                 "id": "2",
-                "text": "Bulk Copy Program (BCP)"
+                "text": "Bulk Copy Program (BCP)",
+                "is_correct": false
             },
             {
                 "id": "3",
-                "text": "SSIS"
+                "text": "SSIS",
+                "is_correct": true
             },
             {
                 "id": "4",
-                "text": "Bulk Insert SQL Query"
+                "text": "Bulk Insert SQL Query",
+                "is_correct": false
             },
             {
                 "id": "5",
-                "text": "Azure Storage Explorer"
+                "text": "Azure Storage Explorer",
+                "is_correct": true
             }
-        ],
-        "correct_order": [
-            "1",
-            "3",
-            "5"
         ],
         "feedback": "To move data into Azure Blob Storage, AzCopy is a command-line tool designed specifically for transferring blobs. SSIS is an ETL tool that supports blob targets, and Azure Storage Explorer provides a GUI to interact with blob containers. BCP and Bulk Insert SQL Query are intended for database-level operations and are not suitable for direct blob storage interaction."
     },
@@ -9942,8 +9943,8 @@
     },
     {
         "question_id": "examtopics_be245ce466fe4811a39d819f31e69416",
-        "type": "multiple_choice_multiple_answer",
-        "question": "(drag and drop) You are in the process of constructing a regression model.\nYou would like to make it a Poisson regression model. To achieve your goal, the feature values need to meet certain conditions.Which of the following are relevant conditions with regards to the label data?",
+        "type": "drag_and_drop",
+        "question": "You are in the process of constructing a regression model.\nYou would like to make it a Poisson regression model. To achieve your goal, the feature values need to meet certain conditions.Which of the following are relevant conditions with regards to the label data?",
         "options": [
             {"id": "A", "text": "It must be whole numbers", "is_correct": true, "explanation": ""},
             {"id": "B", "text": "It must be a negative value", "is_correct": false, "explanation": ""},
@@ -9956,8 +9957,8 @@
     },
     {
         "question_id": "examtopics_b887da7a7772462e9ee4f3dcf7986c77",
-        "type": "multiple_choice_multiple_answer",
-        "question": "(drag and drop) You have been tasked with evaluating the performance of a binary classification model that you created.\nYou need to choose evaluation metrics to achieve your goal\n\n Which of the following are the metrics you would choose?",
+        "type": "drag_and_drop",
+        "question": "You have been tasked with evaluating the performance of a binary classification model that you created.\nYou need to choose evaluation metrics to achieve your goal\n\n Which of the following are the metrics you would choose?",
         "options": [
             {"id": "A", "text": "Relative Absolute Error", "is_correct": false, "explanation": ""},
             {"id": "B", "text": "Accuracy", "is_correct": true, "explanation": ""},

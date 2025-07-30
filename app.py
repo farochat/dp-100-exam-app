@@ -123,6 +123,8 @@ def question_mode(question):
         return "ordering"
     elif "multiple" in mode:
         return "multiple"
+    elif "drag" in mode:
+        return "drag and drop"
     else:
         raise ValueError("Question type mismatch")
 
@@ -155,7 +157,7 @@ def init_questions_states():
     st.session_state.key_indices = []
     for n, q in enumerate(questions):
         qtype = question_mode(q)
-        is_key = qtype == "ordering"
+        is_key = qtype == "drag and drop"
         state = {
             "type": qtype,
             "answered": False,
@@ -500,7 +502,7 @@ def render_question():
     current_question.user_answer = current_question.user_answer or []
 
     if not st.session_state.current_question.state["answered"]:
-        if current_question.type == "ordering":
+        if current_question.type in ["ordering", "drag and drop"]:
             render_ordering_question()
         else:
             render_multiple_choice_question()
