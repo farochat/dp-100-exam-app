@@ -5788,7 +5788,7 @@
     {
         "question_id": "examtopics_cc5631239d9d4f8c811db0090aaad575",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Geo AI Data Science Virtual Machine (Geo-DSVM) Windows edition.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Geo AI Data Science Virtual Machine (Geo-DSVM) Windows edition.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -5804,12 +5804,13 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 13
     },
     {
         "question_id": "examtopics_c4af0d4690424675b4598cfc160e37d8",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou use Azure Machine Learning designer to load the following datasets into an experiment:\n\nDataset1 | Age | Length | Width |\n|----------|----------|----------|\n| 3       | 22       | 13       |\n| 7       | 11       | 86       |\n| 18       | 32       | 95       | \n\n\nDataset2 \n\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\nSolution: Use the Join Data module.\n\nDoes the solution meet the goal?",
+        "question": "You use Azure Machine Learning designer to load the following datasets into an experiment\n\nDataset1\n| Age | Length | Width |\n|-|-|-|\n| 3 | 22 | 13 |\n| 7 | 11 | 96 |\n| 18 | 32 | 85 |\n\nDataset2\n| Age | Length | Width |\n|-|-|-|\n| 11 | 101 | 65 |\n| 6 | 98 | 23 |\n| 33 | 22 | 54 |\n| 17 | 52 | 12 |\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\n**Solution:** Use the Join Data module.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -5825,7 +5826,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 1
     },
     {
         "question_id": "examtopics_d371129d2b03414a859330b38eec34f0",
@@ -5947,7 +5949,7 @@
     {
         "question_id": "examtopics_e83d491092bc4e8a82072e0c316422d6",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Data Science Virtual Machine (DSVM) Windows edition.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Data Science Virtual Machine (DSVM) Windows edition.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -5963,12 +5965,13 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n58% for B\n42% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 13
     },
     {
         "question_id": "examtopics_92bb1fdb9dcc441fb9356a171e3d5a84",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a TabularExplainer.\n\nDoes the solution meet the goal?",
+        "question": "You train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a TabularExplainer.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -5984,7 +5987,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 2
     },
     {
         "question_id": "examtopics_7b9ac2f95c014eb589b7c135fc09c3e9",
@@ -6028,7 +6032,7 @@
     {
         "question_id": "examtopics_856d82080de549a3b6a8480cc94a2379",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of creating a machine learning model. Your dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Custom substitution value option.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of creating a machine learning model.\n\nYour dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Custom substitution value option.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -6044,7 +6048,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n76% for A\n24% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 10
     },
     {
         "question_id": "examtopics_0d538796535e4792a13ed02527f8e507",
@@ -6298,7 +6303,7 @@
     {
         "question_id": "examtopics_94852dd86ab9432bb049833695965bfa",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou use Azure Machine Learning designer to load the following datasets into an experiment:\n\nDataset1 \n\n\nDataset2 \n\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\nSolution: Use the Execute Python Script module.\n\nDoes the solution meet the goal?",
+        "question": "You use Azure Machine Learning designer to load the following datasets into an experiment\n\nDataset1\n| Age | Length | Width |\n|-|-|-|\n| 3 | 22 | 13 |\n| 7 | 11 | 96 |\n| 18 | 32 | 85 |\n\nDataset2\n| Age | Length | Width |\n|-|-|-|\n| 11 | 101 | 65 |\n| 6 | 98 | 23 |\n| 33 | 22 | 54 |\n| 17 | 52 | 12 |\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\n**Solution:** Use the Execute Python Script module.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6314,12 +6319,13 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n92% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 1
     },
     {
         "question_id": "examtopics_6f1143afa2fe4fd28cdf25caca93e1e0",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou plan to use a Python script to run an Azure Machine Learning experiment. The script creates a reference to the experiment run context, loads data from a file, identifies the set of unique values for the label column, and completes the experiment run:\n\n```python\nfrom azureml.core import Run\nimport pandas as pd\n\nrun = Run.get_context()\ndata = pd.read_csv('data.csv')\nlabel_vals = data['label'].unique()\n\n# Add code to record metrics here\n\nrun.complete()\n```\n\nThe experiment must record the unique labels in the data as metrics for the run that can be reviewed later.\n\nYou must add code to the script to record the unique label values as run metrics at the point indicated by the comment.\n\nSolution: Replace the comment with the following code:\n\n```python\nfor label_val in label_vals:\n    run.log('Label Values', label_val)\n```\nDoes the solution meet the goal?",
+        "question": "You plan to use a Python script to run an Azure Machine Learning experiment.\n\nThe script creates a reference to the experiment run context, loads data from a file, identifies the set of unique values for the label column, and completes the experiment run:\n\n```python\nfrom azureml.core import Run\nimport pandas as pd\n\nrun = Run.get_context()\ndata = pd.read_csv('data.csv')\nlabel_vals = data['label'].unique()\n\n# Add code to record metrics here\n\nrun.complete()\n```\n\nThe experiment must record the unique labels in the data as metrics for the run that can be reviewed later.\n\nYou must add code to the script to record the unique label values as run metrics at the point indicated by the comment.\n\nSolution: Replace the comment with the following code:\n\n```python\nfor label_val in label_vals:\n    run.log('Label Values', label_val)\n```\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6335,12 +6341,13 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n64% for B\n36% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 3
     },
     {
         "question_id": "examtopics_d27c1d67f4ff474e858961cff4c0d7a4",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Edit Metadata Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Edit Metadata Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -6356,7 +6363,8 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n89% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 14
     },
     {
         "question_id": "examtopics_1bc0f981bd244966883b4774a610f903",
@@ -6427,7 +6435,7 @@
     {
         "question_id": "examtopics_5f134fa4081742b38d45943f14029ac2",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou plan to use a Python script to run an Azure Machine Learning experiment. The script creates a reference to the experiment run context, loads data from a file, identifies the set of unique values for the label column, and completes the experiment run:\n\n```python\nfrom azureml.core import Run\nimport pandas as pd\n\nrun = Run.get_context()\ndata = pd.read_csv('data.csv')\nlabel_vals = data['label'].unique()\n# Add code to record metrics here\n\nrun.complete()\n```\n\nThe experiment must record the unique labels in the data as metrics for the run that can be reviewed later.\n\nYou must add code to the script to record the unique label values as run metrics at the point indicated by the comment.\n\n**Solution:**\n Replace the comment with the following code:\n\n```python\nrun.upload_file('outputs/labels.csv', './data.csv')\n```\n\nDoes the solution meet the goal?",
+        "question": "You plan to use a Python script to run an Azure Machine Learning experiment.\n\nThe script creates a reference to the experiment run context, loads data from a file, identifies the set of unique values for the label column, and completes the experiment run:\n\n```python\nfrom azureml.core import Run\nimport pandas as pd\n\nrun = Run.get_context()\ndata = pd.read_csv('data.csv')\nlabel_vals = data['label'].unique()\n# Add code to record metrics here\n\nrun.complete()\n```\n\nThe experiment must record the unique labels in the data as metrics for the run that can be reviewed later.\n\nYou must add code to the script to record the unique label values as run metrics at the point indicated by the comment.\n\n**Solution:**\n Replace the comment with the following code:\n\n```python\nrun.upload_file('outputs/labels.csv', './data.csv')\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6443,7 +6451,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 3
     },
     {
         "question_id": "examtopics_7eaef3486e07491c819dd14f240f2c47",
@@ -6569,7 +6578,8 @@
             }
         ],
         "feedback": "In Azure ML SDK v2, pipelines are defined with the @pipeline decorator, inputs and outputs are handled via Input and Output types, and jobs are submitted through MLClient.",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 4
     },
     {
         "question_id": "examtopics_8f2cb0c1983d4ba2ba5fe20776533fe7",
@@ -6790,7 +6800,7 @@
     {
         "question_id": "examtopics_f632dd8ad54c4582a1bbb3c616190d4a",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the auth_enabled property to False.\n\nSet the value of the token_auth_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
+        "question": "You train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the auth_enabled property to False.\n\nSet the value of the token_auth_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6806,7 +6816,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 5
     },
     {
         "question_id": "examtopics_8c3f86f8a62a49ea81d32a5913853f2a",
@@ -6922,7 +6933,7 @@
     {
         "question_id": "examtopics_8e4c0b3845c84c088a50f9638cf7c897",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nAn IT department creates the following Azure resource groups and resources:\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute: ?\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution**\n\n* Install the Azure ML SDK on the Surface Book. Run Python code to connect to the workspace.\n* Run the training script as an experiment on the aks-cluster compute target.\n\nDoes the solution meet the goal?",
+        "question": "An IT department creates the following Azure resource groups and resources\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute: ?\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution**\n\n* Install the Azure ML SDK on the Surface Book. Run Python code to connect to the workspace.\n* Run the training script as an experiment on the aks-cluster compute target.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6938,7 +6949,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 9
     },
     {
         "question_id": "examtopics_02b1174591a045eda97564805e2207a2",
@@ -6964,7 +6976,7 @@
     {
         "question_id": "examtopics_372dfaa2e0044ad0b77f8fb46d116a55",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a PFIExplainer.\n\nDoes the solution meet the goal?",
+        "question": "You train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a PFIExplainer.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -6980,7 +6992,8 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 2
     },
     {
         "question_id": "examtopics_c3c543631d9b4f709b1417514c9cb5b3",
@@ -7018,7 +7031,7 @@
     {
         "question_id": "examtopics_9bd4968e81d04c6389303a4cce0cd7ec",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the auth_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
+        "question": "You train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the auth_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7034,7 +7047,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 5
     },
     {
         "question_id": "examtopics_a3d1015b3f8b495f959a0e45b1d10241",
@@ -7072,7 +7086,7 @@
     {
         "question_id": "examtopics_2f003113d30242bcb9f69385ff071c23",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou create a model to forecast weather conditions based on historical data.\n\nYou need to create a pipeline that runs a processing script to load data from a datastore and pass the processed data to a machine learning model training script.\n\n**Solution**\n\nRun the following code:\n\n```python\ndatastore = ws.get_default_datastore()\ndata_input = PipelineData(\"raw data\", datastore=rawdatastore)\ndata_output = PipelineData(\"processed data\", datastore=datastore)\nprocess step = PythonScriptStep(\n    script_name=\"process.py\",\n    arguments=[\"--data_for_train\", data_input],\n    outputs=[data_output],\n    compute_target='aml_compute',\n    source_directory=process directory\n)\ntrain_step = PythonScriptStep(\n    script_name=\"train.py\",\n    arguments=[\"--data_for_train\", data_input], \n    inputs=[data_output],\n    compute_target='aml_compute',\n    source _directory=train_directory\n)\npipeline = Pipeline(workspace=ws, steps=[process step, train_step])\n```\n\nDoes the solution meet the goal?",
+        "question": "You create a model to forecast weather conditions based on historical data.\n\nYou need to create a pipeline that runs a processing script to load data from a datastore and pass the processed data to a machine learning model training script.\n\n**Solution**\n\nRun the following code:\n\n```python\ndatastore = ws.get_default_datastore()\ndata_input = PipelineData(\"raw data\", datastore=rawdatastore)\ndata_output = PipelineData(\"processed data\", datastore=datastore)\nprocess step = PythonScriptStep(\n    script_name=\"process.py\",\n    arguments=[\"--data_for_train\", data_input],\n    outputs=[data_output],\n    compute_target='aml_compute',\n    source_directory=process directory\n)\ntrain_step = PythonScriptStep(\n    script_name=\"train.py\",\n    arguments=[\"--data_for_train\", data_input], \n    inputs=[data_output],\n    compute_target='aml_compute',\n    source _directory=train_directory\n)\npipeline = Pipeline(workspace=ws, steps=[process step, train_step])\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7088,7 +7102,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 4
     },
     {
         "question_id": "examtopics_b461ef03fb084c65a57a1765039d37e9",
@@ -7126,7 +7141,7 @@
     {
         "question_id": "examtopics_98f58094b7e34b4a9e94ccc7fe46b069",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a `HyperDriveConfig` for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n\n```\n\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nimport numpy as np\nfrom sklearn.metrics import roc_auc_score\n# code to train model omitted\nauc = roc_auc_score(y_test, y predicted)\nprint(np.float(auc))\n\n```\n\nDoes the solution meet the goal?",
+        "question": "You are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a `HyperDriveConfig` for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n\n```\n\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nimport numpy as np\nfrom sklearn.metrics import roc_auc_score\n# code to train model omitted\nauc = roc_auc_score(y_test, y predicted)\nprint(np.float(auc))\n\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7142,12 +7157,13 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 8
     },
     {
         "question_id": "examtopics_58419e79c86745c39cd6cdb7d7ccd221",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nAn IT department creates the following Azure resource groups and resources:\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution:**\n\nAttach the mlvm virtual machine as a compute target in the Azure Machine Learning workspace. Install the Azure ML SDK on the Surface Book and run Python code to connect to the workspace. Run the training script as an experiment on the mlvm remote compute resource.\n\nDoes the solution meet the goal?",
+        "question": "An IT department creates the following Azure resource groups and resources\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution:**\n\nAttach the mlvm virtual machine as a compute target in the Azure Machine Learning workspace. Install the Azure ML SDK on the Surface Book and run Python code to connect to the workspace. Run the training script as an experiment on the mlvm remote compute resource.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7163,7 +7179,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 9
     },
     {
         "question_id": "examtopics_9f97eba51365471f89b0f5c7a8dd0348",
@@ -7201,7 +7218,7 @@
     {
         "question_id": "examtopics_511aca8c2a2c4c0aae16f1dd7b6ce7c7",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution. modelfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a HyperDriveConfig for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n```\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nfrom sklearn.metrics import roc_auc_score\nimport logging\n\n#code to train model omitted\nauc = roc_auc_score(y_test, y predicted)\nlogging.info(\"AUC: \" + str(auc))\n```\n\nDoes the solution meet the goal?",
+        "question": "You are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a HyperDriveConfig for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n```\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nfrom sklearn.metrics import roc_auc_score\nimport logging\n\n#code to train model omitted\nauc = roc_auc_score(y_test, y predicted)\nlogging.info(\"AUC: \" + str(auc))\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7217,7 +7234,8 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 8
     },
     {
         "question_id": "examtopics_23323466f16740eda1f6dfbd43c41721",
@@ -7393,7 +7411,7 @@
     {
         "question_id": "examtopics_9006366d144746679d453b99541c6215",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Group Categorical Values Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Group Categorical Values Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -7409,7 +7427,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 14
     },
     {
         "question_id": "examtopics_6455abb427664db5b88e34212b46120f",
@@ -7618,7 +7637,7 @@
     {
         "question_id": "examtopics_63df506ce42f468d8d0c064afdf2a205",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply an Equal Width with Custom Start and Stop binning mode.\n\nDoes the solution meet the goal?",
+        "question": "You are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply an Equal Width with Custom Start and Stop binning mode.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7634,7 +7653,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 7
     },
     {
         "question_id": "examtopics_d7aefd57df21451b9082c7ba168ba96e",
@@ -7927,7 +7947,7 @@
     {
         "question_id": "examtopics_9d1e2f4c39484cd48f3417745a625cf1",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a `HyperDriveConfig` for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n\n```\n\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nimport json\nimport os\nfrom sklearn.metrics import roc_auc_score\n# code to train model omitted\nauc = roc_auc_score(y_ test, y_ predicted)\nos.makedirs(\"outputs\", exist_ok=True)\nwith open(\"outputs/AUC.txt\", \"w\") as fp:\n    fp.write(auc)\n\n```\n\nDoes the solution meet the goal",
+        "question": "You are using Azure Machine Learning to run an experiment that trains a classification model.\n\nYou want to use Hyperdrive to find parameters that optimize the AUC metric for the model. You configure a `HyperDriveConfig` for the experiment by running the following code:\n\n```python\nhyperdrive = HyperDriveConfig(\n    estimator=your_estimator,\n    hyperparameter_sampling=your_params,\n    policy=policy,\n    primary_metric_name='AUC',\n    primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,\n    max_total_runs=6,\n    max_concurrent_runs=4\n)\n\n```\n\n\nYou plan to use this configuration to run a script that trains a random forest model and then tests it with validation data. The label values for the validation data are stored in a variable named `y_test` variable, and the predicted probabilities from the model are stored in a variable named `y_predicted`.\n\nYou need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric.\n\n**Proposed solution**\n\n Run the following code:\n\n```python\nimport json\nimport os\nfrom sklearn.metrics import roc_auc_score\n# code to train model omitted\nauc = roc_auc_score(y_ test, y_ predicted)\nos.makedirs(\"outputs\", exist_ok=True)\nwith open(\"outputs/AUC.txt\", \"w\") as fp:\n    fp.write(auc)\n\n```\n\nDoes the solution meet the goal",
         "options": [
             {
                 "id": "A",
@@ -7943,12 +7963,13 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 8
     },
     {
         "question_id": "examtopics_6bc92c75fa68466086ab81b8e79fbcc6",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of creating a machine learning model. Your dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Remove entire row option.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of creating a machine learning model.\n\nYour dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Remove entire row option.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -7964,7 +7985,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 10
     },
     {
         "question_id": "examtopics_f3275d9d02b041028f269aa5270fc1d7",
@@ -8173,7 +8195,7 @@
     {
         "question_id": "examtopics_d47e9d74efb54f52b7946290d3f07adf",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Deep Learning Virtual Machine (DLVM) Windows edition.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with employing a machine learning model, which makes use of a PostgreSQL database and needs GPU processing, to forecast prices.\n\nYou are preparing to create a virtual machine that has the necessary tools built into it.\n\nYou need to make use of the correct virtual machine type.\n\nRecommendation: You make use of a Deep Learning Virtual Machine (DLVM) Windows edition.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -8189,12 +8211,13 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n88% for A\n\nPersonal notes: VM Windows edition do not support PostgreSQL.\n\nhttps://learn.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/tools-included?view=azureml-api-2",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 13
     },
     {
         "question_id": "examtopics_f364cf8c51e543019ec4a9eecde5889a",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of creating a machine learning model. Your dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Replace with median option.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of creating a machine learning model.\n\nYour dataset includes rows with null and missing values.\n\nYou plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.\n\nRecommendation: You make use of the Replace with median option.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -8210,7 +8233,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n74% for A\n26% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 10
     },
     {
         "question_id": "examtopics_0d6b04020df443f59d54bd497ecd95d8",
@@ -8248,7 +8272,7 @@
     {
         "question_id": "examtopics_05f39a0b4cd0438eb5798f355c90d0dd",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are analyzing a numerical dataset which contains missing values in several columns.\n\nYou must clean the missing values using an appropriate operation without affecting the dimensionality of the feature set.\n\nYou need to analyze a full dataset to include all values.\n\nSolution: Calculate the column median value and use the median value as the replacement for any missing value in the column.\n\nDoes the solution meet the goal?",
+        "question": "You are analyzing a numerical dataset which contains missing values in several columns.\n\nYou must clean the missing values using an appropriate operation without affecting the dimensionality of the feature set.\n\nYou need to analyze a full dataset to include all values.\n\nSolution: Calculate the column median value and use the median value as the replacement for any missing value in the column.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8264,7 +8288,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n90% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 6
     },
     {
         "question_id": "examtopics_a4780749d14542d3b051a117795c8bad",
@@ -8335,7 +8360,7 @@
     {
         "question_id": "examtopics_64be73d0e5d44e50b814636dbaf5a0a3",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a MimicExplainer.\n\nDoes the solution meet the goal?",
+        "question": "You train a classification model by using a logistic regression algorithm.\n\nYou must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions.\n\nYou need to create an explainer that you can use to retrieve the required global and local feature importance values.\n\nSolution: Create a MimicExplainer.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8351,7 +8376,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 2
     },
     {
         "question_id": "examtopics_be61351c1a444325863d09701f387adb",
@@ -8389,7 +8415,7 @@
     {
         "question_id": "examtopics_cbe0129746b346a6846d0daaa319a260",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the ssl_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
+        "question": "You train and register a machine learning model.\n\nYou plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.\n\nYou need to deploy the web service.\n\nSolution:\n\nCreate an AciWebservice instance.\n\nSet the value of the ssl_enabled property to True.\n\nDeploy the model to the service.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8405,12 +8431,13 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 5
     },
     {
         "question_id": "examtopics_5c836eadbe734f3f94e871b9be7a1fca",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nAn IT department creates the following Azure resource groups and resources:\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution**\n\n* Install the Azure ML SDK on the Surface Book.\n* Run Python code to connect to the workspace and then run the training script as an experiment on local compute.\n\nDoes the solution meet the goal?",
+        "question": "An IT department creates the following Azure resource groups and resources\n\n* an Azure Machine Leaming workspace named amlworkspace\n* an Azure Storage account named amlworkspace12345\n* an Application Insights instance named amlworkspace54321\n* an Azure Key Vault named amliworkspace67890\n* an Azure Container Registry named amlworkspace09876\n\nA virtual machine named mlivm with the following configuration:\n\n* general_compute\n* Operating system: Ubuntu Linux\n* Software installed: Python 3.6 and Jupyter Notebooks\n\nThe IT department creates an Azure Kubernetes Service (AKS)-based inference compute target named aks-cluster in the Azure Machine Learning workspace.\n\nYou have a Microsoft Surface Book computer with a GPU. Python 3.6 and Visual Studio Code are installed.\n\nYou need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.\n\n**Solution**\n\n* Install the Azure ML SDK on the Surface Book.\n* Run Python code to connect to the workspace and then run the training script as an experiment on local compute.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8426,12 +8453,13 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 9
     },
     {
         "question_id": "examtopics_2089276a49de4739aca247e18b4c3444",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply a Quantiles normalization with a QuantileIndex normalization.\n\nDoes the solution meet the goal?",
+        "question": "You are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply a Quantiles normalization with a QuantileIndex normalization.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8447,12 +8475,13 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n67% for A\n33% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 7
     },
     {
         "question_id": "examtopics_92d188dc26094c55ac3ae58fe4984d76",
         "type": "multiple_choice_single_answer",
-        "question": "You are using Azure Machine Learning Studio to perform feature engineering on a dataset.\n\nYou need to normalize values to produce a feature column grouped into bins.\n\nYou apply an Entropy Minimum Description Length (MDL) binning mode.\n\nDoes the solution meet the goal?",
+        "question": "You are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\n**Solution:**You apply an Entropy Minimum Description Length (MDL) binning mode.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8468,7 +8497,8 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 7
     },
     {
         "question_id": "examtopics_5bc25dcdb3184995b4eb088bd2244844",
@@ -8572,7 +8602,7 @@
     {
         "question_id": "examtopics_631594bcf1e54f13a057e84da4d87ffa",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou use Azure Machine Learning designer to load the following datasets into an experiment:\n\nDataset1 \n\n\nDataset2 \n\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\nSolution: Use the Apply Transformation module.\n\nDoes the solution meet the goal?",
+        "question": "You use Azure Machine Learning designer to load the following datasets into an experiment\n\nDataset1\n| Age | Length | Width |\n|-|-|-|\n| 3 | 22 | 13 |\n| 7 | 11 | 96 |\n| 18 | 32 | 85 |\n\nDataset2\n| Age | Length | Width |\n|-|-|-|\n| 11 | 101 | 65 |\n| 6 | 98 | 23 |\n| 33 | 22 | 54 |\n| 17 | 52 | 12 |\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\n**Solution**: Use the Apply Transformation module.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8588,7 +8618,8 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 1
     },
     {
         "question_id": "examtopics_3a6a31a385684a1788e8b984a85ceb37",
@@ -8704,7 +8735,7 @@
     {
         "question_id": "examtopics_5bae511856a84d258504528ad5073c20",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are analyzing a numerical dataset which contains missing values in several columns.\n\nYou must clean the missing values using an appropriate operation without affecting the dimensionality of the feature set.\n\nYou need to analyze a full dataset to include all values.\n\nSolution: Use the Last Observation Carried Forward (LOCF) method to impute the missing data points.\n\nDoes the solution meet the goal?",
+        "question": "You are analyzing a numerical dataset which contains missing values in several columns.\n\nYou must clean the missing values using an appropriate operation without affecting the dimensionality of the feature set.\n\nYou need to analyze a full dataset to include all values.\n\nSolution: Use the Last Observation Carried Forward (LOCF) method to impute the missing data points.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8720,12 +8751,13 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 6
     },
     {
         "question_id": "examtopics_148e11b92cef4ce8908c1c074898a2ad",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.\n\nAfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply a Quantiles binning mode with a PQuantile normalization.\n\nDoes the solution meet the goal?",
+        "question": "You are a data scientist using Azure Machine Learning Studio.\n\nYou need to normalize values to produce an output column into bins to predict a target column.\n\nSolution: Apply a Quantiles binning mode with a PQuantile normalization.\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -8741,12 +8773,13 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n88% for A\n",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 7
     },
     {
         "question_id": "examtopics_81092807b6e24b6fb23245ed1d11fd67",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=10.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=10.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -8762,7 +8795,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 12
     },
     {
         "question_id": "examtopics_55d677eed23b47b8b4cee311b0d2ac48",
@@ -8950,7 +8984,7 @@
     {
         "question_id": "examtopics_c0385096823b4935883bd1efe768ae18",
         "type": "multiple_choice_single_answer",
-        "question": "Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution. modelfter you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.\n\nYou create an Azure Machine Learning service datastore in a workspace. The datastore contains the following files:\n\n* /data/2018/Q1.csv\n\n* /data/2018/Q2.csv\n\n* /data/2018/Q3.csv\n\n* /data/2018/Q4.csv\n\n* /data/2019/Q1.csv\n\nAll files store data in the following format:\n\nid,f1,f2,I\n\n1,1,2,0\n\n2,1,1,1\n\n3,2,1,0\n\n4,2,2,1\n\nYou run the following code:\n\n```python\ndata_store = Datastore.register_azure_blob_container(\n    workspace=ws,\n    datastore_name='data_store',\n    container_name='quarterly data',\n    account_name='companydata',\n    account_key='NRPxk8duxbM3...',\n    create_if_not_exists=False\n)\n```\n\nYou need to create a dataset named `training_data` and load the data from all files into a single data frame by using the following code:\n\n```python\ndata_frame = training_data.to_pandas_dataframe()\n```\n\nRun the following code:\n\n```python\nfrom azureml.core import Dataset\npaths = (data_store, 'data/*/*.csv')\ntraining_data = Dataset.Tabular.from_delimited_files(path)\n```\n\nDoes the solution meet the goal?",
+        "question": "You create an Azure Machine Learning service datastore in a workspace.\n\nThe datastore contains the following files:\n\n* /data/2018/Q1.csv\n* /data/2018/Q2.csv\n* /data/2018/Q3.csv\n* /data/2018/Q4.csv\n* /data/2019/Q1.csv\n\nAll files store data in the following format:\n\nid,f1,f2,I\n\n1,1,2,0\n\n2,1,1,1\n\n3,2,1,0\n\n4,2,2,1\n\nYou run the following code:\n\n```python\ndata_store = Datastore.register_azure_blob_container(\n    workspace=ws,\n    datastore_name='data_store',\n    container_name='quarterly data',\n    account_name='companydata',\n    account_key='NRPxk8duxbM3...',\n    create_if_not_exists=False\n)\n```\n\nYou need to create a dataset named `training_data` and load the data from all files into a single data frame by using the following code:\n\n```python\ndata_frame = training_data.to_pandas_dataframe()\n```\n\nRun the following code:\n\n```python\nfrom azureml.core import Dataset\npaths = (data_store, 'data/*/*.csv')\ntraining_data = Dataset.Tabular.from_delimited_files(path)\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -9004,7 +9038,7 @@
     {
         "question_id": "examtopics_3751e809be894fe7a745f207e35eeaae",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=3.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=3.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -9020,7 +9054,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 12
     },
     {
         "question_id": "examtopics_af6ed30699f043348dadd182a353a52e",
@@ -9706,7 +9741,7 @@
     {
         "question_id": "examtopics_406717f3973e49f1812d6313aa3d22a4",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Join Data Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
+        "question": "You are in the process of carrying out feature engineering on a dataset.\n\nYou want to add a feature to the dataset and fill the column value.\n\nRecommendation: You must make use of the Join Data Azure Machine Learning Studio module.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -9722,7 +9757,8 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 14
     },
     {
         "question_id": "examtopics_3e59267b760945fa9c0897c0e5cdc6eb",
@@ -9766,7 +9802,7 @@
     {
         "question_id": "examtopics_43e29f8bc7ac41a789ef61542f28160a",
         "type": "multiple_choice_single_answer",
-        "question": "This question is included in a number of questions that depicts the identical set-up. However, every question has a distinctive result. Establish if the recommendation satisfies the requirements.\n\nYou are planning to make use of Azure Machine Learning designer to train models.\n\nYou need choose a suitable compute type.\n\nRecommendation: You choose Attached compute.\n\nWill the requirements be satisfied?",
+        "question": "You are planning to make use of Azure Machine Learning designer to train models.\n\nYou need choose a suitable compute type.\n\nRecommendation: You choose Attached compute.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -9782,7 +9818,74 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true
+        "include_in_bank": true,
+        "scenario": 11
+    },
+    {
+        "question_id": "examtopics_43e29f8bc7ac41a789ef61542f28160b",
+        "type": "multiple_choice_single_answer",
+        "question": "You are planning to make use of Azure Machine Learning designer to train models.\n\nYou need choose a suitable compute type.\n\nRecommendation: You choose Compute cluster.\n\nWill the requirements be satisfied?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true,
+        "scenario": 11
+    },
+    {
+        "question_id": "examtopics_43e29f8bc7ac41a789ef61542f28160c",
+        "type": "multiple_choice_single_answer",
+        "question": "You are planning to make use of Azure Machine Learning designer to train models.\n\nYou need choose a suitable compute type.\n\nRecommendation: You choose Kubernetes cluster.\n\nWill the requirements be satisfied?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true,
+        "scenario": 11
+    },
+    {
+        "question_id": "examtopics_43e29f8bc7ac41a789ef61542f28160d",
+        "type": "multiple_choice_single_answer",
+        "question": "You are planning to make use of Azure Machine Learning designer to train models.\n\nYou need choose a suitable compute type.\n\nRecommendation: You choose Compute instance.\n\nWill the requirements be satisfied?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true,
+        "scenario": 11
     },
     {
         "question_id": "examtopics_39f380e58d8349aaa2ba1474a7f7a717",
@@ -11223,6 +11326,765 @@
             }
         ],
         "feedback": "Synchronous or real time use cases are not appropriate for low priority VM’s since they cannot be guaranteed to be available and can be pre-empted mid execution. For this reason, asynchronous batch use cases are more appropriate, since the completion time for such jobs is more flexible and execution is distributed across many VMs.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-1",
+        "type": "multiple_choice_single_answer",
+        "question": "You are creating a data asset named `marketing-dataset` in the `team-registry`.\n\nThe data is stored at `./datasets/marketing-data.csv` as a uri_file. Your CLI has no default subscription, resource group, or workspace set.\n\nYou need to include all the required parameters.\n\nWhich CLI command should you run?",
+        "options": [
+            {
+                "id": "A",
+                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --workspace-name my-workspace --subscription my-subscription-id\n```\n\n",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --subscription my-subscription-id\n```\n\n",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --resource-group my-resource-group --subscription my-subscription-id\n```\n\n",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --type uri_file --workspace-name my-workspace --subscription my-subscription-id\n```\n\n",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-2",
+        "type": "ordering",
+        "question": "You use Azure Machine learning designer to create an inference pipeline and train a predictive model.\n\nYou need to deploy your pipeline as a web service.\n\nWhich three actions should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Convert the training pipeline into a real-time inference pipeline",
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Deploy a real-time endpoint",
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Set the pipeline as the default for the endpoint",
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Submit a real-time inference pipeline job",
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "correct_order": ["A", "D", "B"],
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-3",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are developing a medical research application.\n\nYou use Azure AI Search to find similar clinical trial documents based on their semantic content.\n\nYou want to configure an Azure AI Search index to support vector-based retrieval using the text-embedding-ada-002-model, which generates 1536-dimensional vectors.\n\nYou need to meet the following requirements:\n\n* Support for fast neareast neighbor search across 500000 medical documents\n* Ability to perform hybrid search combining traditional keyword and vector similarity\n* Optimization for both accuracy and query performance\n\nWhich three configurations should you define in your index schema to meet the requirements?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Set the vector fields' filterable property to true to support pre-filtering during vector searches",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Set up vector search configuration including algorithm parameters (ANN/HNSW) and beam width",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Configure the vector fields with the appropriate distance metrics: cosine, euclidean, or dot product",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Define the vector fields with the appropriate dimensionality that matches the embedding model output",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "Add semantic configurations to enable integration between the vector search and BM25 results",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-1",
+        "type": "multiple_choice_multiple_answer",
+        "question": "A company is using machine learning to predict various aspects of its e-scooter hire service dependent on weather.\n\nThis includes predicting the number of hires, the average distance traveled, and the impact on e-scooter battery levels.\n\nFor the machine learning model, which two attributes are the features? Each correct answer presents a complete solution.",
+        "options": [
+            {
+                "id": "A",
+                "text": "distance traveled",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "e-scooter battery levels",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "e-scooter hires",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "weather temperature",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "weekday or weekend",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-2",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to use the Azure Machine Learning designer to train a machine learning model\n\nWhat should you do first in the Machine Learning designer?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Add a dataset",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Add training modules",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Create a pipeline",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Deploy a service",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-3",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are using Azure Machine Learning Studio\n\nWhich supervised machine learning models can you train using Automated ML?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Classification",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Regression",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Clustering",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Time-series forecasting",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-4",
+        "type": "multiple_choice_single_answer",
+        "question": "You are a Data Scientist working with images\n\nWhich type of artificial intelligence (AI) workload provides the ability to classify individual pixels in an image depending on the object they represent?",
+        "options": [
+            {
+                "id": "A",
+                "text": "image analysis",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "image classification",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "object detection",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "semantic segmentation",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-5",
+        "type": "multiple_choice_single_answer",
+        "question": "Which type of service provides a platform for conversational AI?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Azure AI Bot Service",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Azure AI Document Intelligence",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Azure AI Vision",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Azure AI Translator",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-6",
+        "type": "multiple_choice_single_answer",
+        "question": "Which principle of responsible artificial intelligence (AI) involves evaluating and mitigating the bias introduced by the features of a model?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Accountability",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Fairness",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Privacy",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Transparency",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-7",
+        "type": "multiple_choice_multiple_answer",
+        "question": "Which two principles of responsible artificial intelligence (AI) are most important when designing an AI system to manage healthcare data? Each correct answer presents part of the solution.",
+        "options": [
+            {
+                "id": "A",
+                "text": "Accountability",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Fairness",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Inclusiveness",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Privacy and security",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-8",
+        "type": "multiple_choice_single_answer",
+        "question": "Which feature of the Azure AI Language service includes functionality that returns links to external websites to disambiguate terms identified in a text?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Entity recognition",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Key phrase extraction",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Language detection",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Sentiment analysis",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-9",
+        "type": "multiple_choice_single_answer",
+        "question": "Which artificial intelligence (AI) technique should be used to extract the name of a store from a photograph displaying the store front?",
+        "options": [
+            {
+                "id": "A",
+                "text": "image classification",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "natural language processing (NLP)",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "optical character recognition (OCR)",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "semantic segmentation",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-10",
+        "type": "multiple_choice_single_answer",
+        "question": "Which computer vision service provides bounding coordinates as part of its output?",
+        "options": [
+            {
+                "id": "A",
+                "text": "image classification",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "image analysis",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "object detection",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "semantic segmentation",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-11",
+        "type": "multiple_choice_single_answer",
+        "question": "You have a set of images\n\nEach image shows one type of bone fracture.\n\nWhat allows you to identify bone fractures in different X-ray images?",
+        "options": [
+            {
+                "id": "A",
+                "text": "image classification",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "facial detection",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "object detection",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "conversational AI",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-12",
+        "type": "multiple_choice_multiple_answer",
+        "question": "Which three sources can be used to generate questions and answers for a knowledge base? Each correct answer presents a complete solution.",
+        "options": [
+            {
+                "id": "A",
+                "text": "a webpage",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "an audio file",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "an existing FAQ document",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "an image file",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "manually entered data",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-13",
+        "type": "multiple_choice_single_answer",
+        "question": "At which layer can you apply content filters to suppress prompts and responses for a responsible generative AI solution?",
+        "options": [
+            {
+                "id": "A",
+                "text": "metaprompt and grounding",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "safety system",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "user experience",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-14",
+        "type": "multiple_choice_single_answer",
+        "question": "What can be used to identify constraints and styles for the responses of a generative AI model?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Data grounding",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Embeddings",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "System messages",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Tokenization",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-15",
+        "type": "multiple_choice_single_answer",
+        "question": "What can be used to search, classify, and compare sources of text for similarity?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Data grounding",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Embeddings",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "System messages",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Tokenization",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-16",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working for a retailer\n\nThey want to group together online shoppers that have similar attributes to enable its marketing team to create targeted marketing campaigns for new product launches.\n\nWhich type of machine learning is this?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Classification",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Regression",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Mutliclass classification",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Clustering",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-17",
+        "type": "multiple_choice_single_answer",
+        "question": "You are using Azure ML\n\nYou need to create an automated machine learning (automated ML) model.\n\nWhich resource should you create first in Azure Machine Learning studio?",
+        "options": [
+            {
+                "id": "A",
+                "text": "a dataset",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "a workspace",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "an Azure container instance",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "an Azure Kubernetes Service (AKS) cluster",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-18",
+        "type": "drag_and_drop",
+        "question": "You are using Azre Machine Learning designer\n\nWhat can you select as data transformation modules?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Clean Missing Data",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Normalize Data",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Score Model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Edit Metadata",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "Feature Hashing",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "F",
+                "text": "Apply Transformation",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "G",
+                "text": "Join Data",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "ai900-19",
+        "type": "multiple_choice_single_answer",
+        "question": "What is the first step in the statistical analysis of terms in a text, in the context of natural language processing?",
+        "options": [
+            {
+                "id": "A",
+                "text": "creating a vectorized model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "counting the occurrences of each word",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "encoding word as numeric features",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "removing stop words",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
         "include_in_bank": true
     }
 ]
