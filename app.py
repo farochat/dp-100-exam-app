@@ -172,7 +172,18 @@ def init_questions_states():
         if is_key:
             st.session_state.key_indices.append(n)
     st.session_state.n_key_questions = len(st.session_state.key_indices)
+    st.session_state.skipped = set()
     st.session_state.current_view_pos = 0
+
+
+def reset_states():
+    for i in st.session_state.view_indices:
+        question_state = st.session_state.question_states[i]
+        question_state["answered"] = False
+        question_state["skipped"] = False
+        if question_state["type"] == "ordering" and question_state["user_answer"]:
+            question_state["available_options"].extend(question_state["user_answer"])
+        question_state["user_answer"] = None
 
 
 @require("questions")
@@ -182,33 +193,26 @@ def switch_mode(mode, exam_size=None):
     if current_mode == mode:
         return
 
-    st.session_state.mode = mode
-    st.session_state.current_view_pos = 0
-    if st.session_state.mode == "practice":
-        st.session_state.n_questions = len(st.session_state.questions)
-        st.session_state.view_indices = list(range(st.session_state.n_questions))
-    elif st.session_state.mode == "exam":
-        st.session_state.n_questions = exam_size
+    if mode == "practice":
+        st.session_state.view_indices = list(range(len(st.session_state.questions)))
+    elif mode == "exam":
         st.session_state.view_indices = get_n_questions(exam_size)
-        for i in st.session_state.view_indices:
-            question_state = st.session_state.question_states[i]
-            question_state["answered"] = False
-            question_state["skipped"] = False
-            if question_state["type"] == "ordering" and question_state["user_answer"]:
-                question_state["available_options"].extend(
-                    question_state["user_answer"]
-                )
-            question_state["user_answer"] = None
         st.session_state.exam_start_time = datetime.now()
         st.session_state.exam_end_time = None
-    elif st.session_state.mode == "key":
+        reset_states()
+    elif mode == "key":
         st.session_state.view_indices = st.session_state.key_indices
-        st.session_state.n_questions = len(st.session_state.key_indices)
-    elif st.session_state.mode == "bookmark":
+    elif mode == "bookmark":
         st.session_state.view_indices = st.session_state.bookmarked
-        st.session_state.n_questions = len(st.session_state.bookmarked)
+        reset_states()
     else:
         raise ValueError("Unknown mode")
+
+    st.session_state.mode = mode
+    st.session_state.n_questions = len(st.session_state.view_indices)
+    # Hack: next question start at ind + 1 and skip answered questions
+    st.session_state.current_view_pos = -1
+    next_question()
 
 
 def set_default_mode():
@@ -243,14 +247,12 @@ def initialize_session_state():
 
     # Special modes
     st.session_state.bookmarked = []
-    st.session_state.skipped = set()
 
     # Answers, navigation and progress trackers
     st.session_state.count_correct_answers = 0
     st.session_state.count_total_answered = 0
     st.session_state.quiz_completed = False
 
-    st.session_state.show_results_popup = False
     st.session_state.theme = "One Dark"
 
     # Set initialization
@@ -291,6 +293,13 @@ def toggle_key_questions():
     switch_mode(mode)
 
 
+def finish_or_continue():
+    if st.session_state.mode in ["practice", "exam"]:
+        finish_quiz()
+    else:
+        switch_mode("practice")
+
+
 def go_to_question(index):
     """
     Go to a specific question index
@@ -311,9 +320,11 @@ def next_question():
         go_to_question(i)
         break
     else:
-        if is_exam_mode():
-            st.session_state.show_results_popup = True
-        st.session_state.quiz_completed = True
+        for i in st.session_state.skipped:
+            go_to_question(i)
+            break
+        else:
+            finish_or_continue()
 
 
 def previous_question():
@@ -357,8 +368,6 @@ def finish_quiz():
     Finish the quiz early and show results
     """
     st.session_state.quiz_completed = True
-    if (is_exam_mode()) and st.session_state.exam_end_time is None:
-        st.session_state.exam_end_time = datetime.now()
 
 
 def show_stopwatch_exam():
@@ -438,7 +447,14 @@ def make_layout():
             label,
             key=key,
             on_click=toggle_key_questions,
-            disabled=is_exam_mode() or st.session_state.quiz_completed,
+            disabled=is_exam_mode()
+            or st.session_state.quiz_completed
+            or all(
+                (
+                    st.session_state.question_states[i]["answered"]
+                    for i in st.session_state.key_indices
+                )
+            ),
         )
     with col2:
         # Bookmarked questions
@@ -448,6 +464,7 @@ def make_layout():
             label = "Bookmarked"
         key = "toggle_bookmarked_questions"
         disabled = False if st.session_state.bookmarked else True
+        disabled = st.session_state.quiz_completed or disabled
         st.button(
             label, key=key, on_click=toggle_bookmarked_questions, disabled=disabled
         )
@@ -460,6 +477,10 @@ def check_questions(attr=None):
 
 
 def render_bookmark_button():
+    current_question = st.session_state.current_question
+    # Force bookmark to appear only on question answer: group retry
+    if not current_question.state["answered"]:
+        return
     is_bookmarked = st.session_state.current_question.state["bookmarked"]
     icon = "🔖" if is_bookmarked else "📌"
     label = f"{icon} {'Remove Bookmark' if is_bookmarked else 'Bookmark'}"
@@ -473,12 +494,12 @@ def display_skipped_questions():
     valid_mode = st.session_state.mode in ["practice", "exam"]
     if not valid_mode:
         return
-
-    with st.expander(f"Skipped questions ({len(skipped_questions)})"):
-        for n, ind in enumerate(skipped_questions):
-            label = f"Question {ind + 1}"
-            key = f"skipped_{n}"
-            st.button(label, key=key, on_click=go_to_question, args=(ind,))
+    if not is_exam_mode():
+        with st.expander(f"Skipped questions ({len(skipped_questions)})"):
+            for n, ind in enumerate(skipped_questions):
+                label = f"Question {ind + 1}"
+                key = f"skipped_{n}"
+                st.button(label, key=key, on_click=go_to_question, args=(ind,))
 
 
 def render_question():
@@ -769,7 +790,7 @@ def display_progress_bar():
         raise ValueError("Unknown mode.")
 
     n_questions = st.session_state.n_questions
-    st.progress(st.session_state.current_view_pos / n_questions)
+    st.progress((1 + st.session_state.current_view_pos) / n_questions)
     st.write(f"Question {st.session_state.current_view_pos + 1} of {n_questions}")
 
 
@@ -879,11 +900,6 @@ def create_donut_chart():
         count_duplicate,
         _,
     ) = compute_statistics()
-    # count_correct = st.session_state.count_correct_answers
-    # count_incorrect = st.session_state.count_total_answered - count_correct
-    # remaining_questions = max(
-    #     0, st.session_state.n_questions - st.session_state.count_total_answered
-    # ) + len(st.session_state.skipped)
     theme = get_theme(st.session_state.theme)
     bg_color = theme["bg"]
     font_color = theme["text"]
@@ -1073,13 +1089,11 @@ def display_results():
     st.header("Quiz Completed!")
 
     if is_exam_mode():
-        total_secs = int(
-            (
-                st.session_state.exam_end_time - st.session_state.exam_start_time
-            ).total_seconds()
-        )
+        total_secs = (datetime.now() - st.session_state.exam_start_time).total_seconds()
         mm, ss = divmod(total_secs, 60)
-        st.metric("⏱️ Time taken", f"{mm} min {ss} sec")
+        st.metric(
+            "⏱️ Time taken", f"{mm:.0f} min {ss:.0f} sec" if mm > 0 else f"{ss:.0f} sec"
+        )
 
     # Create layout with columns
     # Calculate the percentage based on answered questions only
@@ -1102,17 +1116,6 @@ def display_results():
         st.info("Good work! Keep learning and improving!")
     else:
         st.warning("You might want to review the material and try again.")
-
-    # Show bookmarked questions if any
-    if st.session_state.bookmarked:
-        st.subheader("Bookmarked Questions")
-        st.write("You might want to review these questions:")
-        for idx in st.session_state.bookmarked:
-            try:
-                question = st.session_state.questions[idx]
-                st.write(f"- {question.get('question', 'Unknown question')}")
-            except Exception as e:
-                st.warning(f"Could not load bookmarked question: {str(e)}")
 
     # Statistics
     st.subheader("Quiz Statistics")
@@ -1148,14 +1151,10 @@ def show_results_popup():
     col1, col2, _ = st.columns([1, 1, 3])
     with col1:
         if st.button("Yes"):
-            st.session_state.show_results_popup = False
             st.session_state.quiz_completed = True
-            st.session_state.exam_end_time = datetime.now()
-            st.rerun()
     with col2:
         if st.button("No"):
-            st.session_state.show_results_popup = False
-            st.rerun()
+            st.session_state.quiz_completed = False
 
 
 def main():
@@ -1167,10 +1166,6 @@ def main():
     # Initialize session state
     initialize_session_state()
     make_layout()
-    # Show results popup if needed
-    if st.session_state.show_results_popup:
-        show_results_popup()
-        return
 
     # Check if the quiz is completed
     if st.session_state.quiz_completed:
