@@ -368,7 +368,7 @@
                 "explanation": "Azure Machine Learning Service supports custom training scripts using frameworks like Caffe2 or Chainer, and it enables local experimentation on personal devices with offline support and syncing when reconnected."
             }
         ],
-        "feedback": "La opci\u00f3n correcta es **Azure Machine Learning Service** porque permite crear entornos personalizados para entrenamiento de modelos ML utilizando cualquier framework compatible con Python, incluidos Caffe2 o Chainer. A diferencia de otros servicios como Azure ML Designer (limitado a m\u00f3dulos predefinidos) o Azure Databricks (enfocado a Spark y big data), el servicio de Azure ML completo soporta ejecuci\u00f3n local, sincronizaci\u00f3n en la nube y desarrollo offline. Esto lo hace ideal para cient\u00edficos de datos que trabajan en sus propios dispositivos, con necesidad de operar tanto en red como sin conexi\u00f3n, y que luego deben sincronizar sus pipelines o modelos en la nube. Este enfoque es compatible con el SDK v2, donde puedes usar entornos personalizados (`Environment`), pipelines (`PipelineJob`), y programaci\u00f3n distribuida cuando est\u00e9s en l\u00ednea nuevamente."
+        "feedback": ""
     },
     {
         "question_id": "14",
@@ -400,7 +400,6 @@
                 "explanation": "The 'Convert to CSV' module is used to convert data into CSV format, not for ingesting an already existing CSV file from an external location."
             }
         ],
-        "correct_answer": "C",
         "feedback": "The 'Import Data' module in Azure Machine Learning Designer is designed for bringing external data\u2014such as CSV files hosted on websites\u2014into your pipeline without the need to first register it manually as a dataset. This greatly reduces setup complexity and supports scenarios where agility and minimal overhead are required. This approach is recommended when dealing with simple data ingestion pipelines, especially in early prototyping or when dynamically sourcing data. Learn more: https://learn.microsoft.com/en-us/azure/machine-learning/algorithm-module-reference/import-data"
     },
     {
@@ -782,7 +781,6 @@
                 "explanation": "Permutation Feature Importance is a method used to evaluate the importance of features in a model by permuting the values of each feature and measuring the impact on the model's performance. While feature importance is important for model interpretability, it does not directly tackle the challenge of imbalanced datasets and improving classification accuracy in such cases."
             }
         ],
-        "correct_answer": "C",
         "feedback": "When working with imbalanced classification tasks, the distribution of classes can heavily bias the model toward the majority class, leading to poor predictive performance for the minority class. SMOTE addresses this by synthetically generating new samples for the minority class using a k-nearest neighbors approach. This improves the model's ability to learn decision boundaries that include minority class instances. It's a standard preprocessing step when accuracy, recall, or F1-score for minority classes needs to be improved."
     },
     {
@@ -803,7 +801,6 @@
                 "explanation": "Normalization and binning are different operations. Normalization scales numerical values to a specific range, commonly [0, 1] or standard normal distribution. Entropy Minimum Description Length (MDL) binning, on the other hand, is a discretization technique that groups continuous values into bins using entropy-based criteria. Thus, the solution does not satisfy the goal of normalizing values."
             }
         ],
-        "correct_answer": "B",
         "feedback": "The use of MDL binning does not fulfill the requirement of normalization. While MDL is a valid method for discretizing continuous variables into categorical bins, normalization aims to adjust the scale of numerical features without converting them into categories. Azure Machine Learning Studio provides separate modules for normalization, such as MinMax or Z-score normalization, which are more appropriate when the goal is to scale features rather than discretize them."
     },
     {
@@ -1538,7 +1535,6 @@
                 "explanation": "Probabilistic PCA imputes missing values based on the underlying structure of the dataset and does not require individual predictors for each column, making it appropriate here."
             }
         ],
-        "correct_answer": "D",
         "feedback": "Probabilistic PCA is the right choice in this case because it uses the latent structure of the data to estimate missing values. Unlike MICE, it does not rely on predictors for each column, making it ideal for datasets where many columns are missing values and predictor variables are not available or not applicable. This method is supported in Azure ML Studio\u2019s Clean Missing Data module and helps preserve the data's structure without excessive complexity."
     },
     {
@@ -1598,7 +1594,6 @@
                 "explanation": "Azure Kubernetes Services (AKS) is the recommended compute target for real-time endpoint deployments in Azure ML designer. It is scalable, container-based, and production-ready."
             }
         ],
-        "correct_answer": "C",
         "feedback": "The correct compute type for deploying real-time inference pipelines created with Azure ML Designer is Azure Kubernetes Services (AKS). AKS supports containerized applications, offers flexibility and scalability, and is designed specifically for real-time inference hosting in production environments. This is aligned with Azure ML SDK v2 best practices for deploying models via managed online endpoints."
     },
     {
@@ -1742,7 +1737,6 @@
                 "explanation": "This is misleading. VM allocation happens dynamically based on configuration; a pre-allocated pool is not standard behavior."
             }
         ],
-        "correct_answer": "B",
         "feedback": "Azure Databricks dynamically creates a cluster consisting of a driver node and one or more worker nodes when you initiate a new cluster. The size and type of each node are determined by your selections in the cluster configuration. This scalable architecture is essential for distributed processing in big data and machine learning workloads, offering both performance and flexibility. Understanding this behind-the-scenes behavior is critical for optimizing cluster cost and performance."
     },
     {
@@ -2262,25 +2256,25 @@
         "options": [
             {
                 "id": "A",
-                "text": "\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.identity import DefaultAzureCredential\nclient = MLClient(\n    DefaultAzureCredential(),\n    subscription_id,\n    resource_group,\n    workspace\n)\nresponse = client.online_endpoints.invoke(\n    endpoint_name='credit-risk-endpoint',\n    deployment_name='blue',\n    request_body=input_payload\n)\n```",
+                "text": "\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.identity import DefaultAzureCredential\nclient = MLClient(\n    DefaultAzureCredential(),\n    subscription_id,\n    resource_group,\n    workspace\n)\nresponse = client.online_endpoints.invoke(\n    endpoint_name='credit-risk-endpoint',\n    deployment_name='blue',\n    request_body=input_payload\n)\n```\n\n",
                 "is_correct": true,
                 "explanation": "This is the correct method in SDK v2 to invoke an online endpoint with deployment name and request payload."
             },
             {
                 "id": "B",
-                "text": "\n```python\nfrom azureml.core.webservice import Webservice\nservice = Webservice(name='credit-risk-endpoint', workspace=ws)\npredictions = service.run(input_payload)\n```",
+                "text": "\n```python\nfrom azureml.core.webservice import Webservice\nservice = Webservice(name='credit-risk-endpoint', workspace=ws)\npredictions = service.run(input_payload)\n```\n\n",
                 "is_correct": false,
                 "explanation": "This is SDK v1 syntax and is not compatible with the SDK v2 methods or endpoints."
             },
             {
                 "id": "C",
-                "text": "\n```python\nclient = MLClient(DefaultAzureCredential())\npredictions = client.endpoints.run_json(input_payload)\n```",
+                "text": "\n```python\nclient = MLClient(DefaultAzureCredential())\npredictions = client.endpoints.run_json(input_payload)\n```\n\n",
                 "is_correct": false,
                 "explanation": "There is no 'run_json' method in MLClient; the method must use 'invoke' for online endpoints."
             },
             {
                 "id": "D",
-                "text": "\n```python\nfrom azure.ai.ml import MLClient\nclient = MLClient(DefaultAzureCredential())\nresponse = client.batch_endpoints.invoke(input=input_payload)\n```",
+                "text": "\n```python\nfrom azure.ai.ml import MLClient\nclient = MLClient(DefaultAzureCredential())\nresponse = client.batch_endpoints.invoke(input=input_payload)\n```\n\n",
                 "is_correct": false,
                 "explanation": "Batch endpoints use a different interface. This question refers to real-time (online) inference."
             }
@@ -3008,7 +3002,7 @@
     {
         "question_id": "101",
         "type": "multiple_choice_single_answer",
-        "question": "The Daily Bugle is a news organization led by J\n\nJonah Jameson\n\nOne of the current projects is creating a new experiment in Azure Machine Learning Studio\n\nGiven: One class has a much smaller number of observations than the other classes in the training set\n\nRequired: Select an appropriate data sampling strategy to compensate for the class imbalance\n\nThe lead developer, Peter Parker, has used the Stratified split for the sampling mode\n\nWill Peter\u2019s solution meet the goal?",
+        "question": "The Daily Bugle is a news organization led by J. Jonah Jameson\n\nOne of the current projects is creating a new experiment in Azure Machine Learning Studio\n\nGiven: One class has a much smaller number of observations than the other classes in the training set\n\nRequired: Select an appropriate data sampling strategy to compensate for the class imbalance\n\nThe lead developer, Peter Parker, has used the Stratified split for the sampling mode\n\nWill Peter\u2019s solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -3085,8 +3079,7 @@
                 "explanation": "Bayesian sampling is typically not used with early termination policies in Azure ML SDK v2, as it requires full evaluations of trials to update the model for proposing new configurations."
             }
         ],
-        "feedback": "Bayesian sampling is a popular method for hyperparameter optimization that builds a surrogate model to select promising configurations. In Azure Machine Learning SDK v2, it supports only specific types of parameter expressions such as Uniform, Choice, and QUniform. This ensures the sampling algorithm can work with a meaningful probability distribution over the search space.",
-        "correct_answer": "A"
+        "feedback": "Bayesian sampling is a popular method for hyperparameter optimization that builds a surrogate model to select promising configurations. In Azure Machine Learning SDK v2, it supports only specific types of parameter expressions such as Uniform, Choice, and QUniform. This ensures the sampling algorithm can work with a meaningful probability distribution over the search space."
     },
     {
         "question_id": "104",
@@ -3118,7 +3111,6 @@
                 "explanation": "Azure AutoML lets you whitelist or blacklist specific algorithms, including using only Gradient Boost if desired."
             }
         ],
-        "correct_answer": "A",
         "feedback": "AutoML in Azure Machine Learning supports many configuration options, including setting primary metrics, defining allowed algorithms, and setting exit criteria. However, restricting to an arbitrary portion of the data isn't a supported toggle; data limitations must be pre-processed manually."
     },
     {
@@ -3151,7 +3143,6 @@
                 "explanation": "One of the key benefits of compute clusters is the ability to scale out to multiple nodes, not being limited to a single node."
             }
         ],
-        "correct_answer": "B",
         "feedback": "Compute clusters in Azure ML are designed to support scalability by automatically adjusting the number of nodes based on current job requirements. This makes them ideal for running scalable training jobs efficiently."
     },
     {
@@ -3364,13 +3355,13 @@
             {
                 "id": "B",
                 "text": "Compute cluster with CPU, medium RAM, and 16 nodes",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": "Although it allows for parallel processing, using only CPUs makes this setup suboptimal for training deep learning-based computer vision models."
             },
             {
                 "id": "C",
                 "text": "Compute cluster with GPU, medium RAM, and 16 nodes",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": "Despite being the most appropriate option for computer vision tasks due to GPU availability, it was marked incorrect, likely due to a mistake in the answer key."
             },
             {
@@ -4679,9 +4670,9 @@
             },
             {
                 "id": "B",
-                "text": "Stores unstructured binary data (e.g., images, CSV files).",
+                "text": "Azure Blob Storage",
                 "is_correct": false,
-                "explanation": ""
+                "explanation": "Stores unstructured binary data (e.g., images, CSV files)."
             },
             {
                 "id": "C",
@@ -4794,8 +4785,8 @@
     },
     {
         "question_id": "q_036",
-        "type": "multiple_choice_multiple_answer",
-        "question": "You are building a model to perform binary classification on a large dataset\n\nYou plan to tune the hyperparameters of the model in order to optimize its performance\n\nYou have defined a search space that includes the learning rate, the number of hidden layers, and the number of neurons in each hidden layer\n\n",
+        "type": "multiple_choice_single_answer",
+        "question": "You are building a model to perform binary classification on a large dataset\n\nYou plan to tune the hyperparameters of the model in order to optimize its performance\n\nYou have defined a search space that includes the learning rate, the number of hidden layers, and the number of neurons in each hidden layer\n\nWhat is the most efficient approach?",
         "options": [
             {
                 "id": "A",
@@ -4806,8 +4797,8 @@
             {
                 "id": "B",
                 "text": "Grid sampling",
-                "is_correct": true,
-                "explanation": "Bayesian sampling maintains a probabilistic model of the objective function and uses past evaluation results to guide the search toward promising regions (exploitation) while still exploring untested areas (exploration). This results in more efficient hyperparameter searches compared to exhaustive grid sampling or naive random sampling. Gradient\u2011based methods optimize model parameters during training and are not designed for hyperparameter search."
+                "is_correct": false,
+                "explanation": ""
             },
             {
                 "id": "C",
@@ -6054,7 +6045,7 @@
     {
         "question_id": "examtopics_0d538796535e4792a13ed02527f8e507",
         "type": "multiple_choice_multiple_answer",
-        "question": "You create an Azure Machine Learning workspace. You are preparing a local Python environment on a laptop computer. You want to use the laptop to connect to the workspace and run experiments.\n\nYou create the following config.json file.\n\n{\n\n\"workspace_name\" : \"ml-workspace\"\n\n}\n\nYou must use the Azure Machine Learning SDK to interact with data and experiments in the workspace.\n\nYou need to configure the config.json file to connect to the workspace from the Python environment.\n\nWhich two additional parameters must you add to the config.json file in order to connect to the workspace? Each correct answer presents part of the solution.",
+        "question": "You create an Azure Machine Learning workspace. You are preparing a local Python environment on a laptop computer. You want to use the laptop to connect to the workspace and run experiments.\n\nYou create the following config.json file.\n\n```json\n{\n\"workspace_name\" : \"ml-workspace\"\n}\n```\n\nYou must use the Azure Machine Learning SDK to interact with data and experiments in the workspace.\n\nYou need to configure the config.json file to connect to the workspace from the Python environment.\n\nWhich two additional parameters must you add to the config.json file in order to connect to the workspace? Each correct answer presents part of the solution.",
         "options": [
             {
                 "id": "A",
@@ -7185,7 +7176,7 @@
     {
         "question_id": "examtopics_9f97eba51365471f89b0f5c7a8dd0348",
         "type": "multiple_choice_single_answer",
-        "question": "You register a file dataset named csv_folder that references a folder. The folder includes multiple comma-separated values (CSV) files in an Azure storage blob container.\n\nYou plan to use the following code to run a script that loads data from the file dataset. You create and instantiate the following variables:\n\nVariable Description remote_cluster References the Azure Machine Learning compute cluster\n\n| ws References the Azure Machine Learning workspace\n\n\n\nYou have the following code:\n\nfrom azureml.train.estimator import Estimator\nfile_dataset = ws.datasets.get('csv_folder')\nestimator = Estimator(source_directory=script_folder,\n\ncompute_target = remote_cluster,\nentry_script ='script.py')\n\nrun = experiment.submit(config=estimator)\nrun.wait_for_completion(show_output=True)\n\n\nYou need to pass the dataset to ensure that the script can read the files it references.\n\nWhich code segment should you insert to replace the code comment?",
+        "question": "You register a file dataset named csv_folder that references a folder. The folder includes multiple comma-separated values (CSV) files in an Azure storage blob container.\n\nYou plan to use the following code to run a script that loads data from the file dataset. You create and instantiate the following variables:\n\n* `remote_cluster`: references the Azure Machine Learning compute cluster\n* `ws`: references the Azure Machine Learning workspace\n\nYou have the following code:\n\n```python\nfrom azureml.train.estimator import Estimator\nfile_dataset = ws.datasets.get('csv_folder')\nestimator = Estimator(\n    source_directory=script_folder,\n    compute_target=remote_cluster,\n    entry_script='script.py'\n)\nrun = experiment.submit(config=estimator)\nrun.wait_for_completion(show_output=True)\n```\n\nYou need to pass the dataset to ensure that the script can read the files it references.\n\nWhich code segment should you insert to replace the code comment?",
         "options": [
             {
                 "id": "A",
@@ -7472,7 +7463,7 @@
     {
         "question_id": "examtopics_fcdb864e92ec4421a4861878ddec009e",
         "type": "multiple_choice_single_answer",
-        "question": "You have a Python script named train.py in a local folder named scripts. The script trains a regression model by using scikit-learn. The script includes code to load a training data file which is also located in the scripts folder.\n\nYou must run the script as an Azure ML experiment on a compute cluster named aml-compute.\n\nYou need to configure the run to ensure that the environment includes the required packages for model training. You have instantiated a variable named aml-compute that references the target compute cluster.\n\n**Solution:**\n\n Run the following code:\n\n```python\nfrom azureml.train.sklearn\nimport SKLearn\n\nsk_est = SKLearn(\n    source_directory='./scripts',\n    compute_target='aml-compute',\n    entry_script='train.py')\n```\n\nDoes the solution meet the goal?",
+        "question": "You have a Python script named train.py in a local folder named scripts. The script trains a regression model by using scikit-learn. The script includes code to load a training data file which is also located in the scripts folder.\n\nYou must run the script as an Azure ML experiment on a compute cluster named aml-compute.\n\nYou need to configure the run to ensure that the environment includes the required packages for model training. You have instantiated a variable named aml-compute that references the target compute cluster.\n\n**Solution:**\n\n Run the following code:\n\n```python\nfrom azureml.train.sklearn\nimport SKLearn\n\nsk_est = SKLearn(\n    source_directory='./scripts',\n    compute_target='aml-compute',\n    entry_script='train.py'\n)\n```\n\nDoes the solution meet the goal?",
         "options": [
             {
                 "id": "A",
@@ -7835,7 +7826,7 @@
             {
                 "id": "A",
                 "text": "Bias",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -7853,7 +7844,7 @@
             {
                 "id": "D",
                 "text": "Utility",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": ""
             }
         ],
@@ -8114,39 +8105,6 @@
                 "id": "D",
                 "text": "Random grid",
                 "is_correct": true,
-                "explanation": ""
-            }
-        ],
-        "feedback": "",
-        "include_in_bank": true
-    },
-    {
-        "question_id": "examtopics_ec5b56f7b75545fbbff641220d40bcbd",
-        "type": "multiple_choice_single_answer",
-        "question": "You plan to build a team data science environment. Data for training models in machine learning pipelines will be over 20 GB in size.\n\nYou have the following requirements\n\n* Models must be built using Caffe2 or Chainer frameworks.\n* Data scientists must be able to use a data science environment to build the machine learning pipelines and train models on their personal devices in both connected and disconnected network environments.\n\nPersonal devices must support updating machine learning pipelines when connected to a network.\n\nYou need to select a data science environment.\n\nWhich environment should you use?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Azure Machine Learning Service",
-                "is_correct": true,
-                "explanation": ""
-            },
-            {
-                "id": "B",
-                "text": "Azure Machine Learning Studio",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "C",
-                "text": "Azure Databricks",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "D",
-                "text": "Azure Kubernetes Service (AKS)",
-                "is_correct": false,
                 "explanation": ""
             }
         ],
@@ -8607,17 +8565,17 @@
             {
                 "id": "A",
                 "text": "Yes",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "B",
                 "text": "No",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n\nCommunity seems to be wrong on this one Apply Transformation is different than Apply SQL Transformation, and does not transform the data by itself",
         "include_in_bank": true,
         "scenario": 1
     },
@@ -9038,7 +8996,7 @@
     {
         "question_id": "examtopics_3751e809be894fe7a745f207e35eeaae",
         "type": "multiple_choice_single_answer",
-        "question": "You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=3.\n\nWill the requirements be satisfied?",
+        "question": "You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.\n\nYou have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.\n\nRecommendation: You configure the use of the value k=1.\n\nWill the requirements be satisfied?",
         "options": [
             {
                 "id": "A",
@@ -9093,7 +9051,7 @@
     {
         "question_id": "examtopics_c3d8963d316b4d32b7d9445e3bab389c",
         "type": "multiple_choice_single_answer",
-        "question": "You run an experiment that uses an AutoMLConfig class to define an automated machine learning task with a maximum of ten model training iterations. The task will attempt to find the best performing model based on a metric named accuracy.\n\nYou submit the experiment with the following code:\n\nfrom azureml.core.experiment import Experiment\nautoml_experiment = Experiment (ws, \u2018automl_experiment\u2019)\nautoml_run = automl_experiment.submit (automl_config, show_output=True)\n\n\nYou need to create Python code that returns the best model that is generated by the automated machine learning task.\n\nWhich code segment should you use?",
+        "question": "You run an experiment that uses an AutoMLConfig class to define an automated machine learning task with a maximum of ten model training iterations. The task will attempt to find the best performing model based on a metric named accuracy.\n\nYou submit the experiment with the following code:\n\n```python\nfrom azureml.core.experiment\nimport Experiment\nautoml_experiment = Experiment (ws, \u2018automl_experiment\u2019)\nautoml_run = automl_experiment.submit (automl_config, show_output=True)\n```\n\nYou need to create Python code that returns the best model that is generated by the automated machine learning task.\n\nWhich code segment should you use?",
         "options": [
             {
                 "id": "A",
@@ -9919,7 +9877,7 @@
         ],
         "feedback": "To efficiently handle large file datasets in SDK v2, use `Input(type='uri_folder', path=..., mode='ro_mount')`. This ensures streaming access and avoids local disk space issues.",
         "include_in_bank": true
-        },
+    },
     {
         "question_id": "examtopics_66f6d4936a024b419bbbda295aff9a67",
         "type": "multiple_choice_single_answer",
@@ -10036,10 +9994,30 @@
         "type": "multiple_choice_single_answer",
         "question": "(hotspot) Fill in the blank.\nTo move a large dataset from Azure Machine Learning Studio to a Weka environment, the data must be converted to ______ format.",
         "options": [
-            {"id": "A", "text": "CSV", "is_correct": false, "explanation": ""},
-            {"id": "B", "text": "DOCX", "is_correct": false, "explanation": ""},
-            {"id": "C", "text": "ARFF", "is_correct": true, "explanation": "Use the Convert to ARFF module in Azure Machine Learning Studio to convert datasets and results in Azure Machine Learning to the attribute relation file format used by the Weka toolset. This format is known as ARFF.\n\nThe ARFF data specification for Weka supports multiple machine learning tasks, including data preprocessing, classification, and feature selection. In this format, data is organized by entities and their attributes, and is contained in a single text file."},
-            {"id": "D", "text": "TXT", "is_correct": false, "explanation": ""}
+            {
+                "id": "A",
+                "text": "CSV",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "DOCX",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "ARFF",
+                "is_correct": true,
+                "explanation": "Use the Convert to ARFF module in Azure Machine Learning Studio to convert datasets and results in Azure Machine Learning to the attribute relation file format used by the Weka toolset. This format is known as ARFF.\n\nThe ARFF data specification for Weka supports multiple machine learning tasks, including data preprocessing, classification, and feature selection. In this format, data is organized by entities and their attributes, and is contained in a single text file."
+            },
+            {
+                "id": "D",
+                "text": "TXT",
+                "is_correct": false,
+                "explanation": ""
+            }
         ],
         "feedback": "Probably irrelevant. https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/convert-to-arff",
         "include_in_bank": true
@@ -10049,11 +10027,36 @@
         "type": "drag_and_drop",
         "question": "You are in the process of constructing a regression model.\nYou would like to make it a Poisson regression model. To achieve your goal, the feature values need to meet certain conditions.Which of the following are relevant conditions with regards to the label data?",
         "options": [
-            {"id": "A", "text": "It must be whole numbers", "is_correct": true, "explanation": ""},
-            {"id": "B", "text": "It must be a negative value", "is_correct": false, "explanation": ""},
-            {"id": "C", "text": "It must be fractions", "is_correct": false, "explanation": ""},
-            {"id": "D", "text": "It must be non-discrete", "is_correct": false, "explanation": ""},
-            {"id": "E", "text": "It must be a positive value", "is_correct": true, "explanation": ""}
+            {
+                "id": "A",
+                "text": "It must be whole numbers",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "It must be a negative value",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "It must be fractions",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "It must be non-discrete",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "It must be a positive value",
+                "is_correct": true,
+                "explanation": ""
+            }
         ],
         "feedback": "Poisson regression is intended for use in regression models that are used to predict numeric values, typically counts. Therefore, you should use this module to create your regression models only if the values you are trying to predict fit the following conditions:\n\nThe response variable has a Poisson distribution, Counts cannot be negative. A Poisson distribution is a discrete distribution, therefore it is not meaningful to use this mehtod with non-integer numbers.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/poisson-regression",
         "include_in_bank": true
@@ -10063,11 +10066,36 @@
         "type": "drag_and_drop",
         "question": "You have been tasked with evaluating the performance of a binary classification model that you created.\nYou need to choose evaluation metrics to achieve your goal\n\n Which of the following are the metrics you would choose?",
         "options": [
-            {"id": "A", "text": "Relative Absolute Error", "is_correct": false, "explanation": ""},
-            {"id": "B", "text": "Accuracy", "is_correct": true, "explanation": ""},
-            {"id": "C", "text": "Coefficient of determination", "is_correct": false, "explanation": ""},
-            {"id": "D", "text": "Precision", "is_correct": true, "explanation": ""},
-            {"id": "E", "text": "Mean absolute error", "is_correct": false, "explanation": ""}
+            {
+                "id": "A",
+                "text": "Relative Absolute Error",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Accuracy",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Coefficient of determination",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Precision",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "Mean absolute error",
+                "is_correct": false,
+                "explanation": ""
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10077,13 +10105,48 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You build a binary classification model using the Azure Machine Learning Studio Two-Class Neural Network module.\nYou are preparing to configure the Tune Model Hyperparameters module for the purpose of tuning accuracy for the model.\n\nWhich of the following are valid parameters for the Two-Class Neural Network module? Answer by dragging the correct options from the list to the answer area",
         "options": [
-            {"id": "A", "text": "Depth of the tree", "is_correct": false, "explanation": ""},
-            {"id": "B", "text": "Random number seed", "is_correct": true, "explanation": ""},
-            {"id": "C", "text": "Optimization tolerance", "is_correct": false, "explanation": ""},
-            {"id": "D", "text": "The initial learning weights diameters", "is_correct": true, "explanation": ""},
-            {"id": "E", "text": "Lambda", "is_correct": false, "explanation": ""},
-            {"id": "F", "text": "Number of learning iterations", "is_correct": true, "explanation": ""},
-            {"id": "G", "text": "Project to the unit-sphere", "is_correct": false, "explanation": ""}
+            {
+                "id": "A",
+                "text": "Depth of the tree",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Random number seed",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Optimization tolerance",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "The initial learning weights diameters",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "Lambda",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "F",
+                "text": "Number of learning iterations",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "G",
+                "text": "Project to the unit-sphere",
+                "is_correct": false,
+                "explanation": ""
+            }
         ],
         "feedback": "Reference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/two-class-neural-network",
         "include_in_bank": true
@@ -10220,14 +10283,54 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You are retrieving data from a large datastore by using Azure Machine Learning Studio.\n\nYou must create a subset of the data for testing purposes using a random sampling seed based on the system clock.\n\nYou add the Partition and Sample module to your experiment.\n\nYou need to select the properties for the module.\n\nWhich values should you select? To answer, select the appropriate options in the answer area.",
         "options": [
-            {"id": "A", "text": "(Partition or sample mode) Assign to Folds", "is_correct": false, "explanation": ""},
-            {"id": "B", "text": "(Partition or sample mode) Pick Fold", "is_correct": false, "explanation": ""},
-            {"id": "C", "text": "(Partition or sample mode) Sampling", "is_correct": true, "explanation": ""},
-            {"id": "D", "text": "(Partition or sample mode) Head", "is_correct": false, "explanation": ""},
-            {"id": "E", "text": "(Random seed for sampling) 0", "is_correct": true, "explanation": "Default value is 0. It generates the random seed based on the system clock."},
-            {"id": "F", "text": "(Random seed for sampling) 1", "is_correct": false, "explanation": ""},
-            {"id": "G", "text": "(Random seed for sampling) time.clock()", "is_correct": false, "explanation": ""},
-            {"id": "H", "text": "(Random seed for sampling) utcNow()", "is_correct": false, "explanation": ""}
+            {
+                "id": "A",
+                "text": "(Partition or sample mode) Assign to Folds",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "(Partition or sample mode) Pick Fold",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "(Partition or sample mode) Sampling",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "(Partition or sample mode) Head",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "(Random seed for sampling) 0",
+                "is_correct": true,
+                "explanation": "Default value is 0. It generates the random seed based on the system clock."
+            },
+            {
+                "id": "F",
+                "text": "(Random seed for sampling) 1",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "G",
+                "text": "(Random seed for sampling) time.clock()",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "H",
+                "text": "(Random seed for sampling) utcNow()",
+                "is_correct": false,
+                "explanation": ""
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10237,14 +10340,54 @@
         "type": "multiple_choice_multiple_answer",
         "question": "The finance team asks you to train a model using data in an Azure Storage blob container named finance-data.\n\nYou need to register the container as a datastore in an Azure Machine Learning workspace and ensure that an error will be raised if the container does not exist.\n\nHow should you complete the code? To answer, select the appropriate options in the answer area\n\n```python\ndatstore = Datastore.____(\n\tworkspace=ws,\n\tdatastore_name='finance_datastore',\n\tcontainer_name='finance-data',\n\taccount_name='fintrainingdatastorage',\n\taccount_key='...',\n\t____\n)\n```",
         "options": [
-            {"id": "A", "text": "(first) `register_azure_blob_container`", "is_correct": true, "explanation": ""},
-            {"id": "B", "text": "(first) `register_azure_file_share`", "is_correct": false, "explanation": ""},
-            {"id": "C", "text": "(first) `register_azure_data_lake`", "is_correct": false, "explanation": ""},
-            {"id": "D", "text": "(first) `register_azure_sql_database`", "is_correct": false, "explanation": ""},
-            {"id": "E", "text": "(second) `create_if_not_exists=True`", "is_correct": false, "explanation": ""},
-            {"id": "F", "text": "(second) `create_if_not_exists=False`", "is_correct": true, "explanation": ""},
-            {"id": "G", "text": "(second) `overwrite=True`", "is_correct": false, "explanation": ""},
-            {"id": "H", "text": "(second) `overwrite=False`", "is_correct": false, "explanation": ""}
+            {
+                "id": "A",
+                "text": "(first) `register_azure_blob_container`",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "(first) `register_azure_file_share`",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "(first) `register_azure_data_lake`",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "(first) `register_azure_sql_database`",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "(second) `create_if_not_exists=True`",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "F",
+                "text": "(second) `create_if_not_exists=False`",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "G",
+                "text": "(second) `overwrite=True`",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "H",
+                "text": "(second) `overwrite=False`",
+                "is_correct": false,
+                "explanation": ""
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10315,25 +10458,25 @@
         "question": "You create an Azure Machine Learning workspace.\n\nYou must create a custom role named DataScientist that meets the following requirements:\n\n* Role members must not be able to delete the workspace.\n* Role members must not be able to create, update, or delete compute resources in the workspace.\n* Role members must not be able to add new users to the workspace.\n\nYou need to create a JSON file for the DataScientist role in the Azure Machine Learning workspace.\n\nThe custom role must enforce the restrictions specified by the IT Operations team.\n\nWhich JSON code segment should you use?",
         "options": [
             {
-                "id": "A", 
+                "id": "A",
                 "text": "\n```json\n{\n  \"Name\": \"DataScientist\",\n  \"IsCustom\": true,\n  \"Actions\": [\"*\"],\n  \"NotActions\": [\n    \"Microsoft.MachineLearningServices/workspaces/*/delete\",\n    \"Microsoft.MachineLearningServices/workspaces/computes/*/write\",\n    \"Microsoft.MachineLearningServices/workspaces/computes/*/delete\",\n    \"Microsoft.Authorization/*/write\"\n  ]\n}\n```\n",
                 "is_correct": true,
                 "explanation": ""
             },
             {
-                "id": "B", 
+                "id": "B",
                 "text": "\n```json\n{\n  \"Name\": \"DataScientist\",\n  \"IsCustom\": true,\n  \"Actions\": [\"*\"],\n  \"NotActions\": []\n}\n```\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
-                "id": "C", 
+                "id": "C",
                 "text": "\n```json\n{\n  \"Name\": \"DataScientist\",\n  \"IsCustom\": true,\n  \"Actions\": [\n    \"Microsoft.MachineLearningServices/workspaces/*/delete\",\n    \"Microsoft.MachineLearningServices/workspaces/computes/*/write\",\n    \"Microsoft.MachineLearningServices/workspaces/computes/*/delete\",\n    \"Microsoft.Authorization/*/write\"\n  ],\n  \"NotActions\": []\n}\n```\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
-                "id": "D", 
+                "id": "D",
                 "text": "\n```json\n{\n  \"Name\": \"DataScientist\",\n  \"IsCustom\": true,\n  \"Actions\": [],\n  \"NotActions\": [\"*\"]\n}\n```\n",
                 "is_correct": false,
                 "explanation": ""
@@ -10347,18 +10490,78 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You are performing a classification task in Azure Machine Learning Studio.\n\nYou must prepare balanced testing and training samples based on a provided data set.\n\nYou need to split the data with a 0.75:0.25 ratio.\n\nWhich value should you use for each parameter? To answer, select the appropriate options in the answer area.\n\n1. Splitting mode\n2. Fraction of rows in the first output dataset\n3. Randomized split\n4. Stratified split",
         "options": [
-            {"id": "A", "text": "(1) Split rows", "is_correct": true, "explanation": ""},
-            {"id": "B", "text": "(1) Recommender split", "is_correct": false, "explanation": ""},
-            {"id": "C", "text": "(1) Regular expression split", "is_correct": false, "explanation": ""},
-            {"id": "D", "text": "(1) Relative expression split", "is_correct": false, "explanation": ""},
-            {"id": "E", "text": "(2) 0.75", "is_correct": true, "explanation": ""},
-            {"id": "F", "text": "(2) 0.25", "is_correct": false, "explanation": ""},
-            {"id": "G", "text": "(2) 0.5", "is_correct": false, "explanation": ""},
-            {"id": "H", "text": "(2) 1", "is_correct": false, "explanation": ""},
-            {"id": "I", "text": "(3) True", "is_correct": true, "explanation": ""},
-            {"id": "J", "text": "(3) False", "is_correct": false, "explanation": ""},
-            {"id": "K", "text": "(4) True", "is_correct": false, "explanation": ""},
-            {"id": "L", "text": "(4) False", "is_correct": true, "explanation": ""}
+            {
+                "id": "A",
+                "text": "(1) Split rows",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "(1) Recommender split",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "(1) Regular expression split",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "(1) Relative expression split",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "E",
+                "text": "(2) 0.75",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "F",
+                "text": "(2) 0.25",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "G",
+                "text": "(2) 0.5",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "H",
+                "text": "(2) 1",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "I",
+                "text": "(3) True",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "J",
+                "text": "(3) False",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "K",
+                "text": "(4) True",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "L",
+                "text": "(4) False",
+                "is_correct": true,
+                "explanation": ""
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10368,12 +10571,42 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You create a new Azure subscription. No resources are provisioned in the subscription.\n\nYou need to create an Azure Machine Learning workspace.\n\nWhat are possible ways to achieve this goal? Each correct answer presents a complete solution.",
         "options": [
-            {"id": "A", "text": "Use Azure ML Python SDK (v2)\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.begin_create(workspace_name)\n```\nwill create resource group automatically", "is_correct": false, "explanation": "Resource group is not created automatically."},
-            {"id": "B", "text": "Use Azure Portal", "is_correct": true, "explanation": "In Azure Portal, one can create ML workspace (incl. new resource group if needed)"},
-            {"id": "C", "text": "Use Azure ML Studio", "is_correct": true, "explanation": "In Azure ML Studio, one can create ML workspace (incl. new resource group if needed)"},
-            {"id": "D", "text": "Use Azure CLI v2 `az group create -n <resource-group> -l <location> && az ml workspace create -n <workspace-name> -g <resource-group>`", "is_correct": true, "explanation": "This will work."},
-            {"id": "E", "text": "Use Azure ML Python SDK (v2) after creating resource group\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.get(workspace_name)\n```", "is_correct": false, "explanation": "`.get` does not create."},
-            {"id": "F", "text": "Use Azure ML Python SDK (v2) after creating resource group\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.begin_create(workspace_name)\n```", "is_correct": true, "explanation": "Correct if resource group exists."}
+            {
+                "id": "A",
+                "text": "Use Azure ML Python SDK (v2)\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.begin_create(workspace_name)\n```\nwill create resource group automatically",
+                "is_correct": false,
+                "explanation": "Resource group is not created automatically."
+            },
+            {
+                "id": "B",
+                "text": "Use Azure Portal",
+                "is_correct": true,
+                "explanation": "In Azure Portal, one can create ML workspace (incl. new resource group if needed)"
+            },
+            {
+                "id": "C",
+                "text": "Use Azure ML Studio",
+                "is_correct": true,
+                "explanation": "In Azure ML Studio, one can create ML workspace (incl. new resource group if needed)"
+            },
+            {
+                "id": "D",
+                "text": "Use Azure CLI v2 `az group create -n <resource-group> -l <location> && az ml workspace create -n <workspace-name> -g <resource-group>`",
+                "is_correct": true,
+                "explanation": "This will work."
+            },
+            {
+                "id": "E",
+                "text": "Use Azure ML Python SDK (v2) after creating resource group\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.get(workspace_name)\n```\n\n",
+                "is_correct": false,
+                "explanation": "`.get` does not create."
+            },
+            {
+                "id": "F",
+                "text": "Use Azure ML Python SDK (v2) after creating resource group\n\n```python\nml_client = MLClient.from_config()\nworkspace = ml_client.begin_create(workspace_name)\n```\n\n",
+                "is_correct": true,
+                "explanation": "Correct if resource group exists."
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10421,9 +10654,21 @@
         "type": "multiple_choice_single_answer",
         "question": "You train classification models by using automated machine learning.\n\nYou must evaluate automated machine learning experiment results. You must use charts generated by automated machine learning.\n\nYou need to choose a chart type for each model type.\n\nWhich chart types should you use?",
         "options": [
-            {"id": "A", "text": "Confusion Matrix", "is_correct": true},
-            {"id": "B", "text": "Predicted vs. True", "is_correct": false},
-            {"id": "C", "text": "Calibration curve", "is_correct": false}
+            {
+                "id": "A",
+                "text": "Confusion Matrix",
+                "is_correct": true
+            },
+            {
+                "id": "B",
+                "text": "Predicted vs. True",
+                "is_correct": false
+            },
+            {
+                "id": "C",
+                "text": "Calibration curve",
+                "is_correct": false
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10433,9 +10678,21 @@
         "type": "multiple_choice_single_answer",
         "question": "You train regression models by using automated machine learning.\n\nYou must evaluate automated machine learning experiment results. You must use charts generated by automated machine learning.\n\nYou need to choose a chart type for each model type.\n\nWhich chart types should you use?",
         "options": [
-            {"id": "A", "text": "Confusion Matrix", "is_correct": false},
-            {"id": "B", "text": "Predicted vs. True", "is_correct": true},
-            {"id": "C", "text": "Calibration curve", "is_correct": false}
+            {
+                "id": "A",
+                "text": "Confusion Matrix",
+                "is_correct": false
+            },
+            {
+                "id": "B",
+                "text": "Predicted vs. True",
+                "is_correct": true
+            },
+            {
+                "id": "C",
+                "text": "Calibration curve",
+                "is_correct": false
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10445,12 +10702,36 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You create an Azure Data Lake Storage Gen2 storage account named storage1containing a file system named fs1 and a folder named folder1.\n\nThe contents of folder1 must be accessible from jobs on compute targets in the Azure Machine Learning workspace.\n\nYou need to construct a URI to reference folder1.\n\nHow should you construct the URI `<1>://<2>`?",
         "options": [
-            {"id": "A", "text": "(1) `https`", "is_correct": false},
-            {"id": "B", "text": "(1) `abfss`", "is_correct": true},
-            {"id": "C", "text": "(1) `azureml`", "is_correct": false},
-            {"id": "D", "text": "(2) `fs1@storage1.dfs.core.windows.net/folder1/`", "is_correct": true},
-            {"id": "E", "text": "(2) `storage1.blobl.core.windows.net/fs1/folder1/`", "is_correct": false},
-            {"id": "F", "text": "(2) `datastores/storages1/paths/fs1/folder1/`", "is_correct": false}
+            {
+                "id": "A",
+                "text": "(1) `https`",
+                "is_correct": false
+            },
+            {
+                "id": "B",
+                "text": "(1) `abfss`",
+                "is_correct": true
+            },
+            {
+                "id": "C",
+                "text": "(1) `azureml`",
+                "is_correct": false
+            },
+            {
+                "id": "D",
+                "text": "(2) `fs1@storage1.dfs.core.windows.net/folder1/`",
+                "is_correct": true
+            },
+            {
+                "id": "E",
+                "text": "(2) `storage1.blobl.core.windows.net/fs1/folder1/`",
+                "is_correct": false
+            },
+            {
+                "id": "F",
+                "text": "(2) `datastores/storages1/paths/fs1/folder1/`",
+                "is_correct": false
+            }
         ],
         "feedback": "",
         "include_in_bank": true
@@ -10460,12 +10741,36 @@
         "type": "multiple_choice_multiple_answer",
         "question": "You train a model by using Azure Machine Learning. You use Azure Blob Storage to store production data.\n\nThe model must be re-trained when new data is uploaded to Azure Blob Storage. You need to minimize development and coding.\n\nYou need to configure Azure services to develop a re-training solution.\n\nWhich Azure services should you use to:\n\n1. Identify when new data is uploaded.\n\n2. Trigger re-training",
         "options": [
-            {"id": "A", "text": "(1) Event Grid", "is_correct": true},
-            {"id": "B", "text": "(1) Event Hubs", "is_correct": false},
-            {"id": "C", "text": "(1) Functions", "is_correct": false},
-            {"id": "D", "text": "(2) Event Grid", "is_correct": false},
-            {"id": "E", "text": "(2) Functions", "is_correct": false},
-            {"id": "F", "text": "(2) Logic Apps", "is_correct": true}
+            {
+                "id": "A",
+                "text": "(1) Event Grid",
+                "is_correct": true
+            },
+            {
+                "id": "B",
+                "text": "(1) Event Hubs",
+                "is_correct": false
+            },
+            {
+                "id": "C",
+                "text": "(1) Functions",
+                "is_correct": false
+            },
+            {
+                "id": "D",
+                "text": "(2) Event Grid",
+                "is_correct": false
+            },
+            {
+                "id": "E",
+                "text": "(2) Functions",
+                "is_correct": false
+            },
+            {
+                "id": "F",
+                "text": "(2) Logic Apps",
+                "is_correct": true
+            }
         ],
         "feedback": "Answers say Function -> Event Grid\n\nCommunity says Event Grid -> Logic Apps.",
         "include_in_bank": true
@@ -10572,29 +10877,29 @@
     {
         "question_id": "mslearn-1",
         "type": "multiple_choice_single_answer",
-        "question": "You are creating a compute resource to train an image classification model using the Azure Machine Learning VS Code extension.\n\nYou need to configure a compute instance using a YAML file to scale down to one instance after one hour of inactivity.\n\nHow should you set the YAML file parameters?",
+        "question": "You are creating a compute resource to train an image classification model using the Azure Machine Learning CLI v2.\n\nYou need to configure a compute instance using a YAML file to scale down to one instance after one hour of inactivity.\n\nHow should you set the YAML file parameters?",
         "options": [
             {
                 "id": "A",
-                "text": "\n\n```yaml\nmin_instances: 1\nidle_time_before_scale_down: 3600\n```",
+                "text": "\n\n```yaml\nmin_instances: 1\nidle_time_before_scale_down: 3600\n```\n\n",
                 "is_correct": true,
                 "explanation": ""
             },
             {
                 "id": "B",
-                "text": "\n\n```yaml\nmin_instances: 0\nidle_time_before_scale_down: 3600\n```",
+                "text": "\n\n```yaml\nmin_instances: 0\nidle_time_before_scale_down: 3600\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "C",
-                "text": "\n\n```yaml\nidle_time_before_scale_down: 120\nmin_instances: 1\n```",
+                "text": "\n\n```yaml\nidle_time_before_scale_down: 120\nmin_instances: 1\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "D",
-                "text": "\n\n```yaml\nsize: Standard_NC12\nmax_instances: 1\n```",
+                "text": "\n\n```yaml\nsize: Standard_NC12\nmax_instances: 1\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             }
@@ -10906,25 +11211,25 @@
         "options": [
             {
                 "id": "A",
-                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```\n\n",
                 "is_correct": true,
                 "explanation": ""
             },
             {
                 "id": "B",
-                "text": "\n\n```python\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```",
+                "text": "\n\n```python\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\nstep2 = PythonScriptStep(\n    name='Train Model',\n    script_name='data_prep.py',\n    arguments=['--training-data', prepped_data.as_input()]\n)\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "C",
-                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\n```",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(\n    name='Prepare Data',\n    script_name='data_prep.py',\n    arguments=['--out_folder', prepped_data]\n)\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "D",
-                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(name='Prepare Data', script_name='data_prep.py')\nstep2 = PythonScriptStep(name='Train Model', script_name='data_prep.py')\n```",
+                "text": "\n\n```python\nprepped_data = OutputFileDatasetConfig('prepped')\nstep1 = PythonScriptStep(name='Prepare Data', script_name='data_prep.py')\nstep2 = PythonScriptStep(name='Train Model', script_name='data_prep.py')\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             }
@@ -10995,7 +11300,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
+        "feedback": "Generated by MS Learn.\n\nActually a bit unclear, the answer seems correct as MLflow is implied for that to happen, but MLflow cannot be used to deploy a model.",
         "include_in_bank": true
     },
     {
@@ -11137,25 +11442,25 @@
         "options": [
             {
                 "id": "A",
-                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```\n\n",
                 "is_correct": true,
                 "explanation": ""
             },
             {
                 "id": "B",
-                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.MLTABLE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.MLTABLE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "C",
-                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    type=AssetTypes.URI_FOLDER,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "D",
-                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FILE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```",
+                "text": "\n\n```python\nfrom azure.ai.ml.entities import Data\nfrom azure.ai.ml.constants import AssetTypes\n\nmy_path = '<path>'\nmy_data = Data(\n    path=my_path,\n    type=AssetTypes.URI_FILE,\n    description='<description>',\n    name='<name>',\n    version='<version>'\n)\nml_client.data.create_or_update(my_data)\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             }
@@ -11335,25 +11640,25 @@
         "options": [
             {
                 "id": "A",
-                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --workspace-name my-workspace --subscription my-subscription-id\n```\n\n",
+                "text": "\n\n```\naz ml data create --name marketing-dataset \\\n--path ./datasets/marketing-data.csv \\\n--registry-name team-registry \\\n--type uri_file \\\n--workspace-name my-workspace \\\n--subscription my-subscription-id\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "B",
-                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --subscription my-subscription-id\n```\n\n",
+                "text": "\n\n```\naz ml data create --name marketing-dataset \\\n--path ./datasets/marketing-data.csv \\\n--registry-name team-registry \\\n--type uri_file \\\n--subscription my-subscription-id\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "C",
-                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --registry-name team-registry --type uri_file --resource-group my-resource-group --subscription my-subscription-id\n```\n\n",
+                "text": "\n\n```\naz ml data create --name marketing-dataset \\\n--path ./datasets/marketing-data.csv \\\n--registry-name team-registry \\\n--type uri_file \\\n--resource-group my-resource-group \\\n--subscription my-subscription-id\n```\n\n",
                 "is_correct": true,
                 "explanation": ""
             },
             {
                 "id": "D",
-                "text": "\n\n```\naz ml data create --name marketing-dataset --path ./datasets/marketing-data.csv --type uri_file --workspace-name my-workspace --subscription my-subscription-id\n```\n\n",
+                "text": "\n\n```\naz ml data create --name marketing-dataset \\\n--path ./datasets/marketing-data.csv \\\n--type uri_file \\\n--workspace-name my-workspace \\\n--subscription my-subscription-id\n```\n\n",
                 "is_correct": false,
                 "explanation": ""
             }
@@ -11388,7 +11693,11 @@
             }
         ],
         "feedback": "",
-        "correct_order": ["A", "D", "B"],
+        "correct_order": [
+            "A",
+            "D",
+            "B"
+        ],
         "include_in_bank": true
     },
     {
@@ -11786,7 +12095,7 @@
             {
                 "id": "C",
                 "text": "object detection",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": ""
             },
             {
