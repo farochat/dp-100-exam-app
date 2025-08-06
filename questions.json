@@ -12395,5 +12395,2005 @@
         ],
         "feedback": "",
         "include_in_bank": true
+    },
+    {
+        "question_id": "mup-4",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You organization uses Azure Machine Learning (ML) sevices.\n\nYou are using Azure CLI v2, Azure ML Python SDK v2 and Azure ML Studio to manage the experiments.\n\nYou want to perform real-time scoring of the ML model, and to deploy and debug locally by using local endpoints.\n\nYou need to create a deployment named `mydep` under the local endpoint.",
+        "options": [
+            {
+                "id": "A",
+                "text": "Use Azure CLI:\n\n```\naz ml online-endpoint create --local -n $ENDPOINT_NAME -f endpoint.yaml\n\naz ml online-deployment create --local \\\n-n mydep \\\n--endpoint $ENDPOINT_NAME \\\n-f blue-deployment.yaml\n```\n\n",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Use Python SDK:\n\n```python\nml_client.online_endpoints.begin_create_or_update(endpoint, local=True)\nml_client.online_deployments.being_create_or_update(deployment=mydep, local=True)\n```\n\n",
+                "is_correct": true,
+                "explanation": "Flagged as correct: seems to be missing endpoint name in deployment part."
+            },
+            {
+                "id": "C",
+                "text": "Use Azure ML Studio to set up the local endpoints and then deploy `mydep` with the local endpoint.",
+                "is_correct": false,
+                "explanation": "This seems made up."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-5",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You organization uses Azure Machine Learning (ML) sevices.\n\nYou are using Azure ML Python SDK v2 and Azure ML Studio to manage the experiments.\n\nYou have been tasked with scheduling ML pipeline jobs and you have the following code that creates a schedule:\n\n```python\nschedule_name = 'sched_cron_with_sdkv2'\nschedule_start_time = datetime.utcnow()\ncron_trigger = CronTrigger(\n    expression='30 8 * * 2',\n    start_time=schedule_start_time,\n    time_zone='Pacific Standard Time',\n)\njob_schedule = JobSchedule(\n    name=schedule_name,\n    trigger=cron_trigger,\n    create_job=pipeline_job\n)\n```\n\nYou are trying to understand this configuration",
+        "options": [
+            {
+                "id": "A",
+                "text": "The schedule fires at 8:30 AM every Tuesday each month.",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "If `start_time` is omitted, it will be equal to the schedule creation time.",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "If the recurrence is set to the 31st day of every month, in months with less than 31 days, the schedule will automatically trigger on the 30th.",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-6",
+        "type": "ordering",
+        "question": "You use Azure Machine Learning to create a machine learning pipeline\n\nOnce the pipeline is complete, you need to ensure that other users can run the pipeline using a custom input. Which four actions should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Specify a default pipeline parameters"
+            },
+            {
+                "id": "B",
+                "text": "Add the PipelineParameter object as a script argument"
+            },
+            {
+                "id": "C",
+                "text": "Use the publish_pipeline method to publish the pipeline"
+            },
+            {
+                "id": "D",
+                "text": "Save the pipeline to a YAML file"
+            },
+            {
+                "id": "E",
+                "text": "Define a PipelineParameter object"
+            }
+        ],
+        "correct_order": [
+            "E",
+            "A",
+            "B",
+            "C"
+        ],
+        "feedback": "Azure Machine Learning pipelines are workflows that represent a series of machine learning tasks. Pipeline tasks can be executed independently from the underlying data, and you can register new datasets for each pipeline run, if necessary.\n\nYou can allow other users to run the pipeline using custom inputs by publishing the pipeline. To do this, you must first create a pipeline parameter object using the `PipelineParameter` class, which allows you to specify the default value of the pipeline parameter. Once this is complete, you can add the `PipelineParameter` to any step, including script steps, when constructing a pipeline. Finally, you can use the `publish_pipeline` method to publish the pipeline. This create a REST endpoint that can be accessed by external users.\n\nYou should not save the pipeline to a YAML file. YOu use this option to export the pipeline steps and then import them into another system."
+    },
+    {
+        "question_id": "mup-7",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are a data scientist\n\nYou use Automated ML in Azure Machine Learning to generate models that will be used to classify the sentiment of customer reviews in text data\n\nYou need to ensure that model training is optimized for this task.",
+        "options": [
+            {
+                "id": "A",
+                "text": "Set the primary metric goal to MINIMIZE",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Set the primary metric goal to MAXIMIZE",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Configure accuracy as the primary metric",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Configure Spearman correlation as the primary metric",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-8",
+        "type": "multiple_choice_single_answer",
+        "question": "You use Azure Machine Learning designer to create a batch inference pipeline\n\nYou plan to publish the pipeline using a web service.\n\nYou need to ensure that the pipeline can make predictions on the new data supplied at runtime.",
+        "options": [
+            {
+                "id": "A",
+                "text": "Add the Convert to Dataset module to your pipeline",
+                "is_correct": false,
+                "explanation": "The Convert to Dataset module is used to ensure that data normalization changes can be used in other pipelines. Input data to this module must be tabular."
+            },
+            {
+                "id": "B",
+                "text": "Create a parameter for your dataset",
+                "is_correct": true,
+                "explanation": "This options allows consumers to provide a dataset to your pipeline at runtime. This is useful in scenarios where a model is trained on a dataset but is used to formulate prediction on new data. You can parametrize a pipeline by using the dataset module."
+            },
+            {
+                "id": "C",
+                "text": "Publish the pipeline to a new endpoint",
+                "is_correct": false,
+                "explanation": "A web service is defined when you publish a pipeline, and a HTTP endpoint is created that external applications and services can consume."
+            },
+            {
+                "id": "D",
+                "text": "Connect a different dataset to the pipeline",
+                "is_correct": false,
+                "explanation": "You connect a dataset to a pipeline when you need to provide data input. This process is manual and does not occur automatically at runtime."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-9",
+        "type": "multiple_choice_single_answer",
+        "question": "You evaluate Automated Machine Learning results based on the metrics generated during the training run\n\nThe classification model you evaluate metrics for is used to predict the possibilities of a person getting a viral infection based on the location, gender, and age of an individual. The dataset is highly imbalanced.\n\nYou need to find the optimal metric to evaluate the efficiency of the model.",
+        "options": [
+            {
+                "id": "A",
+                "text": "accuracy",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "log_loss",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "AUC_weighted",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "normalized_root_mean_squared_error",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-10",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are a Data Scientist\n\nYou are testing a product recommendation model deployed as a chat assistant in the Azure AI Foundry playground. The model is trained with customer interaction data and a product catalog data. You want to evaluate how the model responds when the product catalog data is excluded from its context.\n\nYou need to configure the playground to simulate this scenario.\n\nWhich two actions should you perform?",
+        "options": [
+            {
+                "id": "A",
+                "text": "In the System message text box, enter an instruction telling the assistant to ignore product catalog information during the session",
+                "is_correct": true,
+                "explanation": "This configuration ensures that the assistant will disregard product catalog data in its responses, allowing you to test its behavior without this data source."
+            },
+            {
+                "id": "B",
+                "text": "Add a Content policy system message to restrict the assistant from using product catalog data in its responses",
+                "is_correct": false,
+                "explanation": "Content policy system messages control the types of output allowed by the assistant but do not alter its access to or exclusion of specific data sources."
+            },
+            {
+                "id": "C",
+                "text": "Click Apply changes to save and activate the updated System message before testing the assistant",
+                "is_correct": true,
+                "explanation": "Without applying the changes, the updated instruction will not take effect, and the assistant will continue operating with the prior configuration."
+            },
+            {
+                "id": "D",
+                "text": "Submit a product-related query in the chat pane and observe how the assistant responds",
+                "is_correct": false,
+                "explanation": "Submitting a query only tests the current configuration; it does not change the assistant's data context or restrict access to product catalog data."
+            },
+            {
+                "id": "E",
+                "text": "Add a Safety system message to prevent the assistant from generating product-related recommendations",
+                "is_correct": false,
+                "explanation": "A safety system message is designed to enforce content safety and compliance rules, not to modify the assistant's access to specific data sources or knowledge."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-11",
+        "type": "multiple_choice_single_answer",
+        "question": "You are a Data Scientist\n\nYou are working for a healthcare company and are tasked with building a machine learning model to predict whether a patient will be readmitted to the hospital within 30 days of discharge.\n\nThe company uses Azure Machine Learning SDK v2 to build, train, and manage models. You have already configured the script, environment and compute.\n\n you now need to submit a training job programmatically.\n\nWhich method should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "ml_client.online_endpoints.create_or_update(endpoint)",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "ml_client.jobs.create_or_update(job)",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "ml_client.models.create_or_update(model)",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-12",
+        "type": "ordering",
+        "question": "You are comparing the behavior of the language models GPT-4o and Phi-3.5 using the Azure Machine Learning Chat playground.\n\nYou should test the two models for a logical reasoning task and compare their responses to see whether one performs better than the other",
+        "options": [
+            {
+                "id": "A",
+                "text": "Open Playgrounds from the navigation bar and select Chat playground"
+            },
+            {
+                "id": "B",
+                "text": "Provide the logical reasoning task as a user prompt in the chat input, using GPT-4o as the select model, then review the model's response"
+            },
+            {
+                "id": "C",
+                "text": "Switch the model to Phi-3.5 in the Setup pane, re-enter the same reasoning task, and evaluate the new response"
+            },
+            {
+                "id": "D",
+                "text": "Enable stop sequences for both models"
+            },
+            {
+                "id": "E",
+                "text": "Export both model responses and manually compare them using an external spreadsheet tool for detailed scoring"
+            },
+            {
+                "id": "F",
+                "text": "Adjust token limits"
+            }
+        ],
+        "correct_order": [
+            "A",
+            "B",
+            "C"
+        ],
+        "feedback": ""
+    },
+    {
+        "question_id": "mup-13",
+        "type": "multiple_choice_single_answer",
+        "question": "You are running a classification experiment in Azure Machine Learning prompt flow using prompt variants\n\nYou need to compare the performance of these variants using reliable evaluation metrics within the platform.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Configure one node variant for variant testing while keeping the rest of the flow unchanged",
+                "is_correct": true,
+                "explanation": "This means you are only testing different versions (variants) of one prompt, while keeping the rest of the process the same. This helps you find out which version works best without getting confused by changes in other parts of the flow. Azure will automatically track and compare results like accuracy for each variant."
+            },
+            {
+                "id": "B",
+                "text": "Change variants during runtime using template switches and record outputs manually",
+                "is_correct": false,
+                "explanation": "This approach is slow and can lead to mistakes. Besides, Azure will not help you compare the results."
+            },
+            {
+                "id": "C",
+                "text": "Run variants across all nodes simultaneously and enable logging at the flow level",
+                "is_correct": false,
+                "explanation": "If you change many parts at once, you will not know which change caused what result. That makes it hard to decide which prompt is better."
+            },
+            {
+                "id": "D",
+                "text": "Configure the flow per variants and compare the final predictions side by side",
+                "is_correct": false,
+                "explanation": "Creating many copies of the flow is a lot of work and is not the best way to compare results. Azure provides built-in tools to test and track variants more easily."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-14",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are using Azure Machine Learning to develop a solution that classifies satellite images into land cover categories such as forest, water, and urban\n\n* The images are stored in Azure Blob Storage, organized into folders by label\n* Metadata including GPS coordinates, timestamps, and resolution is stored in a separate CSV file\n\nYou need to ensure that model training is optimized for this task.\n\nWhich two actions should you perform?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Register the CSV file as a tabular data asset",
+                "is_correct": true,
+                "explanation": "Registering it this way allows Azure Machine LEarning to easily interpret and manipulate the data using built-in capabilities for filtering, preprocesing, and joining with other data types like image paths. This setup is especially useful for feature engineering tasks during training, as it enables you to combine structured metadata with image inputs to improve model accuracy and training efficiency in a streamlined and manageable way."
+            },
+            {
+                "id": "B",
+                "text": "Register the folder of images as uri_folder data asset in the Azure Machine Learning workspace",
+                "is_correct": true,
+                "explanation": "The uri_folder data asset allows you to maintain the organized structure of the image data within Azure Blob Storage. This organization is critical as it ensures efficient retrieval of the images by label during model training. By doing this, you streamline the data accessibility process, which is vital for effective and efficient model training in Azure Machine Learning."
+            },
+            {
+                "id": "C",
+                "text": "Convert the CSV metadata into a Parquet file and register it as a file dataset",
+                "is_correct": false,
+                "explanation": "While Parquet is a good format, file datasets are not suited for operations like joining or filtering based on columns, which are common in machine learning preprocessing."
+            },
+            {
+                "id": "D",
+                "text": "Create a JSON manifest combining image paths and metadata, and register it as a tabular dataset for AutoML",
+                "is_correct": false,
+                "explanation": "This process adds additional steps of data transformation and management that may not necessarily optimize or even be required for your current training setup. While it can be useful in certain context, it might not be the most straightforward or effective approach when dealing with large datasets of images and metadata that are already efficiently managed through Azure's existing data handling capabilities."
+            },
+            {
+                "id": "E",
+                "text": "Store both the images and metadata in a ZIP file and register it as a uri_file for batch processing in training",
+                "is_correct": false,
+                "explanation": "This approach compresses all your data into a signle file, which can actually complicate data extraction and processing. Each time you access the data for training, you would need to decompress this file, which can lead to delays and inefficiencies. It would be counterproductive for scenarios requiring quick access to specific images or metadata elements during iterative training process."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-15",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on a deep learning model that exceed the memory capacity of a single GPU.\n\nYou want to train the model efficiently using your current infrastructure without needing to completely redesign your training pipeline.\n\nWhat development approach should you choose?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Batch inference mode to process multiple inputs concurrently",
+                "is_correct": false,
+                "explanation": "Batch inference is used during deployment to improve throughput of prediction serving, and it does not help in distributing a large model across GPUs during training."
+            },
+            {
+                "id": "B",
+                "text": "Automated ML to automatically optimize the training process across GPUs",
+                "is_correct": false,
+                "explanation": "Automated ML is designed for tabular data tasks like regression, classification, or forecasting, and does not support distributed deep learning or model parallelism."
+            },
+            {
+                "id": "C",
+                "text": "Feature store caching to reduce the training time on a single GPU",
+                "is_correct": false,
+                "explanation": "Caching can improve feature retrieval time but does not solve model memory limitations or help distribute components across GPUs."
+            },
+            {
+                "id": "D",
+                "text": "A model parallelism strategy to split the model acress multiple GPUs",
+                "is_correct": true,
+                "explanation": "This method allows different layers or components of the model to reside on separate GPUs while sharing the same training data. Synchronization occurs only once per forward or backward pass, reducing communication overhead and ensuring scalability during training."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-16",
+        "type": "ordering",
+        "question": "You are planning to train a deep learning model\n\nIt requires a custom architecture, manual processing, and flexibility in how training is executed.\n\nYou need to have full control over logic, input handling, and resource configuration.\n\nWhich actions should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Author a custom training script that defines your model and training loop"
+            },
+            {
+                "id": "B",
+                "text": "Use Azure Machine Learning to register a reusable environment for training"
+            },
+            {
+                "id": "C",
+                "text": "Set up a parameterized command job to run the script with inputs and outputs"
+            },
+            {
+                "id": "D",
+                "text": "Select a ready-to-deploy model from the Azure model catalog"
+            },
+            {
+                "id": "E",
+                "text": "Use Automated ML to generate a training script"
+            }
+        ],
+        "correct_order": [
+            "A",
+            "B",
+            "C"
+        ],
+        "feedback": "Not automated ML because you need full control.\n\nNot ready-to-deploy model since it may not match your architecture.\n\nYou should first make a custom script, especially in the case of deep learning as it may not be covered by AutoML. Then you register an environment for consistency and reproducibility.\n\nFinally, set up a parameterized command job to allow dynamic setting of datasets, hyperparameters, and/or model output paths.\n\nDefining the pipeline this way makes it reusable, easy to track, and integrable into automated pipelines."
+    },
+    {
+        "question_id": "mup-17",
+        "type": "multiple_choice_single_answer",
+        "question": "You use Azure Machine Learning to develop a classification model.\n\nYour training data is stored in an Azure Blob Storage container and includes multiple `.csv` and `.json` files. Each `.csv` file contains labeled data separated by commas.\n\nYou need to create a tabular dataset for training that uses only the `.csv` files. You should minimize implementation overhead and avoid unnecessary transformation steps.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Use `Dataset.File.from_files()` to load the `.csv` files and convert the file dataset to a tabular dataset using a transformation step",
+                "is_correct": false,
+                "explanation": "`FileDataset` repesents file references rather than structured data, and it cannot be directly converted into a `TabularDataset` without explicit parsing logic in custom code, increasing overhead and complexity."
+            },
+            {
+                "id": "B",
+                "text": "Use `Dataset.Tabular.from_delimited_files()` to load all the files in the container, then filter the `.csv` files at runtime using a query",
+                "is_correct": false,
+                "explanation": "Although `from_delimited_files()` supports queries on loaded data, filtering file types needs to be handled at load time via a path pattern, not after loading both `.csv` and `.json` files into a single dataset."
+            },
+            {
+                "id": "C",
+                "text": "Use `Dataset.Tabular.from_delimited_files()` with a path pattern that selects all `.csv` files in the container",
+                "is_correct": true,
+                "explanation": "This method allows you to directly create a tabular dataset by specifying a file path filter (such as `*.csv`) to load only the `.csv` files without including other file formats. It supports parsing delimited files into tabular format suitable for training and minimizes implementation overhead."
+            },
+            {
+                "id": "D",
+                "text": "Use `Dataset.Tabular.from_json_files()` with a file extension filter to include only `.csv` files",
+                "is_correct": false,
+                "explanation": "The `from_json_files()` method is specifically designed to parse JSON-formatted files and is not compatible with `.csv` files, even if filtered by extension."
+            }
+        ],
+        "feedback": "This applies to Azure ML Python SDK v1.\n\nPersonal note: In SDK v2 there is no longer a `Dataset` class, and the question above does not really apply since these are handeled by creating data assets instead.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-18",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You create an Azure Machine Learning workspace in a subscription your company owns.\n\nYou need to create some sample code for other data scientists to use to connect to your workspace using SDK v2.\n\nWhich two code segments can you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "\n\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.idendity import AzureCliCredential\nml_client = MLClient(AzureCliCredential(), 'sub-id', 'rg-name', 'ws-name')\n```\n\n",
+                "is_correct": false,
+                "explanation": "This is a valid SDK v2 pattern, but it is less flexible than using `DefaultAzureCredential` in production. It depends on locally authenticated Azure CLI session, which may not always be available or scalable shared scripts."
+            },
+            {
+                "id": "B",
+                "text": "\n\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.idendity import DefaultAzureCredential\nml_client = MLClient(DefaultAzureCredential(), 'sub-id', 'rg-name', 'ws-name')\n```\n\n",
+                "is_correct": true,
+                "explanation": "This method is useful when you want to explicitely specify all parameters and authenticate using a default, environment-aware credential."
+            },
+            {
+                "id": "C",
+                "text": "\n\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.idendity import DefaultAzureCredential\nml_client = MLClient.from_config(DefaultAzureCredential())\n```\n\n",
+                "is_correct": false,
+                "explanation": "This can actually cause authentication issues in local environments if `DefautAzureCredential` can't find valid tokens. It is less reliable than using `AzureCliCredential`"
+            },
+            {
+                "id": "D",
+                "text": "\n\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.idendity import AzureCliCredential\nml_client = MLClient.from_config(AzureCliCredential())\n```\n\n",
+                "is_correct": true,
+                "explanation": "This method is convenient when you want to avoid hardcoding workspace metadata and instead load it from a CLI-generated configuration file"
+            }
+        ],
+        "feedback": "Personal note: I found that in practice better way is to use the config file and just resort to whatever credential is suited. This question is too tricky for something that is relatively straightforward.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-19",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on a complex machine learning project in an Azure Machine Learning workspace and have recently set up Git integration.\n\nDuring the development of your project, you realize that a crucial piece of code is accidentally deleted.\n\nYou need to restore the deleted code using Git integration.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Revert a merge commit",
+                "is_correct": false,
+                "explanation": "A merge commit is a type of commit in Git that is created when two or more branch are merged together. When reverting a merge commit, Git creates a new commit that undoes the changes introduced by the merge. This effectively removes the changes, but does not restore any deleted code. In fact, if the merge commit introduces cahnges that are made to the code after the deletion occurs, reverting the merge commit would remove those changes as well."
+            },
+            {
+                "id": "B",
+                "text": "Use the revert command on the Git command prompt",
+                "is_correct": true,
+                "explanation": "This command is used to undo changes made in a particular commit and return to an earlier version of the code. The revert command works by creating a new commit that reverses the changes made in a previous commit, effectively rolling back the code to an earlier version. By using this, you can restore the deleted code in your local repository, which can then be pushed to the remote to update the version of the code stored there."
+            },
+            {
+                "id": "C",
+                "text": "Reconfigure Git in Azure Machine Learning",
+                "is_correct": false,
+                "explanation": "While it can establish a connection between your local repository and the remote repository, reconfiguring Git won't change the contents of either repository."
+            },
+            {
+                "id": "D",
+                "text": "Push the changes to a remote repository",
+                "is_correct": false,
+                "explanation": "This is done to keep the repository up to date with the local repository. This won't restore deleted code, quite this opposite since it's start messing up with the remote."
+            },
+            {
+                "id": "E",
+                "text": "Use the clone command on the Git command prompt",
+                "is_correct": false,
+                "explanation": "This is useful to setup Git integration, but the clone is not appropriate to restore deleted code. You would create a new repository instead."
+            }
+        ],
+        "feedback": "Git is a version control system for software development that helps to manage code changes and collaboration among developers. It tracks changes, enables easy switching between version, and streamlines the development process.\n\nThis question seems to be linked to Azure DevOps. This question basically asks about `git revert`, which is typically used to rollback to a specific commit of the main branch. Other options like `git checkout`, `git reset` are possible depending repository rules, type of branch, and just in general the use case.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-20",
+        "type": "multiple_choice_single_answer",
+        "question": "You are registering an Azure Blob container as a datastore in Azure Machine Learning using SDK v2\n\nThe associated storage account is protected by a virtual network, and credential verification will fail at registration time.\n\nYou want to ensure that the datastore registration does not attempt to validate storage access.\n\nYou write the following code:\n\n```python\nfrom azure.ai.ml.entities import AzureBlobDataStore\n\nblob_ds = AzureBlobDatastore(\n    name='fin_datastore',\n    account_name='finstorage',\n    container_name='securetxns',\n    credentials={'type': 'account_key', 'key': 'mysecret'},\n    skip_validation=True\n)\n\nml_client.datastores.create_or_update(blob_ds)\n```\n\nWhat is the effect of setting `skip_validation=True` when registering the datastore using Azure ML SDK v2?",
+        "options": [
+            {
+                "id": "A",
+                "text": "It completes the registration even if the storage container cannot be reached",
+                "is_correct": false,
+                "explanation": "This is technically true, but incomplete. It does not explain that this outcome is due to the `skip_validation=True` setting."
+            },
+            {
+                "id": "B",
+                "text": "It disables pre-checks during creation but preserves runtime enforcement",
+                "is_correct": false,
+                "explanation": "This option vaguely refers to the behavior of skip_validation but lacks clarity. It does not explicitely state that the datastore registration will succeed under restricted network conditions. While it is true that runtime enforcement remains, the options does not address the core question about ensuring registration success under network constraints."
+            },
+            {
+                "id": "C",
+                "text": "It registers the datastore without verifying storage connectivity",
+                "is_correct": true,
+                "explanation": "This allows to register successfully, even if the storage account is protected by a virtual network or a private endpoint and cannot be accessed at that time."
+            },
+            {
+                "id": "D",
+                "text": "It bypasses storage access checks at registration but requires valid credentials",
+                "is_correct": false,
+                "explanation": "Although valid credentials are indeed required for accessing the storage at runtime, this option is misleading in the context of registration. With `skip_validation=True`, Azure ML does not validate the credentials at the time of registration. So while the statement is partially correct for later use, it inaccurately implies that credential check still happen during registration."
+            }
+        ],
+        "feedback": "This question is beyond ambiguous. The technically, true but incomplete part sound like AI slop, in no other part there are explicit mentions of the `skip_validation=True`, it's implicitly given by the question. Better rephrasing would be to ask **how** `skip_validation=True` satisfy the initial requirement.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-21",
+        "type": "multiple_choice_multiple_answer",
+        "question": "Your organization is using Azure Machine Learning services\n\nYou have been asked to write a Python script which imports data from an Amazon S3 external source.\n\nYou are using Azure ML Python SDK v2.\n\nYou have written the following code:\n\n```python\nfrom azure.ai.ml.entities import DataImport\nfrom azure.ai.ml.data_transfer import FileSystem\nfrom azure.ai.ml import MLClient\n\nml_client = MLClient.from_config()\ndata_import = DataImport(\n    name='<name>',\n    source=FileSystem(connection='<connection>', path='<path_on_source>'),\n    path='<path>'\n)\n\nml_client.data.import_data(data_import=data_import)\n```\n\nYou need to implement the solution. Select the correct statements.",
+        "options": [
+            {
+                "id": "A",
+                "text": "The `<connection>` value handles the data import action, which determines the details of S3",
+                "is_correct": true,
+                "explanation": "Importing data into the Azure ML platform from external sources allows you to create and register the external source as an Azure ML data asset. The name provided during the import is used to register it as an asset in the Azure ML platform. A data import creates a cache of the source data, along with metadata, for faster and reliable data access in Azure Machine Learning training jobs. In this use-case scenario, you have been asked to write a Python script that imports data from an Amazon S3 external source. The connection value should be set to: `azureml:<ws-connection-name>`. The connection defines an Amazon S3 bucket as the target."
+            },
+            {
+                "id": "B",
+                "text": "The `<path_on_source>` value in optional",
+                "is_correct": false,
+                "explanation": "`<path_on_source>` is not optional. The connection requires a valid path value. The path value should be set to: `azureml://datastores/<ds-name>/paths/<my-path>/${{name}}`"
+            },
+            {
+                "id": "C",
+                "text": "Amazon S3 will be registered as a data asset with type uri_file",
+                "is_correct": false,
+                "explanation": "A data asset imported from an external file system source must have a uri_folder type, since the external file system resource is registered as a folder data asset and not as a file data asset."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-22",
+        "type": "multiple_choice_single_answer",
+        "question": "You are using Azure Machine Learning SDK to create experiments that will process sparse data.\n\nYou code includes code to create an `AutoMLConfig` object:\n\n```python\nautoml_config = AutoMLConfig(\n    task='regression',\n    compute_target=my_compute,\n    training_data=my_data,\n    label_column_name=my_label,\n    **automl_experiment\n)\n```\n\nYou need to ensure that your data is not scaled and normalized.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Move the `task='regression'` line to the `automl_experiment` data dictionary",
+                "is_correct": false,
+                "explanation": "Most `AutoMLConfig` parameters can be included inline with the object's definition, or they can be defined in a dictionary."
+            },
+            {
+                "id": "B",
+                "text": "Add the `from azureml.widgets import RunDetails` line to your script",
+                "is_correct": false,
+                "explanation": "The `RunDetails` class can be used in a Jupyter notebook to view how model training is progressing."
+            },
+            {
+                "id": "C",
+                "text": "Add the `primary_metric` parameter when creating the `AutoMLConfig` object",
+                "is_correct": false,
+                "explanation": "The metrics you can configure are dependent on the machine learning task type, such as regression or classification."
+            },
+            {
+                "id": "D",
+                "text": "Define the `featurization` parameter in the `automl_experiment` data dictionary",
+                "is_correct": true,
+                "explanation": "When configuring a pipeline using Azure ML SDK, you can define automated machine learning settings that control how the experiment is run. These settings are typically defined in a dictionary format as passed to an `AutoMLConfig` object. If the `featurization` parameter is set to `auto`, input data will automatically be preprocessed, and missing values will be handled. In this case, the `featurization` parameter should be added to the `automl_experiment` data dictionary with a value of `off`."
+            }
+        ],
+        "feedback": "This focuses on SDK v1, but is still valid up to class name in SDK v2.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-23",
+        "type": "multiple_choice_single_answer",
+        "question": "You organization uses Azure Machine Learning services\n\nYou are using Azure ML Python SDK v2 for managing an experiment.\n\nYour experiment uses Matplolib to generate line plots. You plan to configure logging and tracking for the experiment using MLflow tracking.\n\nYou need to use the appropriate logging method to render the plot for the experiment run object.\n\nWhich method should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "mlflow.log_dict",
+                "is_correct": false,
+                "explanation": "This is to log key value pairs as JSON or YAML files."
+            },
+            {
+                "id": "B",
+                "text": "mlflow.log_artifact",
+                "is_correct": false,
+                "explanation": "This would be to log an arbitrary file."
+            },
+            {
+                "id": "C",
+                "text": "mlflow.log_image",
+                "is_correct": false,
+                "explanation": "This is to log images"
+            },
+            {
+                "id": "D",
+                "text": "mlflow.log_figure",
+                "is_correct": true,
+                "explanation": "Made specifically for matplotlib or plotly figures."
+            }
+        ],
+        "feedback": "It's a trap!\n\nKey difference is log_figure takes matplotlib or plotly figure object as argument while log image takes np.ndarray, PIL, mlflow.image",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-24",
+        "type": "multiple_choice_single_answer",
+        "question": "You need to determine the appropriate compute specifications for a training workload.\n\nYour solution must support automated machine learning, machine learning pipelines, and Azure Machine Learning designer.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Create and deploy a remote virtual machine",
+                "is_correct": false,
+                "explanation": "It wouldn't support Azure Machine Learning designer"
+            },
+            {
+                "id": "B",
+                "text": "Install the Azure Machine Learning SDK on your local computer",
+                "is_correct": false,
+                "explanation": "It wouldn't support Azure Machine Learning designer."
+            },
+            {
+                "id": "C",
+                "text": "Deploy an Azure Machine Learning compute cluster",
+                "is_correct": true,
+                "explanation": "This is required."
+            },
+            {
+                "id": "D",
+                "text": "Deploy Azure Databricks as a compute target",
+                "is_correct": false,
+                "explanation": "Azure Machine Learning designer can't be used with attached compute."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-25",
+        "type": "ordering",
+        "question": "You are preparing training data for a classification model using features from multiple feature stores in Azure Machine Learning\n\nYou plan to use a feature retrieval specification and perform point-in-time join between features and observation data.\n\nWhich actions should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Generate the features retrieval specification using the `generate_feature_retrieval_spec()` function"
+            },
+            {
+                "id": "B",
+                "text": "Load the feature list using the `resolve_feature_retrieval_spec()` function"
+            },
+            {
+                "id": "C",
+                "text": "Retrieve the training data using the `get_offline_features()` function with features and observation data"
+            },
+            {
+                "id": "D",
+                "text": "Manually define the list of features required for training in the script"
+            },
+            {
+                "id": "E",
+                "text": "Copy the feature retrieval spec file to the model output folder during the data preparation stage"
+            }
+        ],
+        "correct_order": [
+            "A",
+            "B",
+            "C"
+        ],
+        "feedback": "`generate_feature_retrieval_spec()` creates a YAML-based definition of which features to retrieve from one or more Azure ML feature stores. This specification allows consistent, traceable, and repeatable feature access across both training and inference stage.\n\nThe list of features is then loaded by `resolve_feature_retrieval_spec()`.\n\nFinally, `get_offline_features()` performs a point-in-time join between the resolved feature set and the observation data, correctly associating each even with the corresponding historical feature values at the time it occured. This is a critical requirement to avoid target leakage and ensure that the training data accurately reflects the state of the world when prediction will be made.\n\nYou should not copy the feature retrieval spec file to the model output folder. While this can be useful later in the pipeline such as for auditing, deployment, or model versioning, it is not necessary when the goal is to generate a training dataset. Performing this action at this stage does not contribute to retrieving nor joining feautres, and may introduce confusion about the pipeline's purpose or add irrelevant artifacts to the data prepration phase.\n\nManual feature section introduce high risk of inconsistency and human error, especially across environments, or version of the model pipeline. Feature retrieval specifications are designed to automate, standardize, and trace which features are used at both training and inference time. Skipping the process by hardcoding feature names defeats the purpose of using a managed and production-ready feature store, and reduces reproducibility and governance in a ML solution.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-26",
+        "type": "drag_and_drop",
+        "question": "You use Azure Machine Learning to tune hyperparameters for your model\n\nYou need to ensure thaat underperforming runs are terminated automatically.\n\nWhich two action should you perform?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Define a `PipelineParameter` object and specify a default pipeline parameter value",
+                "is_correct": false,
+                "explanation": "This is when you intend to publish the pipeline and allow other users to run it with custom inputs."
+            },
+            {
+                "id": "B",
+                "text": "Use Bayesian sampling to select hyperparameter samples",
+                "is_correct": false,
+                "explanation": "Bayesian sampling does not support early termination."
+            },
+            {
+                "id": "C",
+                "text": "Create and configure a `BanditPolicy` object",
+                "is_correct": true,
+                "explanation": "This create an early termination policy. Bandit policy terminates jobs that are not likely to result in an accurate ML model."
+            },
+            {
+                "id": "D",
+                "text": "Create a `RandomParameterSampling` object and specify a `parameter_space` dictionary",
+                "is_correct": true,
+                "explanation": "Random sampling supports early termination."
+            }
+        ],
+        "feedback": "Hyperparameters are used to control the training process for machine learning models, and these parameters can have a significant impact on how a trained model performs. Azure Machine Learning includes a hyperparameter tuning service, which supports three parameter sampling methods (Bayesian, Random and Grid), the selected methods determines whether one can or cannot use an early termination policy.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-27",
+        "type": "multiple_choice_single_answer",
+        "question": "Your organization uses Azure Machine Learning services\n\nYou are using Azure ML Python SDK v2 and are performing hyperparameter tuning for one of your experiments.\n\nYou need to use the Sobol parameter sampling method over the hyperparameter space.\n\nWhich sampling class should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "RandomParameterSampling",
+                "is_correct": true,
+                "explanation": "Sobol is a type of random sampling."
+            },
+            {
+                "id": "B",
+                "text": "BayesianParameterSampling",
+                "is_correct": false,
+                "explanation": "Bayesian sampling rely on Bayesian optimization, the sampling method is defined by its own searching algorithm."
+            },
+            {
+                "id": "C",
+                "text": "GridParameterSampling",
+                "is_correct": false,
+                "explanation": "Grid sampling test various combinations from the grid and the best one is chosen. Grid sampling can only be used with Choice parameter"
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-28",
+        "type": "multiple_choice_single_answer",
+        "question": "You are a data scientist working on a large-scale machine learning project on Azure\n\nYou have created a pipeline job that needs to run on a powerful compute target to achieve high performance. You have determined that an Azure Synapse Spark compute resource would be the best compute resource to use for this task, as it can optimize performance and scalability. The pipeline job has to be run every day, and it is expected to take at least two hours to complete.\n\nYou use the following script:\n\n```python\nfrom azure.ai.ml import MLClient\nfrom azure.ai.ml.entities import PipelineJob\nfrom azure.identity import DefaultAzureCredential\n\ncred = DefaultAzureCredential()\nclient = MLClient.from_config(credential=cred)\n\npipeline_job = PipelineJob(compute='spark-cluster')\n```\n\nYou need to specify the compute target in the pipeline job definition so that the pipeline runs on the desired Spark pool compute target.\n\nWhich class should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "MLClient",
+                "is_correct": false,
+                "explanation": "This is primarily used to connect to your Azure ML workspace and manage resources like compute targets, model and data assets."
+            },
+            {
+                "id": "B",
+                "text": "Compute",
+                "is_correct": false,
+                "explanation": "Although it is used to represent compute resources in Azure ML, it is not used to directly set the compute target for a pipeline job."
+            },
+            {
+                "id": "C",
+                "text": "Model",
+                "is_correct": false,
+                "explanation": "This class is used to register, manage and retrieve ML models."
+            },
+            {
+                "id": "D",
+                "text": "PipelineJob",
+                "is_orrect": true,
+                "explanation": "You defined a pipeline job using `PipelineJob`, this is where you associate each component of the entire pipeline, in particular a compute target by referencing it by name."
+            }
+        ],
+        "feedback": "Sort of a trick questions. The answer was there already.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-29",
+        "type": "multiple_choice_single_answer",
+        "question": "You are working on an Azure Machine Learning pipeline and need to access data for your model\n\nThe data is stored in an external location, but it is too large to be uploaded directly to the Azure ML workspace.\n\nYou need to use Python to access and incorporate information from an external source into the pipeline to use in your model.\n\nWhich method should you use?",
+        "options": [
+            {
+                "id": "A",
+                "text": "`mlclient.data.import_data()`",
+                "is_correct": true,
+                "explanation": "This method is used in Azure ML SDK v2 to bring data from an external source, such as cloud storage, databases, or HTTP endpoints, into the Azure ML workspace. Once imported, the data is regisetered as a data asset, enabling its use in pipelines and experiments."
+            },
+            {
+                "id": "B",
+                "text": "`mlclient.data.merge()`",
+                "is_correct": false,
+                "explanation": "This method is used to combine two or more datasets into one for analysis. While helpful in aggregating existing data assets, it does not provide functionality for import external data into the pipeline."
+            },
+            {
+                "id": "C",
+                "text": "`mlclient.data.to_pandas_dataframe()`",
+                "is_correct": false,
+                "explanation": "This method converts a data asset into a Pandas DataFrame for further manipulation and analysis. While useful for processing data within your code, it does not handle importing external data into the pipeline."
+            },
+            {
+                "id": "D",
+                "text": "`mlclient.data.load()`",
+                "is_correct": false,
+                "explanation": "This method loads ata that already exists within the workspace or its associated datastores. It does not support importing data from external sources into the pipeline."
+            }
+        ],
+        "feedback": "[Import data assets (preview)](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-import-data-assets?view=azureml-api-2&tabs=python)",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-30",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are configuring an automated machine learning experiment. You are using Azure ML Python SDK v2 for the training job\n\nYou have the following code to set up a classification job:\n\n```python\nclassification_job = automl.classification(\n    compute=compute_name,\n    experiment_name=my_experiment,\n    training_data=my_data,\n    target_column_name='y',\n    primary_metric='accuracy',\n    n_cross_validations=7,\n    enable_model_explainability=True,\n    tags={'my_tags': 'custom tag'}\n)\n\nclassification_job.set_limits(\n    timeout_minutes=900,\n    trial_timeout_minutes=30,\n    max_trials=7,\n    enable_early_termination=True\n)\n\nclassification_job.set_training(\n    blocked_training_algorithms=['LogisticRegression'],\n    enable_onnx_compatible_model=True\n)\n```\n\nYou need to implement the configuration for the AutoML classification job. Select all that apply:",
+        "options": [
+            {
+                "id": "A",
+                "text": "AutoML will optimize for accuracy",
+                "is_correct": true,
+                "explanation": "In the code, `primary_metric` is set to `accuracy`. AutoML will optimize the classification model for the primary metric and recommand a model based on the best performance."
+            },
+            {
+                "id": "B",
+                "text": "The `max_trials` value is set to default 500 trials and cannot be customized",
+                "is_correct": false,
+                "explanation": "The default is actually 1000. It can be set to another value (int) and referds to the number of runs per algorithms using different set of parameters."
+            },
+            {
+                "id": "C",
+                "text": "The run will be terminated if the score fails to improve in the short term",
+                "is_correct": true,
+                "explanation": "`enable_early_termination` is set to `True`"
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-31",
+        "type": "multiple_choice_single_answer",
+        "question": "You use a publish Azure ML pipeline to predict which customers should be targeted for marketing a new service offering\n\nNew customer information has been collected via a survey, and you need to tune your model using this data.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Change the pipeline concurrency parameter to 2",
+                "is_correct": false,
+                "explanation": "Pipeline concurrency allows you to specify the maximum number of concurrent pipeline runs. Any runs above the concurrency limit are queued until a run space is freed up."
+            },
+            {
+                "id": "B",
+                "text": "Create a new training pipeline. Specify a new dataset",
+                "is_correct": false,
+                "explanation": "The same pipeline can be used to train multiple models. One of the benefits of defining a machine learning pipeline is its reusability. You would create a new pipeline if the required ML workflow has changed, and you do not want to modify an existing workflow."
+            },
+            {
+                "id": "C",
+                "text": "Reuse the pipeline. Change the dataset and parameters",
+                "is_correct": true,
+                "explanation": "Azure ML pipelines are workflows that reprensent a series of machine learning tasks. Pipeline tasks can be executed independently from the underlying data, and you can register new datasets for each pipeline run, if necessary. In this scenario, as you already have a functional prediction model and you only want to tune the model using new data, you should reuse the pipeline."
+            },
+            {
+                "id": "D",
+                "text": "Convert the training pipeline into a real-time inference pipeline",
+                "is_correct": false,
+                "explanation": "In Azure ML, inference is also known as model scoring. Such models are trained on a dataset and can the analyze data in real time to provide predictions. For example, you could train a model on a stock market data. Once trained, you could use the model to analyze stock prices in real time and then make predictions on future prices."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-32",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You team creates an automobile prediction pipeline\n\nIt uses the Azure ML designer and you need to understand the model.\n\nSelect all correct information.",
+        "options": [
+            {
+                "id": "A",
+                "text": "The Split Data module splits the columns in your dataset, based on how you configure the component.",
+                "is_correct": false,
+                "explanation": "Rows, not columns."
+            },
+            {
+                "id": "B",
+                "text": "The model classifies automobiles into various price categories.",
+                "is_correct": false,
+                "explanation": "Not a classification algorithm."
+            },
+            {
+                "id": "C",
+                "text": "The Score Model module generate scores for prices predicted versus prices provided for the test data features",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-33",
+        "type": "drag_and_drop",
+        "question": "You use Azure Machine Learning to create a machine learning model\n\nYou plan to deploy the model as an online web service using your local system.\n\nYou need to configure deployment settings.\n\nWhich two actions should you perform?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Set auth_enabled to True in your deployment configuration",
+                "is_correct": false,
+                "explanation": "This setting allows you to enable key-based authentication, but is an optional configuration setting. If you enable key-based authentication on your web service, all service connect attempts will be required to provide a valid API key prior to accessing the model."
+            },
+            {
+                "id": "B",
+                "text": "Use Aciwebservice.deployconfiguration to specify the number of CPU cores",
+                "is_correct": false,
+                "explanation": "This method is used to manage the number of CPU cores and the amount of memory allocated to an Azure Container Instance (ACI)."
+            },
+            {
+                "id": "C",
+                "text": "Specify the service's endpoint port where requests will be accepted",
+                "is_correct": true,
+                "explanation": "Models deployed locally as a web service will accept requests on an HTTP endpoint. Once your container has the required dependencies installed, you will need to defined the port where the HTTP endpoint will listen for service requests. A container is a virtualized app that includes all the resources it needs to run, including file resources, dependencies, and services."
+            },
+            {
+                "id": "D",
+                "text": "Install Docker on your local machine",
+                "is_correct": true,
+                "explanation": "You should install Docker on your local machine and specify the service's endpoint port where requests will be accepted. To deploy a model as an online web service using your local system, you must install Docker. Docker is a container creation and management platform that can be deployed on a variety of operating systems."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-34",
+        "type": "ordering",
+        "question": "You use Azure Machine Learning to train and deploy a machine learning model as a web service. Your web service requires authentication.\n\nYou need to test the deployment to ensure that requests to the web service will be successful.\n\nWhich actions should you perform in order?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Retrieve the scoring_uri property of a WebService object",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Specify bearer authentication in the header",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Issue an HTTP POST request with JSON data",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "D",
+                "text": "Query AmlComputeJobEvents to determine ExecutionState",
+                "is_correct": false,
+                "explanation": "The `AmlComputeJobEvent` log is just one of the logs that can be streamed to Azure Monitor. Information from this log is stored in the Azure Monitor AmlComputeJobEvents table. You can query the ExecutionState property to determine the state of a job."
+            }
+        ],
+        "correct_order": [
+            "A",
+            "B",
+            "C"
+        ],
+        "feedback": "This is valid for Python SDK v1.\n\nWhen a ML model is deployed as a web service, a REST interface is defined, which client applications can use to consume the service. You determine the service endpoint by using the Azure Machine Learning DSK to retrieve the `scoring_uri` property of a `WebService` object.\n\nAs the published model requires authentication, you will need to define an HTTP request header in your code that specifies bearer authentication. Once your code is complete, you can issue an HTTP POST request to the published service endpoint you discovered usign the `scoring_uri` property.\n\nYou should not query `AmlComputeJobEvens` using the `ExecutionState` property. It is just one of the logs that can be streamed to Azure Monitor. Information from this log is stored in the Azure Monitor AmlComputeJobEvents tab. You can query the ExecutionState property to determine the state of a job.\n\n",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-35",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You create a Machine Learning model using Azure Machine Learning designer\n\nYou train the model, click the Publish button on the designer canvas, select the Create new radio button, and click Publish.\n\nYou need to determine the effect publishing has on the service.\n\nWhich of the following is correct?",
+        "options": [
+            {
+                "id": "A",
+                "text": "The Publish button will deploy the model as a web service endpoint",
+                "is_correct": false,
+                "explanation": "It will not deploy the model as a web service endpoint. To deploy the model as a web service endpoint, you need to navigate to the Models menu on ML studio and select the model you want to deploy, and click the Deploy button."
+            },
+            {
+                "id": "B",
+                "text": "The Publish button publishes the pipeline with a REST endpoint",
+                "is_correct": true,
+                "explanation": "It does create a REST endpoint to the pipeline that other users/developers/data scientists can make calls to. It provides an endpoint with a key-based authentication."
+            },
+            {
+                "id": "C",
+                "text": "The Publish button runs the pipeline against the test data provided",
+                "is_correct": false,
+                "explanation": "It does not run the pipeline. To run the pipeline against the test dataset, which is part of the model, you need to click Submit on the designer canvas."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-36",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are developing a customer support chatbot using a large language model. Your team wants to reduce infrastructure overhead, so you decide to use a serverless deployment option. You use the Azure Machine Learning model catalog to select and deploy the model.\n\nYou need to ensure the model performs well on summarization and classification tasks before deployment.\n\nWhich steps should you take to meet the requirements?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Register the model manually in your workspace before using catalog-based deployment",
+                "is_correct": false,
+                "explanation": "Models provided through the Azure ML model catalog are already registered and integrated into the platform's deployment workflow. Manual registration is only required for custom or external models that are not part of the catalog."
+            },
+            {
+                "id": "B",
+                "text": "Deploy the model using a managed compute cluster with autoscaling enabled",
+                "is_correct": false,
+                "explanation": "While managed compute is supported for some deployment, it requires infrastructure management and does not meet the goal of minimizing overhead. Serverless deployments eliminate the need for manual scaling and are preferred when infrastructure simplicity is a priority."
+            },
+            {
+                "id": "C",
+                "text": "Filter models in the catalog by deployment support and task capabilities",
+                "is_correct": true,
+                "explanation": "The model catalog supports advances filtering options to narrow down models based on criteria such as supported deployment modes (e.g., serverless, managed endpoints) and task compatibility. This enables efficient model selection that aligns with your technical and business requirements."
+            },
+            {
+                "id": "D",
+                "text": "Use the model playground to test model performance on relevant tasks",
+                "is_correct": true,
+                "explanation": "The Azure Machine Learning model catalog includes built-in playground that allows you to test models interactively before deployment. This lets you verify how a model performs on tasks such as summarization or classification, helping to ensure task alignment and output quality before committing to production deployment."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-37",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You want to optimized a pre-trained language model for a specific task using Azure Machine Learning\n\nYou need to improve the model's contextual understanding and performance in a given domain.\n\nWhich optimization approaches should you use to achieve this goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Optimize the model through pruning",
+                "is_correct": false,
+                "explanation": "While pruning can make the model more efficient, its main goal is to reduce the model's size and increase its speed. Therefore it does not inherently teach the model more about your specific domain or improve its contextual understanding; it mainly focuses on efficiency."
+            },
+            {
+                "id": "B",
+                "text": "Use prompt engineering",
+                "is_correct": true,
+                "explanation": "By carefully crafting your input prompts with specific instructions, context, and formatting, you should be guiding the model to understand the task better and generate more relevant and accurate outputs. While it does not change the model's underlying knowledge, it is a powerful way to direct its focus and improve its performance."
+            },
+            {
+                "id": "C",
+                "text": "Use distillation to create a smaller, faster model while maintaining the performance of the original",
+                "is_correct": false,
+                "explanation": "Distillation focuses on transferring knowledge from a larger model to a smaller one to achieve efficiency while trying to maintain the original model's performance. This approach does not inherently inject new domain-specific knowledge or significantly enhance the contextual understanding beyond what the original model possessed."
+            },
+            {
+                "id": "D",
+                "text": "Apply fine-tuning to adapt the model",
+                "is_correct": true,
+                "explanation": "This approach directly addresses the goal of improving the model's contextual understanding and performance in a specific domain. By training the pre-trained model on data that is specific to your task and domain, you should be updating the model's internal weights and biases. This allows the model to learn the nuances, terminology, and patterns unique to that domain, ultimately leading to more accurate and contextually relevant responses."
+            },
+            {
+                "id": "E",
+                "text": "Focus on zero-shot classification",
+                "is_correct": false,
+                "explanation": "Zero-shot classification relies on the model's pre-trained general knowledge to perform tasks wihtout taks-specific data or adaptation. While zero-shot methods can work for broad or generic tasks, they typically underperform in specialized domains where task-specific terminology and context are critical. Therefore, relying solely on zero-shot classification would not effectively optimize the model for domain-specific performance."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-38",
+        "type": "multiple_choice_single_answer",
+        "question": "You are developing an AI content summarization tool using Azure AI Foundry prompt flow\n\nYou want to test multiple prompt variant that phrase the summarization task differently to determine which prompt submits the most concise summary.\n\nYou need to design the prompt flow to define, execute, and track each prompt variant to evaluate their performance, while minimizing manual tracking effort and flow complexity.\n\nWhat should you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Define each prompt variant as a separate prompt node to enable testing, linking them to the same inference node and evaluating outputs centrally",
+                "is_correct": true,
+                "explanation": "This approach allows to define multiple prompt versions in a clear and organized way. By connecting them to the same inference node, you ensure consistent model behavior, and using a shared evaluation node enables Azure to automatically track and compare each variant's output. This setup is simple, scalable, and aligns with the scenario requirement of reducing manual work and complexity."
+            },
+            {
+                "id": "B",
+                "text": "Define each prompt variant as a separate prompt node, connecting each to a separate inference node and tracking outputs using individual evaluation nodes",
+                "is_correct": false,
+                "explanation": "Creating multiple inference and evaluation nodes increases administrative overhead. This makes the flow harder to maintain and does not provide any additional benefits for evaluating prompt variants."
+            },
+            {
+                "id": "C",
+                "text": "Use input parameters in a single prompt node to inject different prompt variants, passing all outputs through a shared inference node and tagging outputs manually for tracking",
+                "is_correct": false,
+                "explanation": "This method depends on manual tagging and separation of results. It increases the risk of errors and is less reliable than Azure's built-in evaluation and tracking capabilities."
+            },
+            {
+                "id": "D",
+                "text": "Use a single prompt node with a switching function to select different prompt templates at runtime, logging outputs using an external tracking component",
+                "is_correct": false,
+                "explanation": "This approaches relies on custom logic and manual logging. It adds complexity and bypasses Azure's built-in variant tracking features, which contradicts the requirement to minimize effort."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-39",
+        "type": "ordering",
+        "question": "You are using Azure AI Foundry to manually evaluate a prompt against test data using a deployed large language model\n\nYou need to upload test inputs, map them correctly, run the evaluation, rate outputs, and save feedback for future improvement.\n\nWhich actions should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Select Manual evaluation from the playground"
+            },
+            {
+                "id": "B",
+                "text": "Upload or enter test data in CSV, JSONL, or directly in the UI"
+            },
+            {
+                "id": "C",
+                "text": "Map input columns and complete the data import"
+            },
+            {
+                "id": "D",
+                "text": "Click Run to generate model responses for each input row"
+            },
+            {
+                "id": "E",
+                "text": "Rate each model output using thumbs up or thumbs down"
+            },
+            {
+                "id": "F",
+                "text": "Add a system message to configure the assistant's behavior before the evaluation"
+            },
+            {
+                "id": "G",
+                "text": "Import an XLSX dataset"
+            }
+        ],
+        "correct_order": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+        ],
+        "feedback": "1. Selecting Manual evaluation launch the correct mode within the Azure AI Foundry for manually uploading test data and evaluating model outputs. It prepares the environment specifically for manual testing, ensuring that all subsequent steps are correctly tracked and associated with the deployed LLM.\n2. Uploading a valid CSV or JSONL file or manually entering data in the UI ensures that the inputs are correctly structured for model evaluation. Uploading in the wrong format would block the process entierly.\n3. You should then map input columns and complete data import. You must match the correct columns to the model's input fields, as without proper mapping, the model may produce invalid or incorrect outputs. This step is critical to ensure that the data is correctly interpreted by the model.\n4. You should click Run to generate model responses for each input row. This triggers the execution phase where the model processes each mapped input and generates the corresponding outputs. Running the model across all test cases is necessary before you can evaluate or provide feedback on the ouputs.\n5. Finally you should rate the model output using thumbs up/down. Giving feedback on each model response, you capture valuable insights on how well the model performs against your test cases. This feedback is stored and can be used later to fine-tune prompts or improve the model's behavior.\n\nYou shouldn't import XLSX dataset. It is not supported by Azure AI Foundry, only CSV and JSONL or direct input in the UI.\n\nYou should't add a system message. They are meant for setting up how the assistant behaves when it answers prompts, not for evaluating responses against test data. While system messages can change how the model responds, they are not part of the evaluation steps like uploading data, running the model and scoring the answers.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-40",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are configuring a production deployment of a prompt flow using Azure Machine Learning managed online endpoints\n\nYou need to enable tracing, metrics, and feedback collection for post-deployment evaluation in Application Insights.\n\nSelect all that are true:",
+        "options": [
+            {
+                "id": "A",
+                "text": "The `app_insights_enabled: true` setting enables default telemetry collection during the deployment process",
+                "is_correct": true,
+                "explanation": "This setting in your YAML deployment file activates telemetry collection. This ensures that trace data and metrics from the flow execution are automatically sent to the default Application Insights resource linked to your workspace."
+            },
+            {
+                "id": "B",
+                "text": "If a workspace has no linked Application Insights, the deployment will fail if telemetry is enabled",
+                "is_correct": false,
+                "explanation": "If a workspace has no Application insights, the deployment will not fail even if telemetry is enabled. The deployment still succeeds, but no data is collected."
+            },
+            {
+                "id": "C",
+                "text": "Feedback from user can be captured and correlated with trace data using the /feedback API in the prompt flow",
+                "is_correct": true,
+                "explanation": "You should use the /feedback API to collect user feedback during inference. This feedback is stored as part of the same trace span in Application Insights, allowing you to correlate feedback with model responses for better evaluation."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-41",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are developing a flow in Azure AI Foundry usign the Prompt Flow SDK to automate a customer feedback analysis process.\n\nYou need to define and manage the chaining logic that connects different nodes and controls the data flow between tools.\n\nWhich two actions should you perfom?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Configure the flow as a Directed Acyclic Graph (DAG)",
+                "is_correct": true,
+                "explanation": "The DAG structure is a key feature of the Prompt Flow SDK, allowing you to manage complex flow by clearly defining how each node is connected and in what order tasks should be executed. This setup prevents circular dependencies and ensures proper execution flow."
+            },
+            {
+                "id": "B",
+                "text": "Define the sequence of nodes manually",
+                "is_correct": true,
+                "explanation": "The approach ensures that outputs from one tool are correctly passed as input to the next. This ensures that the flow behaves as intended and that data is passed smoothly between each node, especially when the flow involves multiple tools or steps."
+            },
+            {
+                "id": "C",
+                "text": "Assign a unique evaluation profile to each node",
+                "is_correct": false,
+                "explanation": "Evaluation prifiles are designed for evaluating outputs, like performance or safety chekcs, not for managing or tracking the chaining logic between nodes."
+            },
+            {
+                "id": "D",
+                "text": "Enable automatic chaining mode",
+                "is_correct": false,
+                "explanation": "Prompt Flow SDK does not offer fully automatic chaining mode. While the SDK can handle some default behaviors, manual configuration is required to maintain precision and avoid errors in data flow."
+            },
+            {
+                "id": "E",
+                "text": "Use the Prompt Flow SDK's built-in chaining template",
+                "is_correct": false,
+                "explanation": "The SDK does not include pre-built chaining templates that fully automate node connections based only on data type matching. You are responsible for defining these connections yourself when building the flow."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-42",
+        "type": "ordering",
+        "question": "You are using Azure Machine LEarning to implement Retrieval Augmented Generation (RAG) solution\n\nYou are working with a diverse set of documents and need to design an efficient chunking strategy to prepare the data for embedding and retrieval.\n\nYou need to optimize the chunking strategy for performance, semantic relevance, and cost efficiency, while ensuring that the process aligns with the document types and fits into the larger processing pipeline.\n\nWhich four action should you perform in sequence?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Analyze document types and determine the structure level"
+            },
+            {
+                "id": "B",
+                "text": "Preprocess documents, such as remove watermarks, extract image context"
+            },
+            {
+                "id": "C",
+                "text": "Select a chunking approach suited to the document structure"
+            },
+            {
+                "id": "D",
+                "text": "Cache results of image classification or description generation"
+            },
+            {
+                "id": "E",
+                "text": "Generate embedding for all documents before chunking"
+            },
+            {
+                "id": "F",
+                "text": "Perform retrieval queries against documents before chunking"
+            }
+        ],
+        "correct_order": ["A", "B", "C", "D"],
+        "feedback": "1. Understanding the format of your document (structured, semi-structured, unstructured) is essential to design an effective chunking strategy. The document type directly influences whether you use paragraph-based chunking, table-based chunking, or another method.\n2. You should clean the documents to improve the quality of both the chunking and the embeddings. Removing noisy elements like watermarks or extracting text from images ensures that the content your feed into chunking is clean, standardized, and semantically strong.\n3. Once the documents are preprocessed, you can apply the appropriate chunking technique. Choosing a method aligned to the document's nature ensures that each chunk carries a meaninful, retrievable semantic unit\n4. Finally caching results ensures that you do not reprocess the same expensive operations repeatedly, saving cost and time.\n\nYou should not generate embeddings for all documents before chunking. Embedding entire unchunked documents would be inefficient, more costly, and would lower retrieval relevance.\n\nRunning retrieval before chunking and embedding would not return valid or useful results, as retrieval relies on having embeddings already created for semantically meaningful chunks.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-43",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You have developed a RAG solution using Azure AI Search that is integrated with a LLM\n\nYou run tests with a variety of user prompts and evaluate the responses using the following metrics: groundedness, completeness, utilization, and correctness.\n\nYou need to assess the quality of the model's responses by analyzing evaluation results across multiple metrics.\n\nSelect all that are true:",
+        "options": [
+            {
+                "id": "A",
+                "text": "High groundedness with low correctness means the model's response was closely tied to the retrieved documents but still provided inaccurate answers to the user query.",
+                "is_correct": true,
+                "explanation": "High groundedness and low correctness means it uses provided information but not in an accurate way."
+            },
+            {
+                "id": "B",
+                "text": "Low utilization and low completeness indicate the retrieval system is not working well",
+                "is_correct": true,
+                "explanation": "This strongly indicate something is wrong with your approach. Incomplete answers and it doesn't use information it has retrieved"
+            },
+            {
+                "id": "C",
+                "text": "High completeness with low utilization indicates that the retrieval system is optimized",
+                "is_correct": false,
+                "explanation": "High completeness is good, but low utilization shows that most of the retrieved content was not used at all, meaning the system retrieved a lot of unecessary data"
+            }
+        ],
+        "feedback": "Groundedness, sometimes referred to as faithfulness, measures whether the response is based completely on the context. It validates that the response isn't using information other than what exists in the context. A low groundedness metric indicates that the language model might be outputting inaccurate or nonsensical responses.\n\nCompleteness measures whether the response answers all parts of the query. Completeness helps you understand whether the chunks in the context are pertinent, directly relate to the query, and provide a complete answer.\n\nUtilization measures the extent to which the response consists of information from the chunks in the context. The goal is to determine the extent to which each chunk is part of the response. Low utilization indicates that your results might not be relevant to the query. You should evaluate utilization alongside completeness.\n\nCorrectness checks whether the answer is factually accurate.",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "mup-44",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are running a fine-tuning job in Azure AI Foundry using a pre-trained language model\n\nThe job starts successfully but fails midway with the following error: Insufficient GPU resources available to complete the job.\n\nYou are using the built-in fine-tuning wizard, which does not support custom distributed training configurations.\n\nYou need to resolve the issue and ensure that the fine-tuning job can run to completion.\n\nWhat could you do?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Use data parallelism and distribute the workload across multiple GPUs",
+                "is_correct": false,
+                "explanation": "While it is a valid technique, the built-in fine-tuning wizard does not support custom distributed training configurations. It does not meet this requirement."
+            },
+            {
+                "id": "B",
+                "text": "Use a compute cluster with a high GPU capacity or more GPU nodes",
+                "is_correct": true,
+                "explanation": "Current resource are insufficient. Scaling up the compute environment is a straightforward way to address the issue."
+            },
+            {
+                "id": "C",
+                "text": "Decrease the batch size in the training parameters",
+                "is_correct": true,
+                "explanation": "This will directly reduce the memory required for each training steps."
+            },
+            {
+                "id": "D",
+                "text": "Enable mixed precision training",
+                "is_correct": false,
+                "explanation": "This can actually reduce memory usage. Its effectiveness depends on model support and framework compatibility. Even when enabled, it may not be sufficient on its own to resolve the memory error."
+            },
+            {
+                "id": "E",
+                "text": "Increase the number of training epochs",
+                "is_correct": false,
+                "explanation": "Has no effect on memory."
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-1",
+        "type": "multiple_choice_single_answer",
+        "question": "Which Azure resource provides language and vision services from a single endpoint",
+        "options": [
+            {
+                "id": "A",
+                "text": "Azure AI Language",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Azure AI Vision",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Azure AI Services",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-2",
+        "type": "multiple_choice_single_answer",
+        "question": "You plan to create a simple chat app that uses a generative AI model. What kind of project should you create?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Azure AI Foundry project",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Azure AI hub based project",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Azure AI Custom Vision project",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-3",
+        "type": "multiple_choice_single_answer",
+        "question": "Which SDK enables you to connect to resources in a project?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Azure AI Services SDK",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Semantic Kernel SDK",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Azure AI Foundry SDK",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-4",
+        "type": "multiple_choice_single_answer",
+        "question": "Where can you test a deployed model in the Azure AI Foundry portal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Chat playground",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Sandbox",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Development toolbox",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-5",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to specify the tone, format, and content for each interaction with your model in the playground. What should you use to customize the model response?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Benchmarks",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Grounding",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "System message",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-6",
+        "type": "multiple_choice_single_answer",
+        "question": "What deployment option should you choose to host an OpenAI model in an Azure AI Foundry resource?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Standard deployment",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Serverless compute",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Managed compute",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-7",
+        "type": "multiple_choice_single_answer",
+        "question": "What class in the Azure AI Foundry SDK provides a proxy object for a project?",
+        "options": [
+            {
+                "id": "A",
+                "text": "ConnectionProperties",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "AIProjectClient",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "ChatCompletionsClient",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-8",
+        "type": "multiple_choice_single_answer",
+        "question": "What value is needed to instantiate a AIProjectClient object?",
+        "options": [
+            {
+                "id": "A",
+                "text": "The project endpoint",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "The Azure OpenAI authorization key",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "The Azure subscription ID",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-9",
+        "type": "multiple_choice_single_answer",
+        "question": "Which SDK should you use to chat with a model that is deployed in an Azure AI Foundry resource?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Azure OpenAI",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Azure Machine Learning",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Azure AI Language",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-10",
+        "type": "multiple_choice_single_answer",
+        "question": "A flow uses an LLM tool to generate text with a GPT-3.5 model. What do you need to create to ensure prompt flow can securely call the deployed model from Azure OpenAI?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Runtimes",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Connections",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Tools",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-11",
+        "type": "multiple_choice_single_answer",
+        "question": "You want to integrate your flow with an online website. What do you need to do to easily integrate your flow?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Create a custom environment",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Create a runtime",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Deploy your flow to an endpoint",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-12",
+        "type": "multiple_choice_single_answer",
+        "question": "After deployment, you notice that your flow is underperforming. Which stage in the development lifecycle should you revert back to?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Experimentation",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Evaluation and refinement",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Production",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-13",
+        "type": "multiple_choice_single_answer",
+        "question": "What does groundedness refer to in the context of generative AI?",
+        "options": [
+            {
+                "id": "A",
+                "text": "The use of locally deployed language model",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Using data to contextualize prompts and ensure relevant responses",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Using the lowest possible number of tokens in a prompt",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-14",
+        "type": "multiple_choice_single_answer",
+        "question": "What pattern can you use to ground prompts?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Metadata Optimized Promot (MOP)",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Data Understanding Support Text (DUST)",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Retrieval Augmented Generation (RAG)",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-15",
+        "type": "multiple_choice_single_answer",
+        "question": "How can you use the RAG pattern in a client app that uses the Azure OpenAI SDK?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Add text files containing the grounding data to the app folder",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "You don't need to do anything. Azure AI Foundry automatically grounds all prompts using Bing Search",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Add index connection details to the OpenAI ChatClient configuration",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-16",
+        "type": "multiple_choice_single_answer",
+        "question": "How must data be formatted for fine-tuning?",
+        "options": [
+            {
+                "id": "A",
+                "text": "JSONL",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "YAML",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "HTML",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-17",
+        "type": "multiple_choice_single_answer",
+        "question": "What does fine-tuning optimize in your model?",
+        "options": [
+            {
+                "id": "A",
+                "text": "What the model needs to know",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "How the model needs to act",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Which words aren't allowed",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-18",
+        "type": "multiple_choice_single_answer",
+        "question": "Which advanced option refers to one full cycle through the training dataset?",
+        "options": [
+            {
+                "id": "A",
+                "text": "seed",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "batch_size",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "n_epochs",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-19",
+        "type": "multiple_choice_single_answer",
+        "question": "Why should you consider creating an AI Impact Assessment when designing a generative AI solution?",
+        "options": [
+            {
+                "id": "A",
+                "text": "To make a legal case that indemnifies you from responsibility for harms caused by the solution",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "To document purpose, expected use, and potential harms for the solution",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "To evaluate the cost of cloud services required to implement your solution",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-20",
+        "type": "multiple_choice_single_answer",
+        "question": "What capability of Azure AI Foundry helps mitigate harmful content generation at the Safety System level?",
+        "options": [
+            {
+                "id": "A",
+                "text": "DALL-E model support",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Fine-tuning",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Content filters",
+                "is_correct": true,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-21",
+        "type": "multiple_choice_single_answer",
+        "question": "Why should you consider a phased delivery plan for your generative AI solution?",
+        "options": [
+            {
+                "id": "A",
+                "text": "To enable you to gather feedback and identify issues before releasing the solution more broadly",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "To eliminate the need to map, measure, mitigate, and manage potential harms",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "To enable you to charge more for the solution",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-22",
+        "type": "multiple_choice_single_answer",
+        "question": "Which evaluation technique can you use to apply your own judgement about the quality of responses to a set of specific prompts?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Model benchmarks",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "Manual evaluations",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Automated evaluations",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-23",
+        "type": "multiple_choice_single_answer",
+        "question": "Which evaluator compares generated responses to ground truth based on standard metrics",
+        "options": [
+            {
+                "id": "A",
+                "text": "Coherence",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "F1 Score",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Protected material",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
+    },
+    {
+        "question_id": "msai-24",
+        "type": "multiple_choice_single_answer",
+        "question": "Which evaluator metrics uses an AI model to judge the structure and logical flow of ideas in a response",
+        "options": [
+            {
+                "id": "A",
+                "text": "Coherence",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "F1 Score",
+                "is_correct": false,
+                "explanation": ""
+            },
+            {
+                "id": "C",
+                "text": "Protected material",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "",
+        "include_in_bank": true
     }
 ]
