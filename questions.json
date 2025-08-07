@@ -54,7 +54,7 @@
     {
         "question_id": "3",
         "type": "multiple_choice_single_answer",
-        "question": "After training a model, it is important to evaluate its performance\n\nThere are many performance metrics and methodologies for evaluating how well a model makes predictions\n\nWhich evaluation technique is best described by:\n\n>A metric between 0 and 1 based on the square of the differences between predicted and true values\n\nThe closer to 0 this metric is, the better the model is performing\n\nBecause this metric is relative, it can be used to compare models where the labels are in different units",
+        "question": "After training a model, it is important to evaluate its performance\n\nThere are many performance metrics and methodologies for evaluating how well a model makes predictions\n\nWhich evaluation technique is best described by:\n\n>A metric between 0 and 1 based on the square of the differences between predicted and true values\n>The closer to 0 this metric is, the better the model is performing\n>Because this metric is relative, it can be used to compare models where the labels are in different units",
         "options": [
             {
                 "id": "A",
@@ -3590,9 +3590,7 @@
                 "explanation": "Incorrect, because configuring Diagnostic settings with AmlRunStatusChangedEvent is the correct method."
             }
         ],
-        "feedback": "The 'AmlRunStatusChangedEvent' enables tracking job execution status via Azure Monitor or Log Analytics.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "The 'AmlRunStatusChangedEvent' enables tracking job execution status via Azure Monitor or Log Analytics."
     },
     {
         "question_id": "dp100_002",
@@ -3624,9 +3622,7 @@
                 "explanation": "This function saves a model but does not handle metric or parameter logging."
             }
         ],
-        "feedback": "mlflow.get_run is used to access metadata including metrics, params, and tags from a run.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "mlflow.get_run is used to access metadata including metrics, params, and tags from a run."
     },
     {
         "question_id": "dp100_003",
@@ -3646,9 +3642,7 @@
                 "explanation": "Correct, MLflow has its own API for logging such as mlflow.log_metric, mlflow.log_param, etc."
             }
         ],
-        "feedback": "When using MLflow, logging should be done with MLflow API functions like mlflow.log_param, not AzureML SDK's Run.log().",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "When using MLflow, logging should be done with MLflow API functions like mlflow.log_param, not AzureML SDK's Run.log()."
     },
     {
         "question_id": "dp100_004",
@@ -3668,9 +3662,7 @@
                 "explanation": "Correct. Designer v2 only supports Azure ML Compute as a compute target for pipeline training."
             }
         ],
-        "feedback": "Azure ML Designer v2 only works with AML Compute targets like clusters or instances, not Databricks or HDInsight.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Azure ML Designer v2 only works with AML Compute targets like clusters or instances, not Databricks or HDInsight."
     },
     {
         "question_id": "dp100_005",
@@ -3696,9 +3688,7 @@
                 "explanation": "URI_FILE is for individual files, not folders. Parquet data often consists of multiple files."
             }
         ],
-        "feedback": "Use AssetTypes.URI_FOLDER to work with a directory of Parquet files in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use AssetTypes.URI_FOLDER to work with a directory of Parquet files in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_006",
@@ -3730,9 +3720,7 @@
                 "explanation": "Azure Batch is better suited for batch inference and parallel processing."
             }
         ],
-        "feedback": "AKS is the best choice for deploying scalable, real-time inference endpoints in Azure ML.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "AKS is the best choice for deploying scalable, real-time inference endpoints in Azure ML."
     },
     {
         "question_id": "dp100_007",
@@ -3764,9 +3752,7 @@
                 "explanation": "While uri_folder works with folders, it's not used for registered MLTable assets."
             }
         ],
-        "feedback": "Use `Input(type='mltable')` when passing a registered MLTable asset into a pipeline component.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `Input(type='mltable')` when passing a registered MLTable asset into a pipeline component."
     },
     {
         "question_id": "dp100_008",
@@ -3798,9 +3784,7 @@
                 "explanation": "This function is used to register models, not for logging during training."
             }
         ],
-        "feedback": "Use mlflow.autolog() to simplify tracking during model training in Azure ML with SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.autolog() to simplify tracking during model training in Azure ML with SDK v2."
     },
     {
         "question_id": "dp100_009",
@@ -3832,9 +3816,7 @@
                 "explanation": "string is used for scalar inputs like hyperparameters, not for data assets."
             }
         ],
-        "feedback": "Use uri_folder when you want to pass a directory as input to a job in Azure ML SDK v2 or CLI v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use uri_folder when you want to pass a directory as input to a job in Azure ML SDK v2 or CLI v2."
     },
     {
         "question_id": "dp100_010",
@@ -3866,9 +3848,7 @@
                 "explanation": "This function logs a single scalar parameter, not files or folders."
             }
         ],
-        "feedback": "To log an entire folder (e.g., image outputs), use mlflow.log_artifact with a directory path.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To log an entire folder (e.g., image outputs), use mlflow.log_artifact with a directory path."
     },
     {
         "question_id": "dp100_011",
@@ -3900,9 +3880,7 @@
                 "explanation": "Azure Batch is for parallel processing jobs, not scheduling ML pipelines."
             }
         ],
-        "feedback": "Azure Data Factory is a recommended service for scheduling and orchestrating ML workflows.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Azure Data Factory is a recommended service for scheduling and orchestrating ML workflows."
     },
     {
         "question_id": "dp100_012",
@@ -3934,9 +3912,7 @@
                 "explanation": "This is used to download a model, not for deploying or testing locally."
             }
         ],
-        "feedback": "To test a model locally, use `invoke_local()` on a local endpoint in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To test a model locally, use `invoke_local()` on a local endpoint in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_013",
@@ -3968,9 +3944,7 @@
                 "explanation": "mlflow.register_model is used for registering models, not logging metadata."
             }
         ],
-        "feedback": "Use mlflow.log_dict to capture structured data like dictionaries during experiment runs.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.log_dict to capture structured data like dictionaries during experiment runs."
     },
     {
         "question_id": "dp100_014",
@@ -4002,9 +3976,7 @@
                 "explanation": "Compute clusters are best for training jobs, not real-time model deployment."
             }
         ],
-        "feedback": "ACI is the optimal choice for test deployments with low overhead in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "ACI is the optimal choice for test deployments with low overhead in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_015",
@@ -4036,9 +4008,7 @@
                 "explanation": "This retrieves model version info but does not register a model."
             }
         ],
-        "feedback": "To make a model discoverable and versioned in Azure ML's registry, use mlflow.register_model().",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To make a model discoverable and versioned in Azure ML's registry, use mlflow.register_model()."
     },
     {
         "question_id": "dp100_016",
@@ -4070,9 +4040,7 @@
                 "explanation": "RunConfig is used in SDK v1 for configuring jobs, not for monitoring in SDK v2."
             }
         ],
-        "feedback": "Use MonitorSchedule to set up and automate drift detection jobs in Azure Machine Learning SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use MonitorSchedule to set up and automate drift detection jobs in Azure Machine Learning SDK v2."
     },
     {
         "question_id": "dp100_017",
@@ -4104,9 +4072,7 @@
                 "explanation": "This is used to stop underperforming trials early, not to limit algorithm selection."
             }
         ],
-        "feedback": "To restrict training to a specific algorithm in AutoML, use the allowed_training_algorithms setting.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To restrict training to a specific algorithm in AutoML, use the allowed_training_algorithms setting."
     },
     {
         "question_id": "dp100_018",
@@ -4138,9 +4104,7 @@
                 "explanation": "There is no function called set_model in MLflow."
             }
         ],
-        "feedback": "Use mlflow.sklearn.log_model() to save and track a scikit-learn model in MLflow for deployment in Azure ML.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.sklearn.log_model() to save and track a scikit-learn model in MLflow for deployment in Azure ML."
     },
     {
         "question_id": "dp100_019",
@@ -4172,9 +4136,7 @@
                 "explanation": "component.yml defines pipeline steps or components, not endpoints."
             }
         ],
-        "feedback": "Use `endpoint.yml` to define the endpoint and `deployment.yml` to define how the model is deployed to it.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `endpoint.yml` to define the endpoint and `deployment.yml` to define how the model is deployed to it."
     },
     {
         "question_id": "dp100_020",
@@ -4206,9 +4168,7 @@
                 "explanation": "This is used for metadata tagging, not for storing evaluation visualizations."
             }
         ],
-        "feedback": "To save visual outputs like confusion matrices, use mlflow.log_image() with a generated image file.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To save visual outputs like confusion matrices, use mlflow.log_image() with a generated image file."
     },
     {
         "question_id": "dp100_021",
@@ -4240,9 +4200,7 @@
                 "explanation": "This sets the total number of trials, not whether they should stop early."
             }
         ],
-        "feedback": "To save costs and training time in AutoML jobs, enable the 'enable_early_termination' setting.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To save costs and training time in AutoML jobs, enable the 'enable_early_termination' setting."
     },
     {
         "question_id": "dp100_022",
@@ -4274,9 +4232,7 @@
                 "explanation": "This is used for retrieving the context of a run, not for workspace creation."
             }
         ],
-        "feedback": "Use the Workspace class and `ml_client.workspaces.begin_create()` to programmatically create a workspace.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use the Workspace class and `ml_client.workspaces.begin_create()` to programmatically create a workspace."
     },
     {
         "question_id": "dp100_023",
@@ -4308,9 +4264,7 @@
                 "explanation": "This is for TensorFlow models, not PyTorch."
             }
         ],
-        "feedback": "Use a PyTorch-specific Azure ML environment for deploying models built with the PyTorch framework.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use a PyTorch-specific Azure ML environment for deploying models built with the PyTorch framework."
     },
     {
         "question_id": "q_008",
@@ -4330,8 +4284,7 @@
                 "explanation": "`mlflow.log_param()` is used to log parameters (hyperparameters), not metrics. Since the question requires logging metrics, this option does not meet the goal."
             }
         ],
-        "feedback": "`mlflow.log_metric()` should be used instead.",
-        "include_in_bank": true
+        "feedback": "`mlflow.log_metric()` should be used instead."
     },
     {
         "question_id": "q_013",
@@ -4363,8 +4316,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "The `mlflow.pyfunc` module allows defining and registering custom models that combine different frameworks. It is not recommended to use `mlflow.autolog()` or `mlflow.log_params()` as they do not handle custom models properly, and `load_model()` is only used to load a model, not to register it.",
-        "include_in_bank": true
+        "feedback": "The `mlflow.pyfunc` module allows defining and registering custom models that combine different frameworks. It is not recommended to use `mlflow.autolog()` or `mlflow.log_params()` as they do not handle custom models properly, and `load_model()` is only used to load a model, not to register it."
     },
     {
         "question_id": "q_014",
@@ -4390,8 +4342,7 @@
                 "explanation": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment."
             }
         ],
-        "feedback": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment.",
-        "include_in_bank": true
+        "feedback": "When the Parquet file is in a folder, you must use `AssetTypes.URI_FOLDER` to reference the entire folder as an input resource and then create the job with `ml_client.jobs.create_or_update()`, which sends the folder's contents to the execution environment."
     },
     {
         "question_id": "q_016",
@@ -4423,8 +4374,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "You should use the `mlflow.pyfunc` module to log custom models that combine multiple frameworks or inference logic not natively supported by MLflow. This module defines a generic file-system format for Python models and provides utilities to save and load them in that format.",
-        "include_in_bank": true
+        "feedback": "You should use the `mlflow.pyfunc` module to log custom models that combine multiple frameworks or inference logic not natively supported by MLflow. This module defines a generic file-system format for Python models and provides utilities to save and load them in that format."
     },
     {
         "question_id": "q_017",
@@ -4456,8 +4406,7 @@
                 "explanation": "`AssetTypes.URI_FOLDER` is used to reference an entire folder (rather than individual files) as an input or output. In this case, it ensures your Parquet data folder is mounted into the job environment so your script can read and write directly to it."
             }
         ],
-        "feedback": "`AssetTypes.URI_FOLDER` is used to reference an entire folder (rather than individual files) as an input or output. In this case, it ensures your Parquet data folder is mounted into the job environment so your script can read and write directly to it.",
-        "include_in_bank": true
+        "feedback": "`AssetTypes.URI_FOLDER` is used to reference an entire folder (rather than individual files) as an input or output. In this case, it ensures your Parquet data folder is mounted into the job environment so your script can read and write directly to it."
     },
     {
         "question_id": "q_018",
@@ -4489,8 +4438,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Compute clusters support autoscaling down to zero nodes, so creating a cluster target is required. By setting the minimum number of nodes to 0, the cluster will release all resources when no jobs are running, avoiding charges. It is not recommended to use compute instances for this scenario, and setting `idle_seconds_before_scaledown` to 0 can lead to unnecessary reprovisioning rather than relying on scale-to-zero behavior.\n\n**Reference:**  \n- [Azure ML Compute Targets](https://learn.microsoft.com/en-us/azure/machine-learning/concept-compute-target)  \n- [Configure autoscale for Azure ML compute clusters](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-autoscale-compute-cluster)  \n\n---Compute clusters support autoscaling down to zero nodes, so creating a cluster target is required. By setting the minimum number of nodes to 0, the cluster will release all resources when no jobs are running, avoiding charges. It is not recommended to use compute instances for this scenario, and setting `idle_seconds_before_scaledown` to 0 can lead to unnecessary reprovisioning rather than relying on scale-to-zero behavior.",
-        "include_in_bank": true
+        "feedback": "Compute clusters support autoscaling down to zero nodes, so creating a cluster target is required. By setting the minimum number of nodes to 0, the cluster will release all resources when no jobs are running, avoiding charges. It is not recommended to use compute instances for this scenario, and setting `idle_seconds_before_scaledown` to 0 can lead to unnecessary reprovisioning rather than relying on scale-to-zero behavior.\n\n**Reference:**  \n- [Azure ML Compute Targets](https://learn.microsoft.com/en-us/azure/machine-learning/concept-compute-target)  \n- [Configure autoscale for Azure ML compute clusters](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-autoscale-compute-cluster)  \n\n---Compute clusters support autoscaling down to zero nodes, so creating a cluster target is required. By setting the minimum number of nodes to 0, the cluster will release all resources when no jobs are running, avoiding charges. It is not recommended to use compute instances for this scenario, and setting `idle_seconds_before_scaledown` to 0 can lead to unnecessary reprovisioning rather than relying on scale-to-zero behavior."
     },
     {
         "question_id": "q_020",
@@ -4528,8 +4476,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "The `init()` function is used to load and initialize resources (for example, loading the model) before any batches are processed. The `run(mini_batch)` function performs inference on each batch of input data. Other functions like `load()`, `evaluate()`, or `execute()` are not valid entry points for `ParallelRunStep`.",
-        "include_in_bank": true
+        "feedback": "The `init()` function is used to load and initialize resources (for example, loading the model) before any batches are processed. The `run(mini_batch)` function performs inference on each batch of input data. Other functions like `load()`, `evaluate()`, or `execute()` are not valid entry points for `ParallelRunStep`."
     },
     {
         "question_id": "q_023",
@@ -4561,8 +4508,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "The Spark DataFrameReader with `format(\"parquet\")` is the correct method to load columnar Parquet files. It efficiently reads the schema and data layout optimized for Parquet, whereas `text`, `avro`, or `csv` formats would not correctly parse Parquet data.",
-        "include_in_bank": true
+        "feedback": "The Spark DataFrameReader with `format(\"parquet\")` is the correct method to load columnar Parquet files. It efficiently reads the schema and data layout optimized for Parquet, whereas `text`, `avro`, or `csv` formats would not correctly parse Parquet data."
     },
     {
         "question_id": "q_027",
@@ -4594,8 +4540,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Fairlearn is an open-source, community-driven project to help data scientists improve fairness of AI systems. It is not mentioned in MS Learn nor in the Responsaible AI module.",
-        "include_in_bank": true
+        "feedback": "Fairlearn is an open-source, community-driven project to help data scientists improve fairness of AI systems. It is not mentioned in MS Learn nor in the Responsaible AI module."
     },
     {
         "question_id": "q_028",
@@ -4621,8 +4566,7 @@
                 "explanation": "The **Truncation Selection** policy is designed to drop a specified fraction of the poorest trials at each evaluation checkpoint, exactly matching your needs:"
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "q_029",
@@ -4654,8 +4598,7 @@
                 "explanation": "Using the storage account access key is the simplest secure method for Spark in Azure ML Notebooks. It requires only a single secret, which you can store in Azure Key Vault or as a workspace secret, and avoids the overhead of registering an Azure AD application or handling token lifecycles. Service principals and OAuth configurations demand managing client IDs, secrets, tenant IDs, and often custom token\u2011refresh logic. SAS tokens introduce separate expiration and permission management. By contrast, the account key approach lets Spark authenticate directly to ADLS Gen2 with minimal setup while still allowing you to rotate the key centrally."
             }
         ],
-        "feedback": "Using the storage account access key is the simplest secure method for Spark in Azure ML Notebooks. It requires only a single secret, which you can store in Azure Key Vault or as a workspace secret, and avoids the overhead of registering an Azure AD application or handling token lifecycles. Service principals and OAuth configurations demand managing client IDs, secrets, tenant IDs, and often custom token\u2011refresh logic. SAS tokens introduce separate expiration and permission management. By contrast, the account key approach lets Spark authenticate directly to ADLS Gen2 with minimal setup while still allowing you to rotate the key centrally.",
-        "include_in_bank": true
+        "feedback": "Using the storage account access key is the simplest secure method for Spark in Azure ML Notebooks. It requires only a single secret, which you can store in Azure Key Vault or as a workspace secret, and avoids the overhead of registering an Azure AD application or handling token lifecycles. Service principals and OAuth configurations demand managing client IDs, secrets, tenant IDs, and often custom token\u2011refresh logic. SAS tokens introduce separate expiration and permission management. By contrast, the account key approach lets Spark authenticate directly to ADLS Gen2 with minimal setup while still allowing you to rotate the key centrally."
     },
     {
         "question_id": "q_030",
@@ -4687,8 +4630,7 @@
                 "explanation": "Azure ML Studio allows you to register various storage services as datastores. For **relational** data, you must choose a supported relational database service\u2014Azure Database for PostgreSQL\u2014rather than file\u2011based storage like Blob or ADLS Gen2, which are designed for unstructured or semi\u2011structured files, not relational tables."
             }
         ],
-        "feedback": "Azure ML Studio allows you to register various storage services as datastores. For **relational** data, you must choose a supported relational database service\u2014Azure Database for PostgreSQL\u2014rather than file\u2011based storage like Blob or ADLS Gen2, which are designed for unstructured or semi\u2011structured files, not relational tables.",
-        "include_in_bank": true
+        "feedback": "Azure ML Studio allows you to register various storage services as datastores. For **relational** data, you must choose a supported relational database service\u2014Azure Database for PostgreSQL\u2014rather than file\u2011based storage like Blob or ADLS Gen2, which are designed for unstructured or semi\u2011structured files, not relational tables."
     },
     {
         "question_id": "q_031",
@@ -4714,8 +4656,7 @@
                 "explanation": "When you regenerate the access keys of the storage account linked to an Azure ML Workspace, the workspace loses its ability to access blobs and files. The `az ml workspace sync-keys` command pushes the new keys into the workspace metadata, restoring its access. Without running `sync-keys`, the workspace continues using the old credentials and will fail on any storage operations."
             }
         ],
-        "feedback": "When you regenerate the access keys of the storage account linked to an Azure ML Workspace, the workspace loses its ability to access blobs and files. The `az ml workspace sync-keys` command pushes the new keys into the workspace metadata, restoring its access. Without running `sync-keys`, the workspace continues using the old credentials and will fail on any storage operations.",
-        "include_in_bank": true
+        "feedback": "When you regenerate the access keys of the storage account linked to an Azure ML Workspace, the workspace loses its ability to access blobs and files. The `az ml workspace sync-keys` command pushes the new keys into the workspace metadata, restoring its access. Without running `sync-keys`, the workspace continues using the old credentials and will fail on any storage operations."
     },
     {
         "question_id": "q_034",
@@ -4747,8 +4688,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "The COCO format captures both the image references (filenames or URIs) and their associated labels in a single JSON file. It\u2019s widely supported by tools like PyTorch, TorchVision and can be easily converted into a pandas DataFrame or other tabular view without manual file renaming or editing.",
-        "include_in_bank": true
+        "feedback": "The COCO format captures both the image references (filenames or URIs) and their associated labels in a single JSON file. It\u2019s widely supported by tools like PyTorch, TorchVision and can be easily converted into a pandas DataFrame or other tabular view without manual file renaming or editing."
     },
     {
         "question_id": "q_035",
@@ -4780,8 +4720,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "\n\n**Correct answers:**\n-**Azure Container Instances (ACI):** Quick to provision, low\u2011cost, ideal for light testing and short\u2011term real\u2011time inference on CPU.",
-        "include_in_bank": true
+        "feedback": "\n\n**Correct answers:**\n-**Azure Container Instances (ACI):** Quick to provision, low\u2011cost, ideal for light testing and short\u2011term real\u2011time inference on CPU."
     },
     {
         "question_id": "q_036",
@@ -4813,8 +4752,7 @@
                 "explanation": "Bayesian sampling maintains a probabilistic model of the objective function and uses past evaluation results to guide the search toward promising regions (exploitation) while still exploring untested areas (exploration). This results in more efficient hyperparameter searches compared to exhaustive grid sampling or naive random sampling. Gradient\u2011based methods optimize model parameters during training and are not designed for hyperparameter search."
             }
         ],
-        "feedback": "Bayesian sampling maintains a probabilistic model of the objective function and uses past evaluation results to guide the search toward promising regions (exploitation) while still exploring untested areas (exploration). This results in more efficient hyperparameter searches compared to exhaustive grid sampling or naive random sampling. Gradient\u2011based methods optimize model parameters during training and are not designed for hyperparameter search.",
-        "include_in_bank": true
+        "feedback": "Bayesian sampling maintains a probabilistic model of the objective function and uses past evaluation results to guide the search toward promising regions (exploitation) while still exploring untested areas (exploration). This results in more efficient hyperparameter searches compared to exhaustive grid sampling or naive random sampling. Gradient\u2011based methods optimize model parameters during training and are not designed for hyperparameter search."
     },
     {
         "question_id": "q_038",
@@ -4846,8 +4784,7 @@
                 "explanation": "Your pipeline failed because you did not explicitly select any columns for the component to operate on. The \u201cSelect Columns in Dataset\u201d component must be told which column(s) to include; without that, it throws \u201ca value is required.\u201d By using this component to choose at least one column, you satisfy the requirement and prevent the error."
             }
         ],
-        "feedback": "Your pipeline failed because you did not explicitly select any columns for the component to operate on. The \u201cSelect Columns in Dataset\u201d component must be told which column(s) to include; without that, it throws \u201ca value is required.\u201d By using this component to choose at least one column, you satisfy the requirement and prevent the error.",
-        "include_in_bank": true
+        "feedback": "Your pipeline failed because you did not explicitly select any columns for the component to operate on. The \u201cSelect Columns in Dataset\u201d component must be told which column(s) to include; without that, it throws \u201ca value is required.\u201d By using this component to choose at least one column, you satisfy the requirement and prevent the error."
     },
     {
         "question_id": "q_039",
@@ -4879,8 +4816,7 @@
                 "explanation": "Although the file is 1\u00a0GB on disk, loading into pandas can expand its in\u2011memory footprint to around 10\u00a0GB. To allow for transformations, filters, joins, and other operations without running out of memory, it\u2019s best to provision roughly twice that\u2014about 20\u00a0GB."
             }
         ],
-        "feedback": "Although the file is 1\u00a0GB on disk, loading into pandas can expand its in\u2011memory footprint to around 10\u00a0GB. To allow for transformations, filters, joins, and other operations without running out of memory, it\u2019s best to provision roughly twice that\u2014about 20\u00a0GB.",
-        "include_in_bank": true
+        "feedback": "Although the file is 1\u00a0GB on disk, loading into pandas can expand its in\u2011memory footprint to around 10\u00a0GB. To allow for transformations, filters, joins, and other operations without running out of memory, it\u2019s best to provision roughly twice that\u2014about 20\u00a0GB."
     },
     {
         "question_id": "q_042",
@@ -4912,8 +4848,7 @@
                 "explanation": "The Truncation Selection policy is designed to drop a fixed percentage of the worst\u2011performing trials at each evaluation checkpoint, exactly matching the requirement to terminate 30\u00a0% of runs. It supports parameters such as `truncation_percentage`, `evaluation_interval`, and `delay_evaluation`. In contrast, the Bandit policy uses a slack factor rather than a fixed percentage, the Median Stopping policy cancels runs below the median without a configurable percentage, and choosing no termination policy would allow all runs to complete regardless of performance."
             }
         ],
-        "feedback": "The Truncation Selection policy is designed to drop a fixed percentage of the worst\u2011performing trials at each evaluation checkpoint, exactly matching the requirement to terminate 30\u00a0% of runs. It supports parameters such as `truncation_percentage`, `evaluation_interval`, and `delay_evaluation`. In contrast, the Bandit policy uses a slack factor rather than a fixed percentage, the Median Stopping policy cancels runs below the median without a configurable percentage, and choosing no termination policy would allow all runs to complete regardless of performance.",
-        "include_in_bank": true
+        "feedback": "The Truncation Selection policy is designed to drop a fixed percentage of the worst\u2011performing trials at each evaluation checkpoint, exactly matching the requirement to terminate 30\u00a0% of runs. It supports parameters such as `truncation_percentage`, `evaluation_interval`, and `delay_evaluation`. In contrast, the Bandit policy uses a slack factor rather than a fixed percentage, the Median Stopping policy cancels runs below the median without a configurable percentage, and choosing no termination policy would allow all runs to complete regardless of performance."
     },
     {
         "question_id": "q_043",
@@ -4957,8 +4892,7 @@
                 "explanation": "- **`storage_account_hns: False`** disables Hierarchical Namespace (HNS). HNS is required for directory\u2011style operations in Data Lake Storage Gen2; turning it off is appropriate when you do not need a hierarchical file structure in your registry."
             }
         ],
-        "feedback": "- **`storage_account_hns: False`** disables Hierarchical Namespace (HNS). HNS is required for directory\u2011style operations in Data Lake Storage Gen2; turning it off is appropriate when you do not need a hierarchical file structure in your registry.",
-        "include_in_bank": true
+        "feedback": "- **`storage_account_hns: False`** disables Hierarchical Namespace (HNS). HNS is required for directory\u2011style operations in Data Lake Storage Gen2; turning it off is appropriate when you do not need a hierarchical file structure in your registry."
     },
     {
         "question_id": "dp100_024",
@@ -4990,9 +4924,7 @@
                 "explanation": "Tags are used to attach metadata, not for logging JSON files."
             }
         ],
-        "feedback": "Use `mlflow.log_dict()` to log structured evaluation reports like JSON files in your experiment runs.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `mlflow.log_dict()` to log structured evaluation reports like JSON files in your experiment runs."
     },
     {
         "question_id": "dp100_025",
@@ -5024,9 +4956,7 @@
                 "explanation": "MLflow does not manage endpoint invocation in Azure ML SDK v2."
             }
         ],
-        "feedback": "Use `ml_client.online_endpoints.invoke()` to interact with a deployed endpoint and send input data.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `ml_client.online_endpoints.invoke()` to interact with a deployed endpoint and send input data."
     },
     {
         "question_id": "dp100_026",
@@ -5058,9 +4988,7 @@
                 "explanation": "There is no 'type: GPU' declaration in Azure ML YAML schemas."
             }
         ],
-        "feedback": "Use `resources: instance_type: Standard_NC6` in your component YAML to specify GPU support.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `resources: instance_type: Standard_NC6` in your component YAML to specify GPU support."
     },
     {
         "question_id": "dp100_027",
@@ -5092,9 +5020,7 @@
                 "explanation": "Compute must be explicitly set to 'local' for local runs in Azure ML SDK v2."
             }
         ],
-        "feedback": "To run jobs locally with Azure ML SDK v2, use `compute: local` in the job definition.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To run jobs locally with Azure ML SDK v2, use `compute: local` in the job definition."
     },
     {
         "question_id": "dp100_028",
@@ -5126,9 +5052,7 @@
                 "explanation": "mlflow is for experiment tracking, not for orchestrating data flow in pipelines."
             }
         ],
-        "feedback": "In Azure ML pipelines, define outputs in one step and use them as inputs in the next to link components.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "In Azure ML pipelines, define outputs in one step and use them as inputs in the next to link components."
     },
     {
         "question_id": "dp100_029",
@@ -5160,9 +5084,7 @@
                 "explanation": "log_param() is used for model parameters, not performance metrics."
             }
         ],
-        "feedback": "To log multiple evaluation results, use mlflow.log_metrics() with a dictionary of metrics.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To log multiple evaluation results, use mlflow.log_metrics() with a dictionary of metrics."
     },
     {
         "question_id": "dp100_030",
@@ -5194,9 +5116,7 @@
                 "explanation": "uri_file is for individual files, not entire folders."
             }
         ],
-        "feedback": "Use Input(type='uri_folder') when referencing a folder in Azure storage as input for a job.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use Input(type='uri_folder') when referencing a folder in Azure storage as input for a job."
     },
     {
         "question_id": "dp100_031",
@@ -5228,9 +5148,7 @@
                 "explanation": "This generic function is not specific to PyFunc; using the correct flavor is recommended."
             }
         ],
-        "feedback": "Use mlflow.pyfunc.log_model() to log custom models defined using the PyFunc interface for deployment.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.pyfunc.log_model() to log custom models defined using the PyFunc interface for deployment."
     },
     {
         "question_id": "dp100_032",
@@ -5262,9 +5180,7 @@
                 "explanation": "Azure Policy is for enforcing governance rules, not triggering ML pipelines."
             }
         ],
-        "feedback": "Azure Event Grid is designed to respond to events such as new data arrivals and can trigger Azure ML workflows.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Azure Event Grid is designed to respond to events such as new data arrivals and can trigger Azure ML workflows."
     },
     {
         "question_id": "dp100_033",
@@ -5296,9 +5212,7 @@
                 "explanation": "Parameters are used to customize jobs, not control storage behavior."
             }
         ],
-        "feedback": "Set the default datastore in your workspace to control where logs and outputs are written.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Set the default datastore in your workspace to control where logs and outputs are written."
     },
     {
         "question_id": "dp100_034",
@@ -5330,9 +5244,7 @@
                 "explanation": "pipeline.execute() is used for pipelines, not individual command jobs."
             }
         ],
-        "feedback": "Use `ml_client.jobs.create_or_update()` to submit and configure command jobs in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `ml_client.jobs.create_or_update()` to submit and configure command jobs in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_035",
@@ -5364,9 +5276,7 @@
                 "explanation": "There is no such class; insights are created through interpret and dashboard packages."
             }
         ],
-        "feedback": "Use the `azureml.interpret` package to enable interpretability and fairness tools in Azure ML.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use the `azureml.interpret` package to enable interpretability and fairness tools in Azure ML."
     },
     {
         "question_id": "dp100_036",
@@ -5398,9 +5308,7 @@
                 "explanation": "There is no method named register_model in the SDK v2."
             }
         ],
-        "feedback": "Use `ml_client.models.create_or_update()` to register local models in Azure ML workspace using SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `ml_client.models.create_or_update()` to register local models in Azure ML workspace using SDK v2."
     },
     {
         "question_id": "dp100_037",
@@ -5432,9 +5340,7 @@
                 "explanation": "Tags are for metadata, not for parameters or metrics."
             }
         ],
-        "feedback": "Use mlflow.log_params() to efficiently log multiple hyperparameters from a dictionary structure.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.log_params() to efficiently log multiple hyperparameters from a dictionary structure."
     },
     {
         "question_id": "dp100_038",
@@ -5466,9 +5372,7 @@
                 "explanation": "While it can log files, it doesn\u2019t directly display images in the MLflow UI as conveniently as log_image()."
             }
         ],
-        "feedback": "Use mlflow.log_image() to log plots like prediction vs. label comparisons into your experiment tracking.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.log_image() to log plots like prediction vs. label comparisons into your experiment tracking."
     },
     {
         "question_id": "dp100_039",
@@ -5500,9 +5404,7 @@
                 "explanation": "This method does not exist in Azure ML SDK v2."
             }
         ],
-        "feedback": "For component reuse, define and register components via standalone YAML files in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "For component reuse, define and register components via standalone YAML files in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_040",
@@ -5534,9 +5436,7 @@
                 "explanation": "log_dict() stores structured data, not a single string value like a dataset version."
             }
         ],
-        "feedback": "Use mlflow.set_tag() to store metadata such as dataset version identifiers for better experiment traceability.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use mlflow.set_tag() to store metadata such as dataset version identifiers for better experiment traceability."
     },
     {
         "question_id": "dp100_041",
@@ -5568,9 +5468,7 @@
                 "explanation": "There is no generic function called load_dataset() in the SDK v2."
             }
         ],
-        "feedback": "Use `ml_client.data.get()` to retrieve and use MLTable datasets in your SDK v2 workflows.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use `ml_client.data.get()` to retrieve and use MLTable datasets in your SDK v2 workflows."
     },
     {
         "question_id": "dp100_042",
@@ -5602,9 +5500,7 @@
                 "explanation": "run is not a valid field in YAML definitions for components."
             }
         ],
-        "feedback": "The `command` field in component YAML defines the script or shell command executed in Azure ML SDK v2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "The `command` field in component YAML defines the script or shell command executed in Azure ML SDK v2."
     },
     {
         "question_id": "dp100_043",
@@ -5636,9 +5532,7 @@
                 "explanation": "There is no such MLflow method. Environment management is handled by Azure ML SDK."
             }
         ],
-        "feedback": "For better maintainability, define and register environments in Azure ML once and reuse by reference.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "For better maintainability, define and register environments in Azure ML once and reuse by reference."
     },
     {
         "question_id": "dp100_044",
@@ -5670,9 +5564,7 @@
                 "explanation": "register_component is not a valid method in SDK v2."
             }
         ],
-        "feedback": "Use load_component() to load and reuse YAML-defined components when constructing pipelines in Azure ML.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "Use load_component() to load and reuse YAML-defined components when constructing pipelines in Azure ML."
     },
     {
         "question_id": "dp100_045",
@@ -5704,9 +5596,7 @@
                 "explanation": "This config relates to interpretability and not drift monitoring."
             }
         ],
-        "feedback": "To detect and visualize data drift over time in Azure ML, configure the `data_drift_signal` within a MonitorSchedule.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "To detect and visualize data drift over time in Azure ML, configure the `data_drift_signal` within a MonitorSchedule."
     },
     {
         "question_id": "dp100_046",
@@ -5738,9 +5628,7 @@
                 "explanation": "Definitely not."
             }
         ],
-        "feedback": "A DVLM is a pre-configured environment for deep learning using GPU instances.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "A DVLM is a pre-configured environment for deep learning using GPU instances."
     },
     {
         "question_id": "dp100_047",
@@ -5772,9 +5660,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "**This might be completely outdated**.\nCaffe2 is supported by DSVM for Linux. Microsoft offers Linux edition of the DSVM on Ubuntu 16.04 LTS and CentOS 7.4. However, only the DSVM on Ubuntu is preconfigured for Caffe2.",
-        "sdk_version": "v2",
-        "include_in_bank": true
+        "feedback": "**This might be completely outdated**.\nCaffe2 is supported by DSVM for Linux. Microsoft offers Linux edition of the DSVM on Ubuntu 16.04 LTS and CentOS 7.4. However, only the DSVM on Ubuntu is preconfigured for Caffe2."
     },
     {
         "question_id": "examtopics_cc5631239d9d4f8c811db0090aaad575",
@@ -5795,7 +5681,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 13
     },
     {
@@ -5806,18 +5691,17 @@
             {
                 "id": "A",
                 "text": "Yes",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": ""
             },
             {
                 "id": "B",
                 "text": "No",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true,
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n\nPersonal note: Join Data is an SQL merge data, it's not meant to stack rows but to match them. It could work with a full outer join **only if** there are no duplicates (which is the case in here). Question is then ambiguous, community voted yes but for the wrong reason. In general, Join Data would not satisfy the requirements, it just happen to do that with the two given tables. My personal final answer is No, because Join Data works there, it's still misused in a hacky way for it to work in this specific case.",
         "scenario": 1
     },
     {
@@ -5856,8 +5740,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_2ed8357f672e42c895e9e26274b25ed8",
@@ -5895,8 +5778,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: AE.\nCommunity:\n100% for DE\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: AE.\nCommunity:\n100% for DE\n"
     },
     {
         "question_id": "examtopics_78b27c3255e14f49bab0a03773c91c34",
@@ -5934,8 +5816,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: ACD.\nCommunity:\n83% for BCD\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: ACD.\nCommunity:\n83% for BCD\n"
     },
     {
         "question_id": "examtopics_e83d491092bc4e8a82072e0c316422d6",
@@ -5956,7 +5837,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n58% for B\n42% for A\n",
-        "include_in_bank": true,
         "scenario": 13
     },
     {
@@ -5978,7 +5858,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true,
         "scenario": 2
     },
     {
@@ -6017,8 +5896,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_856d82080de549a3b6a8480cc94a2379",
@@ -6039,7 +5917,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n76% for A\n24% for B\n",
-        "include_in_bank": true,
         "scenario": 10
     },
     {
@@ -6078,8 +5955,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_4176487ce8784d60b3b7deaaabb3733a",
@@ -6117,8 +5993,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_95d37dc5524c473c8fedf9e082ae6472",
@@ -6156,8 +6031,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_d0181195f12f4a69acd33352c81db2e3",
@@ -6189,8 +6063,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n"
     },
     {
         "question_id": "examtopics_94bb9a20ce1f4f2dba5ab9af9e109252",
@@ -6222,8 +6095,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_ce73b3a8e3c04c00a6197a89ecf16beb",
@@ -6255,8 +6127,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n"
     },
     {
         "question_id": "examtopics_513db85da45e4d9caadd2f67418fe20e",
@@ -6288,8 +6159,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_94852dd86ab9432bb049833695965bfa",
@@ -6309,8 +6179,28 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n92% for A\n",
-        "include_in_bank": true,
+        "feedback": "ExamTopics answer: B.\nCommunity:\n92% for A\n\nPersonal note: It's not really intended to do that, but it should definitely work.",
+        "scenario": 1
+    },
+    {
+        "question_id": "examtopics_94852dd86ab9432bb049833695965bfb",
+        "type": "multiple_choice_single_answer",
+        "question": "You use Azure Machine Learning designer to load the following datasets into an experiment\n\nDataset1\n| Age | Length | Width |\n|-|-|-|\n| 3 | 22 | 13 |\n| 7 | 11 | 96 |\n| 18 | 32 | 85 |\n\nDataset2\n| Age | Length | Width |\n|-|-|-|\n| 11 | 101 | 65 |\n| 6 | 98 | 23 |\n| 33 | 22 | 54 |\n| 17 | 52 | 12 |\n\nYou need to create a dataset that has the same columns and header row as the input datasets and contains all rows from both input datasets.\n\n**Solution:** Use the Add Rows module.\n\nDoes the solution meet the goal?",
+        "options": [
+            {
+                "id": "A",
+                "text": "Yes",
+                "is_correct": true,
+                "explanation": ""
+            },
+            {
+                "id": "B",
+                "text": "No",
+                "is_correct": false,
+                "explanation": ""
+            }
+        ],
+        "feedback": "Definitely yes. Add rows is used to concatenate datasets.",
         "scenario": 1
     },
     {
@@ -6332,7 +6222,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n64% for B\n36% for A\n",
-        "include_in_bank": true,
         "scenario": 3
     },
     {
@@ -6354,7 +6243,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n89% for B\n",
-        "include_in_bank": true,
         "scenario": 14
     },
     {
@@ -6387,8 +6275,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_0b189354cd12461d956738b0b0dbff66",
@@ -6420,8 +6307,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_5f134fa4081742b38d45943f14029ac2",
@@ -6442,7 +6328,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 3
     },
     {
@@ -6475,8 +6360,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_fc461bff476a4c6389756628baefd6b8",
@@ -6514,8 +6398,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_06480b070f074da1bd446f607541a0ac",
@@ -6547,8 +6430,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_2972914cb71b468db2e883651e73e89c",
@@ -6569,7 +6451,6 @@
             }
         ],
         "feedback": "In Azure ML SDK v2, pipelines are defined with the @pipeline decorator, inputs and outputs are handled via Input and Output types, and jobs are submitted through MLClient.",
-        "include_in_bank": true,
         "scenario": 4
     },
     {
@@ -6602,8 +6483,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C(100%)\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C(100%)\n"
     },
     {
         "question_id": "examtopics_94aed7f6e77642178a1409ad83dd87dd",
@@ -6635,8 +6515,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_c8c953d757fe42fd8b4e42811f3eaf98",
@@ -6674,8 +6553,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C\n"
     },
     {
         "question_id": "examtopics_d607d29c2d2e4acb9acf553db9ef81b2",
@@ -6719,8 +6597,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_4b2c6df88fb54ea6b7a95ade8410b34b",
@@ -6752,8 +6629,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_190b45eb6771437baed0c0aca521d1e3",
@@ -6785,8 +6661,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_f632dd8ad54c4582a1bbb3c616190d4a",
@@ -6807,7 +6682,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 5
     },
     {
@@ -6840,8 +6714,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_affea83e1d994e36b5ce774e20ac8e10",
@@ -6879,8 +6752,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: BE.\nCommunity:\n100% for CE\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: BE.\nCommunity:\n100% for CE\n"
     },
     {
         "question_id": "examtopics_92d25364208f4b2796f43cec72a88f7b",
@@ -6918,8 +6790,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_8e4c0b3845c84c088a50f9638cf7c897",
@@ -6940,7 +6811,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 9
     },
     {
@@ -6961,8 +6831,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_372dfaa2e0044ad0b77f8fb46d116a55",
@@ -6983,7 +6852,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true,
         "scenario": 2
     },
     {
@@ -7016,8 +6884,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_9bd4968e81d04c6389303a4cce0cd7ec",
@@ -7038,7 +6905,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 5
     },
     {
@@ -7071,8 +6937,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for A\n"
     },
     {
         "question_id": "examtopics_2f003113d30242bcb9f69385ff071c23",
@@ -7093,7 +6958,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 4
     },
     {
@@ -7126,8 +6990,7 @@
                 "explanation": "Fits a linear model once; it doesn’t iteratively improve upon prediction errors"
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n70% for D\n25% for C\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n70% for D\n25% for C\n"
     },
     {
         "question_id": "examtopics_98f58094b7e34b4a9e94ccc7fe46b069",
@@ -7148,7 +7011,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 8
     },
     {
@@ -7170,7 +7032,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 9
     },
     {
@@ -7203,8 +7064,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_511aca8c2a2c4c0aae16f1dd7b6ce7c7",
@@ -7225,7 +7085,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true,
         "scenario": 8
     },
     {
@@ -7258,8 +7117,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_bca8e25f08fc450d8c5e82dab13995f6",
@@ -7291,8 +7149,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_91758c189e014ef3bd3e07e3203f8f73",
@@ -7324,8 +7181,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n"
     },
     {
         "question_id": "examtopics_a5d3bcd32ce94565b2cb7d961ca9db81",
@@ -7363,8 +7219,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_60e06d92e00a4afb8c2cc22b2a9d5c29",
@@ -7396,8 +7251,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n59% for A\n41% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n59% for A\n41% for D\n"
     },
     {
         "question_id": "examtopics_9006366d144746679d453b99541c6215",
@@ -7418,7 +7272,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 14
     },
     {
@@ -7457,8 +7310,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_fcdb864e92ec4421a4861878ddec009e",
@@ -7478,8 +7330,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n"
     },
     {
         "question_id": "examtopics_88cb255b3d264144973dfc8a088793e3",
@@ -7517,8 +7368,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_c21d257e0d774fdcacaf8007e1650c92",
@@ -7550,8 +7400,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_739887cd6eeb410fabb37b8f795dd971",
@@ -7583,8 +7432,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for A\n"
     },
     {
         "question_id": "examtopics_2062c63a92d5410bb695c9c63d92b3dd",
@@ -7622,8 +7470,7 @@
                 "explanation": "Copying the images introduces unnecessary data movement, which the question states must be minimized."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_63df506ce42f468d8d0c064afdf2a205",
@@ -7644,7 +7491,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 7
     },
     {
@@ -7677,8 +7523,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_6a2c6f049a1d4af8a3af06f1e7718c16",
@@ -7710,8 +7555,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C (100%)\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C (100%)\n"
     },
     {
         "question_id": "examtopics_3aa523b109624994b87217ec1cda6219",
@@ -7743,8 +7587,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: CD.\nCommunity:\n100% for AC\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: CD.\nCommunity:\n100% for AC\n"
     },
     {
         "question_id": "examtopics_ccc437c1c3e54375a94c1d88b9aa4e11",
@@ -7776,8 +7619,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_bea58cf7aba64dafa571f6ea348c6217",
@@ -7815,8 +7657,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_07f079bfa64748a5a3b5f246a9345a3c",
@@ -7848,8 +7689,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n50% for D\n43% for A\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n50% for D\n43% for A\n"
     },
     {
         "question_id": "examtopics_797b380ea8df4a1a97c0441abe0b3098",
@@ -7887,8 +7727,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: ABD.\nCommunity:\n100% for ACE\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: ABD.\nCommunity:\n100% for ACE\n"
     },
     {
         "question_id": "examtopics_c602b0ec0f24452d8cdda175a97a9e29",
@@ -7932,8 +7771,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_9d1e2f4c39484cd48f3417745a625cf1",
@@ -7954,7 +7792,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 8
     },
     {
@@ -7976,7 +7813,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 10
     },
     {
@@ -8009,8 +7845,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_1aa9fcb1714c4f01a3899de4d38b3d77",
@@ -8042,8 +7877,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_49a31b55c7b14833828cf5ffe5e1b6ad",
@@ -8075,8 +7909,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for C\n"
     },
     {
         "question_id": "examtopics_6ef8f8e895f44e74b2e312a222f0c14a",
@@ -8108,8 +7941,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_cf271f1f19f54ed9a5c192df086f25c6",
@@ -8147,8 +7979,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_d47e9d74efb54f52b7946290d3f07adf",
@@ -8169,7 +8000,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n88% for A\n\nPersonal notes: VM Windows edition do not support PostgreSQL.\n\nhttps://learn.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/tools-included?view=azureml-api-2",
-        "include_in_bank": true,
         "scenario": 13
     },
     {
@@ -8191,7 +8021,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n74% for A\n26% for B\n",
-        "include_in_bank": true,
         "scenario": 10
     },
     {
@@ -8224,8 +8053,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n81% for A\n19% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n81% for A\n19% for D\n"
     },
     {
         "question_id": "examtopics_05f39a0b4cd0438eb5798f355c90d0dd",
@@ -8246,7 +8074,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n90% for A\n",
-        "include_in_bank": true,
         "scenario": 6
     },
     {
@@ -8279,8 +8106,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_54720b4bb03a4ecbab3d34c3b7ea5ed8",
@@ -8312,8 +8138,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_64be73d0e5d44e50b814636dbaf5a0a3",
@@ -8334,7 +8159,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true,
         "scenario": 2
     },
     {
@@ -8367,8 +8191,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_cbe0129746b346a6846d0daaa319a260",
@@ -8389,7 +8212,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 5
     },
     {
@@ -8411,7 +8233,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true,
         "scenario": 9
     },
     {
@@ -8433,7 +8254,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n67% for A\n33% for B\n",
-        "include_in_bank": true,
         "scenario": 7
     },
     {
@@ -8455,7 +8275,6 @@
             }
         ],
         "feedback": "ExamTopics answer: A.\nCommunity:\n100% for B\n",
-        "include_in_bank": true,
         "scenario": 7
     },
     {
@@ -8488,8 +8307,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n83% for C\n17% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n83% for C\n17% for D\n"
     },
     {
         "question_id": "examtopics_538668590d6f45d7aab5168b4ee1ef28",
@@ -8521,8 +8339,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for A\n"
     },
     {
         "question_id": "examtopics_91cbb8a0bab14755a6f320e2fcf83a8f",
@@ -8554,8 +8371,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n"
     },
     {
         "question_id": "examtopics_631594bcf1e54f13a057e84da4d87ffa",
@@ -8575,8 +8391,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n\nCommunity seems to be wrong on this one Apply Transformation is different than Apply SQL Transformation, and does not transform the data by itself",
-        "include_in_bank": true,
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n\nCommunity seems to be wrong on this one Apply Transformation is different than Apply SQL Transformation, and does not transform the data by itself. Using Apply SQL Transformation, one can achieve that using `UNION ALL`",
         "scenario": 1
     },
     {
@@ -8615,8 +8430,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: DE.\nCommunity:\n80% for BD\n20% for DE\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: DE.\nCommunity:\n80% for BD\n20% for DE\n"
     },
     {
         "question_id": "examtopics_09d5bc2621724967b60c968e755e721c",
@@ -8654,8 +8468,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_7a014f4c87064ed1bf1acb4e422117a3",
@@ -8687,8 +8500,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_5bae511856a84d258504528ad5073c20",
@@ -8709,7 +8521,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 6
     },
     {
@@ -8731,7 +8542,6 @@
             }
         ],
         "feedback": "ExamTopics answer: B.\nCommunity:\n88% for A\n",
-        "include_in_bank": true,
         "scenario": 7
     },
     {
@@ -8753,7 +8563,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 12
     },
     {
@@ -8786,8 +8595,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: BC.\nCommunity:\n100% for BD\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: BC.\nCommunity:\n100% for BD\n"
     },
     {
         "question_id": "examtopics_3f06fd2e67594220a757201c9e79a3f2",
@@ -8831,8 +8639,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_bc612ccec5be4235901f018e817b39ef",
@@ -8864,8 +8671,7 @@
                 "explanation": "Grants full access to the storage account, which is not secure or recommended."
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for A\n\n**Best practice**: Use Managed Identity to authorize Azure ML to access linked services like ADLS Gen2.",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for A\n\n**Best practice**: Use Managed Identity to authorize Azure ML to access linked services like ADLS Gen2."
     },
     {
         "question_id": "examtopics_950ee73198a94f20afaecc34e7bb6689",
@@ -8903,8 +8709,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: BD.\nCommunity:\n100% for BC\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: BD.\nCommunity:\n100% for BC\n"
     },
     {
         "question_id": "examtopics_ce5027f1ad1f4ef1bbd3fb975e2d9f19",
@@ -8936,8 +8741,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: AC.\nCommunity:\n100% for AD\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: AC.\nCommunity:\n100% for AD\n"
     },
     {
         "question_id": "examtopics_c0385096823b4935883bd1efe768ae18",
@@ -8957,8 +8761,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n91% for A(91%)\n. Also completely outdated.",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n91% for A(91%)\n. Also completely outdated."
     },
     {
         "question_id": "examtopics_94e7b68c91a440bd8e04f66d379a7de1",
@@ -8990,8 +8793,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_3751e809be894fe7a745f207e35eeaae",
@@ -9012,7 +8814,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 12
     },
     {
@@ -9045,8 +8846,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C(100%)\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: D.\nCommunity:\n100% for C(100%)\n"
     },
     {
         "question_id": "examtopics_c3d8963d316b4d32b7d9445e3bab389c",
@@ -9078,8 +8878,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_209c8c1642044cf2801fb583a2cb9a36",
@@ -9099,8 +8898,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for A\n"
     },
     {
         "question_id": "examtopics_072a49ff403a4a288a3ba9b55aac23da",
@@ -9132,8 +8930,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: A.\nCommunity:\n90% for B\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: A.\nCommunity:\n90% for B\n"
     },
     {
         "question_id": "examtopics_590df2b4ba9248718bc5a1fffdaacbca",
@@ -9165,8 +8962,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_c011e0b5190a49babc317676f634e7ed",
@@ -9204,8 +9000,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_2e099b9351724c99ae724bfb7c062d93",
@@ -9243,8 +9038,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_0808afbcf14940bf83cd4a23d2ac45be",
@@ -9288,8 +9082,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_90ffbe5735604cd1b50d1a4756659d2a",
@@ -9321,8 +9114,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: A.\nCommunity:\n100% for C\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: A.\nCommunity:\n100% for C\n"
     },
     {
         "question_id": "examtopics_8c243e10d68741189ef573d43822d3c8",
@@ -9360,8 +9152,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n"
     },
     {
         "question_id": "q_106",
@@ -9393,8 +9184,7 @@
                 "explanation": "You can submit a PipelineJob without specifying an experiment name, and it will use the default or a name from the job definition."
             }
         ],
-        "feedback": "In Azure ML SDK v2, all jobs — including pipelines — are submitted using `ml_client.jobs.create_or_update(...)`. The old SDK v1 style using `Experiment.submit()` is no longer valid.",
-        "include_in_bank": true
+        "feedback": "In Azure ML SDK v2, all jobs — including pipelines — are submitted using `ml_client.jobs.create_or_update(...)`. The old SDK v1 style using `Experiment.submit()` is no longer valid."
     },
     {
         "question_id": "examtopics_ffd097f01d3c45aeb34c97f097af207d",
@@ -9426,8 +9216,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Exam topics say B only (despite select 2), community says BD.",
-        "include_in_bank": true
+        "feedback": "Exam topics say B only (despite select 2), community says BD."
     },
     {
         "question_id": "examtopics_650c0648c428434c8489af438eeeb753",
@@ -9459,8 +9248,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_0f00d238c9f7429b84fb6a3560af5ad0",
@@ -9492,8 +9280,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: C.\nCommunity:\n100% for B\n"
     },
     {
         "question_id": "examtopics_4fa004c864e74c2babd29976641de939",
@@ -9531,8 +9318,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: B.\nCommunity:\n100% for D\n"
     },
     {
         "question_id": "examtopics_78d9ea2b421d4d11892afecb9a120ab8",
@@ -9570,8 +9356,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_56a5218fd50342fcbb075473a6f6cf24",
@@ -9615,8 +9400,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_c50568bd1b6e403cb2c611f7e378bd82",
@@ -9654,8 +9438,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_ffcca60419154e0bb8ad6d9db697bd1c",
@@ -9693,8 +9476,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_406717f3973e49f1812d6313aa3d22a4",
@@ -9715,7 +9497,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 14
     },
     {
@@ -9754,8 +9535,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_43e29f8bc7ac41a789ef61542f28160a",
@@ -9776,7 +9556,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 11
     },
     {
@@ -9798,7 +9577,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 11
     },
     {
@@ -9820,7 +9598,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 11
     },
     {
@@ -9842,7 +9619,6 @@
             }
         ],
         "feedback": "",
-        "include_in_bank": true,
         "scenario": 11
     },
     {
@@ -9875,8 +9651,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "To efficiently handle large file datasets in SDK v2, use `Input(type='uri_folder', path=..., mode='ro_mount')`. This ensures streaming access and avoids local disk space issues.",
-        "include_in_bank": true
+        "feedback": "To efficiently handle large file datasets in SDK v2, use `Input(type='uri_folder', path=..., mode='ro_mount')`. This ensures streaming access and avoids local disk space issues."
     },
     {
         "question_id": "examtopics_66f6d4936a024b419bbbda295aff9a67",
@@ -9908,8 +9683,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_ebde33f255e848988cb6e8eba66b7ca2",
@@ -9947,8 +9721,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "ExamTopics answer: CE.\nCommunity:\n100% for DE\n",
-        "include_in_bank": true
+        "feedback": "ExamTopics answer: CE.\nCommunity:\n100% for DE\n"
     },
     {
         "question_id": "examtopics_e9896efaf76145a3bd75b293fbe06667",
@@ -9986,8 +9759,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_3bf4f169748448008bae22dfa5f1f357",
@@ -10019,8 +9791,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Probably irrelevant. https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/convert-to-arff",
-        "include_in_bank": true
+        "feedback": "Probably irrelevant. https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/convert-to-arff"
     },
     {
         "question_id": "examtopics_be245ce466fe4811a39d819f31e69416",
@@ -10058,8 +9829,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Poisson regression is intended for use in regression models that are used to predict numeric values, typically counts. Therefore, you should use this module to create your regression models only if the values you are trying to predict fit the following conditions:\n\nThe response variable has a Poisson distribution, Counts cannot be negative. A Poisson distribution is a discrete distribution, therefore it is not meaningful to use this mehtod with non-integer numbers.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/poisson-regression",
-        "include_in_bank": true
+        "feedback": "Poisson regression is intended for use in regression models that are used to predict numeric values, typically counts. Therefore, you should use this module to create your regression models only if the values you are trying to predict fit the following conditions:\n\nThe response variable has a Poisson distribution, Counts cannot be negative. A Poisson distribution is a discrete distribution, therefore it is not meaningful to use this mehtod with non-integer numbers.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/poisson-regression"
     },
     {
         "question_id": "examtopics_b887da7a7772462e9ee4f3dcf7986c77",
@@ -10097,8 +9867,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_6bc0ca779ab94e97b0335cdb81892daf",
@@ -10148,8 +9917,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Reference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/two-class-neural-network",
-        "include_in_bank": true
+        "feedback": "Reference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/two-class-neural-network"
     },
     {
         "question_id": "examtopics_a4dec7241d654887ae0973772861e0a3",
@@ -10182,8 +9950,7 @@
             "E",
             "C"
         ],
-        "feedback": "Should be correct. Not really part of any learning path.",
-        "include_in_bank": true
+        "feedback": "Should be correct. Not really part of any learning path."
     },
     {
         "question_id": "examtopics_7896f4ca46514b9b98d7edfe1d75d338",
@@ -10229,8 +9996,7 @@
             "G",
             "B"
         ],
-        "feedback": "Should be correct. Not really part of any learning path.",
-        "include_in_bank": true
+        "feedback": "Should be correct. Not really part of any learning path."
     },
     {
         "question_id": "examtopics_b934b2f66c8444c788989a6f1d4985e8",
@@ -10275,8 +10041,7 @@
             "D",
             "H"
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_32b4f0d788bc427fa1465b3344dae16a",
@@ -10332,8 +10097,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_b7ab5de6cbaa40c8a4ad547cf4ef7e58",
@@ -10389,8 +10153,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_bd4277d8f900454e8eb5a5a6393d17be",
@@ -10414,8 +10177,7 @@
             "C",
             "B"
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_83695f3795174891a8242b26ce78f793",
@@ -10449,8 +10211,7 @@
             "A",
             "E"
         ],
-        "feedback": "Reference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/smote\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/convert-to-indicator-value",
-        "include_in_bank": true
+        "feedback": "Reference:\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/smote\n\nhttps://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/convert-to-indicator-value"
     },
     {
         "question_id": "examtopics_a895f01bbec94649bc3107733235f510",
@@ -10482,8 +10243,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_a8877b060c7b41f49402bd6c143c872e",
@@ -10563,8 +10323,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_b0b943a902cd448cb313fdadb2cb6887",
@@ -10608,8 +10367,7 @@
                 "explanation": "Correct if resource group exists."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_88ef956645bf49df953f08f089e8ffab",
@@ -10646,8 +10404,7 @@
             "D",
             "C"
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_01a083e685344e038d9298339b77d790",
@@ -10670,8 +10427,7 @@
                 "is_correct": false
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_01a083e685344e038d9298339b77d791",
@@ -10694,8 +10450,7 @@
                 "is_correct": false
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_1547e562708f46888215bf97233dac65",
@@ -10733,8 +10488,7 @@
                 "is_correct": false
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "examtopics_e3081345094d46f8be1903596a73a7c3",
@@ -10772,8 +10526,7 @@
                 "is_correct": true
             }
         ],
-        "feedback": "Answers say Function -> Event Grid\n\nCommunity says Event Grid -> Logic Apps.",
-        "include_in_bank": true
+        "feedback": "Answers say Function -> Event Grid\n\nCommunity says Event Grid -> Logic Apps."
     },
     {
         "question_id": "ai-1",
@@ -10805,8 +10558,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Azure AutoML is designed to automate the end-to-end process of model training, especially for regression, classification, and time series forecasting tasks.",
-        "include_in_bank": true
+        "feedback": "Azure AutoML is designed to automate the end-to-end process of model training, especially for regression, classification, and time series forecasting tasks."
     },
     {
         "question_id": "ai-2",
@@ -10838,8 +10590,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Azure Kubernetes Service (AKS) supports real-time inference with autoscaling and high availability. Azure Batch is suitable for batch inference scenarios.",
-        "include_in_bank": true
+        "feedback": "Azure Kubernetes Service (AKS) supports real-time inference with autoscaling and high availability. Azure Batch is suitable for batch inference scenarios."
     },
     {
         "question_id": "ai-3",
@@ -10871,8 +10622,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Use `pandas.read_sql_query()` to load data from a relational database like Azure SQL into a DataFrame. Ensure you have an established connection using `pyodbc` or `sqlalchemy`.",
-        "include_in_bank": true
+        "feedback": "Use `pandas.read_sql_query()` to load data from a relational database like Azure SQL into a DataFrame. Ensure you have an established connection using `pyodbc` or `sqlalchemy`."
     },
     {
         "question_id": "mslearn-1",
@@ -10904,8 +10654,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-2",
@@ -10937,8 +10686,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-3",
@@ -10970,8 +10718,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-4",
@@ -11003,8 +10750,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-5",
@@ -11036,8 +10782,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-6",
@@ -11069,8 +10814,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-7",
@@ -11102,8 +10846,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-8",
@@ -11135,8 +10878,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-9",
@@ -11168,8 +10910,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-10",
@@ -11201,8 +10942,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-11",
@@ -11234,8 +10974,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Question was generated by Microsoft Learn practice exam. While solvable, it does not describe the content of the Python SDK v2",
-        "include_in_bank": true
+        "feedback": "Question was generated by Microsoft Learn practice exam. While solvable, it does not describe the content of the Python SDK v2"
     },
     {
         "question_id": "mslearn-12",
@@ -11267,8 +11006,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-13",
@@ -11300,8 +11038,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Generated by MS Learn.\n\nActually a bit unclear, the answer seems correct as MLflow is implied for that to happen, but MLflow cannot be used to deploy a model.",
-        "include_in_bank": true
+        "feedback": "Generated by MS Learn.\n\nActually a bit unclear, the answer seems correct as MLflow is implied for that to happen, but MLflow cannot be used to deploy a model."
     },
     {
         "question_id": "mslearn-14",
@@ -11333,8 +11070,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-15",
@@ -11366,8 +11102,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-16",
@@ -11399,8 +11134,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-17",
@@ -11432,8 +11166,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Generated by MS learn practice exam.\n\nLet's be clear that by no means it should be retrained in this particular case.",
-        "include_in_bank": true
+        "feedback": "Generated by MS learn practice exam.\n\nLet's be clear that by no means it should be retrained in this particular case."
     },
     {
         "question_id": "mslearn-18",
@@ -11465,8 +11198,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-19",
@@ -11498,8 +11230,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Generated by Microsoft Learn practice exam.\n\n They say stand-alone Spark job but it feels wrong as it's not directly integrated within Azure Machine Learning, whereas using Spark component in a pipeline seems ok.",
-        "include_in_bank": true
+        "feedback": "Generated by Microsoft Learn practice exam.\n\n They say stand-alone Spark job but it feels wrong as it's not directly integrated within Azure Machine Learning, whereas using Spark component in a pipeline seems ok."
     },
     {
         "question_id": "mslearn-20",
@@ -11531,8 +11262,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "An Execute Python Script component must implement an azureml_main method. A Create Python Model component must implement a train and predict methods. The load_data method is used to construct a data object but is not part of the Execute Python Script component.",
-        "include_in_bank": true
+        "feedback": "An Execute Python Script component must implement an azureml_main method. A Create Python Model component must implement a train and predict methods. The load_data method is used to construct a data object but is not part of the Execute Python Script component."
     },
     {
         "question_id": "mslearn-21",
@@ -11564,8 +11294,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Creating a dataset will create a reference to the data, with a copy of its metadata. It will not copy the data. Registering a datastore will not create a reference to the data with a copy of its metadata. Creating a pipeline is used to create a machine learning workflow, not to create a reference to data in a datastore. Using Azure Data Factory is for ETL processes when moving the data is needed, not for creating a reference to the data.",
-        "include_in_bank": true
+        "feedback": "Creating a dataset will create a reference to the data, with a copy of its metadata. It will not copy the data. Registering a datastore will not create a reference to the data with a copy of its metadata. Creating a pipeline is used to create a machine learning workflow, not to create a reference to data in a datastore. Using Azure Data Factory is for ETL processes when moving the data is needed, not for creating a reference to the data."
     },
     {
         "question_id": "mslearn-22",
@@ -11597,8 +11326,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mslearn-23",
@@ -11630,8 +11358,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "Synchronous or real time use cases are not appropriate for low priority VM’s since they cannot be guaranteed to be available and can be pre-empted mid execution. For this reason, asynchronous batch use cases are more appropriate, since the completion time for such jobs is more flexible and execution is distributed across many VMs.",
-        "include_in_bank": true
+        "feedback": "Synchronous or real time use cases are not appropriate for low priority VM’s since they cannot be guaranteed to be available and can be pre-empted mid execution. For this reason, asynchronous batch use cases are more appropriate, since the completion time for such jobs is more flexible and execution is distributed across many VMs."
     },
     {
         "question_id": "mup-1",
@@ -11663,8 +11390,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-2",
@@ -11697,8 +11423,7 @@
             "A",
             "D",
             "B"
-        ],
-        "include_in_bank": true
+        ]
     },
     {
         "question_id": "mup-3",
@@ -11736,8 +11461,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-1",
@@ -11775,8 +11499,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-2",
@@ -11808,8 +11531,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-3",
@@ -11841,8 +11563,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-4",
@@ -11874,8 +11595,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-5",
@@ -11907,8 +11627,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-6",
@@ -11940,8 +11659,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-7",
@@ -11973,8 +11691,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-8",
@@ -12006,8 +11723,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-9",
@@ -12039,8 +11755,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-10",
@@ -12072,8 +11787,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-11",
@@ -12105,8 +11819,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-12",
@@ -12144,8 +11857,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-13",
@@ -12177,8 +11889,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-14",
@@ -12210,8 +11921,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-15",
@@ -12243,8 +11953,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-16",
@@ -12276,8 +11985,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-17",
@@ -12309,8 +12017,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-18",
@@ -12360,8 +12067,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "ai900-19",
@@ -12393,8 +12099,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-4",
@@ -12420,8 +12125,7 @@
                 "explanation": "This seems made up."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-5",
@@ -12447,8 +12151,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-6",
@@ -12514,8 +12217,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-8",
@@ -12547,8 +12249,7 @@
                 "explanation": "You connect a dataset to a pipeline when you need to provide data input. This process is manual and does not occur automatically at runtime."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-9",
@@ -12580,8 +12281,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-10",
@@ -12619,8 +12319,7 @@
                 "explanation": "A safety system message is designed to enforce content safety and compliance rules, not to modify the assistant's access to specific data sources or knowledge."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-11",
@@ -12646,8 +12345,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-12",
@@ -12716,8 +12414,7 @@
                 "explanation": "Creating many copies of the flow is a lot of work and is not the best way to compare results. Azure provides built-in tools to test and track variants more easily."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-14",
@@ -12755,8 +12452,7 @@
                 "explanation": "This approach compresses all your data into a signle file, which can actually complicate data extraction and processing. Each time you access the data for training, you would need to decompress this file, which can lead to delays and inefficiencies. It would be counterproductive for scenarios requiring quick access to specific images or metadata elements during iterative training process."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-15",
@@ -12788,8 +12484,7 @@
                 "explanation": "This method allows different layers or components of the model to reside on separate GPUs while sharing the same training data. Synchronization occurs only once per forward or backward pass, reducing communication overhead and ensuring scalability during training."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-16",
@@ -12854,8 +12549,7 @@
                 "explanation": "The `from_json_files()` method is specifically designed to parse JSON-formatted files and is not compatible with `.csv` files, even if filtered by extension."
             }
         ],
-        "feedback": "This applies to Azure ML Python SDK v1.\n\nPersonal note: In SDK v2 there is no longer a `Dataset` class, and the question above does not really apply since these are handeled by creating data assets instead.",
-        "include_in_bank": true
+        "feedback": "This applies to Azure ML Python SDK v1.\n\nPersonal note: In SDK v2 there is no longer a `Dataset` class, and the question above does not really apply since these are handeled by creating data assets instead."
     },
     {
         "question_id": "mup-18",
@@ -12887,8 +12581,7 @@
                 "explanation": "This method is convenient when you want to avoid hardcoding workspace metadata and instead load it from a CLI-generated configuration file"
             }
         ],
-        "feedback": "Personal note: I found that in practice better way is to use the config file and just resort to whatever credential is suited. This question is too tricky for something that is relatively straightforward.",
-        "include_in_bank": true
+        "feedback": "Personal note: I found that in practice better way is to use the config file and just resort to whatever credential is suited. This question is too tricky for something that is relatively straightforward."
     },
     {
         "question_id": "mup-19",
@@ -12926,8 +12619,7 @@
                 "explanation": "This is useful to setup Git integration, but the clone is not appropriate to restore deleted code. You would create a new repository instead."
             }
         ],
-        "feedback": "Git is a version control system for software development that helps to manage code changes and collaboration among developers. It tracks changes, enables easy switching between version, and streamlines the development process.\n\nThis question seems to be linked to Azure DevOps. This question basically asks about `git revert`, which is typically used to rollback to a specific commit of the main branch. Other options like `git checkout`, `git reset` are possible depending repository rules, type of branch, and just in general the use case.",
-        "include_in_bank": true
+        "feedback": "Git is a version control system for software development that helps to manage code changes and collaboration among developers. It tracks changes, enables easy switching between version, and streamlines the development process.\n\nThis question seems to be linked to Azure DevOps. This question basically asks about `git revert`, which is typically used to rollback to a specific commit of the main branch. Other options like `git checkout`, `git reset` are possible depending repository rules, type of branch, and just in general the use case."
     },
     {
         "question_id": "mup-20",
@@ -12959,8 +12651,7 @@
                 "explanation": "Although valid credentials are indeed required for accessing the storage at runtime, this option is misleading in the context of registration. With `skip_validation=True`, Azure ML does not validate the credentials at the time of registration. So while the statement is partially correct for later use, it inaccurately implies that credential check still happen during registration."
             }
         ],
-        "feedback": "This question is beyond ambiguous. The technically, true but incomplete part sound like AI slop, in no other part there are explicit mentions of the `skip_validation=True`, it's implicitly given by the question. Better rephrasing would be to ask **how** `skip_validation=True` satisfy the initial requirement.",
-        "include_in_bank": true
+        "feedback": "This question is beyond ambiguous. The technically, true but incomplete part sound like AI slop, in no other part there are explicit mentions of the `skip_validation=True`, it's implicitly given by the question. Better rephrasing would be to ask **how** `skip_validation=True` satisfy the initial requirement."
     },
     {
         "question_id": "mup-21",
@@ -12986,8 +12677,7 @@
                 "explanation": "A data asset imported from an external file system source must have a uri_folder type, since the external file system resource is registered as a folder data asset and not as a file data asset."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-22",
@@ -13019,8 +12709,7 @@
                 "explanation": "When configuring a pipeline using Azure ML SDK, you can define automated machine learning settings that control how the experiment is run. These settings are typically defined in a dictionary format as passed to an `AutoMLConfig` object. If the `featurization` parameter is set to `auto`, input data will automatically be preprocessed, and missing values will be handled. In this case, the `featurization` parameter should be added to the `automl_experiment` data dictionary with a value of `off`."
             }
         ],
-        "feedback": "This focuses on SDK v1, but is still valid up to class name in SDK v2.",
-        "include_in_bank": true
+        "feedback": "This focuses on SDK v1, but is still valid up to class name in SDK v2."
     },
     {
         "question_id": "mup-23",
@@ -13052,8 +12741,7 @@
                 "explanation": "Made specifically for matplotlib or plotly figures."
             }
         ],
-        "feedback": "It's a trap!\n\nKey difference is log_figure takes matplotlib or plotly figure object as argument while log image takes np.ndarray, PIL, mlflow.image",
-        "include_in_bank": true
+        "feedback": "It's a trap!\n\nKey difference is log_figure takes matplotlib or plotly figure object as argument while log image takes np.ndarray, PIL, mlflow.image"
     },
     {
         "question_id": "mup-24",
@@ -13085,8 +12773,7 @@
                 "explanation": "Azure Machine Learning designer can't be used with attached compute."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-25",
@@ -13119,8 +12806,7 @@
             "B",
             "C"
         ],
-        "feedback": "`generate_feature_retrieval_spec()` creates a YAML-based definition of which features to retrieve from one or more Azure ML feature stores. This specification allows consistent, traceable, and repeatable feature access across both training and inference stage.\n\nThe list of features is then loaded by `resolve_feature_retrieval_spec()`.\n\nFinally, `get_offline_features()` performs a point-in-time join between the resolved feature set and the observation data, correctly associating each even with the corresponding historical feature values at the time it occured. This is a critical requirement to avoid target leakage and ensure that the training data accurately reflects the state of the world when prediction will be made.\n\nYou should not copy the feature retrieval spec file to the model output folder. While this can be useful later in the pipeline such as for auditing, deployment, or model versioning, it is not necessary when the goal is to generate a training dataset. Performing this action at this stage does not contribute to retrieving nor joining feautres, and may introduce confusion about the pipeline's purpose or add irrelevant artifacts to the data prepration phase.\n\nManual feature section introduce high risk of inconsistency and human error, especially across environments, or version of the model pipeline. Feature retrieval specifications are designed to automate, standardize, and trace which features are used at both training and inference time. Skipping the process by hardcoding feature names defeats the purpose of using a managed and production-ready feature store, and reduces reproducibility and governance in a ML solution.",
-        "include_in_bank": true
+        "feedback": "`generate_feature_retrieval_spec()` creates a YAML-based definition of which features to retrieve from one or more Azure ML feature stores. This specification allows consistent, traceable, and repeatable feature access across both training and inference stage.\n\nThe list of features is then loaded by `resolve_feature_retrieval_spec()`.\n\nFinally, `get_offline_features()` performs a point-in-time join between the resolved feature set and the observation data, correctly associating each even with the corresponding historical feature values at the time it occured. This is a critical requirement to avoid target leakage and ensure that the training data accurately reflects the state of the world when prediction will be made.\n\nYou should not copy the feature retrieval spec file to the model output folder. While this can be useful later in the pipeline such as for auditing, deployment, or model versioning, it is not necessary when the goal is to generate a training dataset. Performing this action at this stage does not contribute to retrieving nor joining feautres, and may introduce confusion about the pipeline's purpose or add irrelevant artifacts to the data prepration phase.\n\nManual feature section introduce high risk of inconsistency and human error, especially across environments, or version of the model pipeline. Feature retrieval specifications are designed to automate, standardize, and trace which features are used at both training and inference time. Skipping the process by hardcoding feature names defeats the purpose of using a managed and production-ready feature store, and reduces reproducibility and governance in a ML solution."
     },
     {
         "question_id": "mup-26",
@@ -13152,8 +12838,7 @@
                 "explanation": "Random sampling supports early termination."
             }
         ],
-        "feedback": "Hyperparameters are used to control the training process for machine learning models, and these parameters can have a significant impact on how a trained model performs. Azure Machine Learning includes a hyperparameter tuning service, which supports three parameter sampling methods (Bayesian, Random and Grid), the selected methods determines whether one can or cannot use an early termination policy.",
-        "include_in_bank": true
+        "feedback": "Hyperparameters are used to control the training process for machine learning models, and these parameters can have a significant impact on how a trained model performs. Azure Machine Learning includes a hyperparameter tuning service, which supports three parameter sampling methods (Bayesian, Random and Grid), the selected methods determines whether one can or cannot use an early termination policy."
     },
     {
         "question_id": "mup-27",
@@ -13179,8 +12864,7 @@
                 "explanation": "Grid sampling test various combinations from the grid and the best one is chosen. Grid sampling can only be used with Choice parameter"
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-28",
@@ -13208,12 +12892,11 @@
             {
                 "id": "D",
                 "text": "PipelineJob",
-                "is_orrect": true,
+                "is_correct": true,
                 "explanation": "You defined a pipeline job using `PipelineJob`, this is where you associate each component of the entire pipeline, in particular a compute target by referencing it by name."
             }
         ],
-        "feedback": "Sort of a trick questions. The answer was there already.",
-        "include_in_bank": true
+        "feedback": "Sort of a trick questions. The answer was there already."
     },
     {
         "question_id": "mup-29",
@@ -13245,8 +12928,7 @@
                 "explanation": "This method loads ata that already exists within the workspace or its associated datastores. It does not support importing data from external sources into the pipeline."
             }
         ],
-        "feedback": "[Import data assets (preview)](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-import-data-assets?view=azureml-api-2&tabs=python)",
-        "include_in_bank": true
+        "feedback": "[Import data assets (preview)](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-import-data-assets?view=azureml-api-2&tabs=python)"
     },
     {
         "question_id": "mup-30",
@@ -13272,8 +12954,7 @@
                 "explanation": "`enable_early_termination` is set to `True`"
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-31",
@@ -13305,8 +12986,7 @@
                 "explanation": "In Azure ML, inference is also known as model scoring. Such models are trained on a dataset and can the analyze data in real time to provide predictions. For example, you could train a model on a stock market data. Once trained, you could use the model to analyze stock prices in real time and then make predictions on future prices."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-32",
@@ -13332,8 +13012,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-33",
@@ -13365,8 +13044,7 @@
                 "explanation": "You should install Docker on your local machine and specify the service's endpoint port where requests will be accepted. To deploy a model as an online web service using your local system, you must install Docker. Docker is a container creation and management platform that can be deployed on a variety of operating systems."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-34",
@@ -13403,8 +13081,7 @@
             "B",
             "C"
         ],
-        "feedback": "This is valid for Python SDK v1.\n\nWhen a ML model is deployed as a web service, a REST interface is defined, which client applications can use to consume the service. You determine the service endpoint by using the Azure Machine Learning DSK to retrieve the `scoring_uri` property of a `WebService` object.\n\nAs the published model requires authentication, you will need to define an HTTP request header in your code that specifies bearer authentication. Once your code is complete, you can issue an HTTP POST request to the published service endpoint you discovered usign the `scoring_uri` property.\n\nYou should not query `AmlComputeJobEvens` using the `ExecutionState` property. It is just one of the logs that can be streamed to Azure Monitor. Information from this log is stored in the Azure Monitor AmlComputeJobEvents tab. You can query the ExecutionState property to determine the state of a job.\n\n",
-        "include_in_bank": true
+        "feedback": "This is valid for Python SDK v1.\n\nWhen a ML model is deployed as a web service, a REST interface is defined, which client applications can use to consume the service. You determine the service endpoint by using the Azure Machine Learning DSK to retrieve the `scoring_uri` property of a `WebService` object.\n\nAs the published model requires authentication, you will need to define an HTTP request header in your code that specifies bearer authentication. Once your code is complete, you can issue an HTTP POST request to the published service endpoint you discovered usign the `scoring_uri` property.\n\nYou should not query `AmlComputeJobEvens` using the `ExecutionState` property. It is just one of the logs that can be streamed to Azure Monitor. Information from this log is stored in the Azure Monitor AmlComputeJobEvents tab. You can query the ExecutionState property to determine the state of a job.\n\n"
     },
     {
         "question_id": "mup-35",
@@ -13430,8 +13107,7 @@
                 "explanation": "It does not run the pipeline. To run the pipeline against the test dataset, which is part of the model, you need to click Submit on the designer canvas."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-36",
@@ -13463,8 +13139,7 @@
                 "explanation": "The Azure Machine Learning model catalog includes built-in playground that allows you to test models interactively before deployment. This lets you verify how a model performs on tasks such as summarization or classification, helping to ensure task alignment and output quality before committing to production deployment."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-37",
@@ -13502,8 +13177,7 @@
                 "explanation": "Zero-shot classification relies on the model's pre-trained general knowledge to perform tasks wihtout taks-specific data or adaptation. While zero-shot methods can work for broad or generic tasks, they typically underperform in specialized domains where task-specific terminology and context are critical. Therefore, relying solely on zero-shot classification would not effectively optimize the model for domain-specific performance."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-38",
@@ -13535,8 +13209,7 @@
                 "explanation": "This approaches relies on custom logic and manual logging. It adds complexity and bypasses Azure's built-in variant tracking features, which contradicts the requirement to minimize effort."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-39",
@@ -13579,8 +13252,7 @@
             "D",
             "E"
         ],
-        "feedback": "1. Selecting Manual evaluation launch the correct mode within the Azure AI Foundry for manually uploading test data and evaluating model outputs. It prepares the environment specifically for manual testing, ensuring that all subsequent steps are correctly tracked and associated with the deployed LLM.\n2. Uploading a valid CSV or JSONL file or manually entering data in the UI ensures that the inputs are correctly structured for model evaluation. Uploading in the wrong format would block the process entierly.\n3. You should then map input columns and complete data import. You must match the correct columns to the model's input fields, as without proper mapping, the model may produce invalid or incorrect outputs. This step is critical to ensure that the data is correctly interpreted by the model.\n4. You should click Run to generate model responses for each input row. This triggers the execution phase where the model processes each mapped input and generates the corresponding outputs. Running the model across all test cases is necessary before you can evaluate or provide feedback on the ouputs.\n5. Finally you should rate the model output using thumbs up/down. Giving feedback on each model response, you capture valuable insights on how well the model performs against your test cases. This feedback is stored and can be used later to fine-tune prompts or improve the model's behavior.\n\nYou shouldn't import XLSX dataset. It is not supported by Azure AI Foundry, only CSV and JSONL or direct input in the UI.\n\nYou should't add a system message. They are meant for setting up how the assistant behaves when it answers prompts, not for evaluating responses against test data. While system messages can change how the model responds, they are not part of the evaluation steps like uploading data, running the model and scoring the answers.",
-        "include_in_bank": true
+        "feedback": "1. Selecting Manual evaluation launch the correct mode within the Azure AI Foundry for manually uploading test data and evaluating model outputs. It prepares the environment specifically for manual testing, ensuring that all subsequent steps are correctly tracked and associated with the deployed LLM.\n2. Uploading a valid CSV or JSONL file or manually entering data in the UI ensures that the inputs are correctly structured for model evaluation. Uploading in the wrong format would block the process entierly.\n3. You should then map input columns and complete data import. You must match the correct columns to the model's input fields, as without proper mapping, the model may produce invalid or incorrect outputs. This step is critical to ensure that the data is correctly interpreted by the model.\n4. You should click Run to generate model responses for each input row. This triggers the execution phase where the model processes each mapped input and generates the corresponding outputs. Running the model across all test cases is necessary before you can evaluate or provide feedback on the ouputs.\n5. Finally you should rate the model output using thumbs up/down. Giving feedback on each model response, you capture valuable insights on how well the model performs against your test cases. This feedback is stored and can be used later to fine-tune prompts or improve the model's behavior.\n\nYou shouldn't import XLSX dataset. It is not supported by Azure AI Foundry, only CSV and JSONL or direct input in the UI.\n\nYou should't add a system message. They are meant for setting up how the assistant behaves when it answers prompts, not for evaluating responses against test data. While system messages can change how the model responds, they are not part of the evaluation steps like uploading data, running the model and scoring the answers."
     },
     {
         "question_id": "mup-40",
@@ -13606,8 +13278,7 @@
                 "explanation": "You should use the /feedback API to collect user feedback during inference. This feedback is stored as part of the same trace span in Application Insights, allowing you to correlate feedback with model responses for better evaluation."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-41",
@@ -13645,8 +13316,7 @@
                 "explanation": "The SDK does not include pre-built chaining templates that fully automate node connections based only on data type matching. You are responsible for defining these connections yourself when building the flow."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "mup-42",
@@ -13678,9 +13348,13 @@
                 "text": "Perform retrieval queries against documents before chunking"
             }
         ],
-        "correct_order": ["A", "B", "C", "D"],
-        "feedback": "1. Understanding the format of your document (structured, semi-structured, unstructured) is essential to design an effective chunking strategy. The document type directly influences whether you use paragraph-based chunking, table-based chunking, or another method.\n2. You should clean the documents to improve the quality of both the chunking and the embeddings. Removing noisy elements like watermarks or extracting text from images ensures that the content your feed into chunking is clean, standardized, and semantically strong.\n3. Once the documents are preprocessed, you can apply the appropriate chunking technique. Choosing a method aligned to the document's nature ensures that each chunk carries a meaninful, retrievable semantic unit\n4. Finally caching results ensures that you do not reprocess the same expensive operations repeatedly, saving cost and time.\n\nYou should not generate embeddings for all documents before chunking. Embedding entire unchunked documents would be inefficient, more costly, and would lower retrieval relevance.\n\nRunning retrieval before chunking and embedding would not return valid or useful results, as retrieval relies on having embeddings already created for semantically meaningful chunks.",
-        "include_in_bank": true
+        "correct_order": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "feedback": "1. Understanding the format of your document (structured, semi-structured, unstructured) is essential to design an effective chunking strategy. The document type directly influences whether you use paragraph-based chunking, table-based chunking, or another method.\n2. You should clean the documents to improve the quality of both the chunking and the embeddings. Removing noisy elements like watermarks or extracting text from images ensures that the content your feed into chunking is clean, standardized, and semantically strong.\n3. Once the documents are preprocessed, you can apply the appropriate chunking technique. Choosing a method aligned to the document's nature ensures that each chunk carries a meaninful, retrievable semantic unit\n4. Finally caching results ensures that you do not reprocess the same expensive operations repeatedly, saving cost and time.\n\nYou should not generate embeddings for all documents before chunking. Embedding entire unchunked documents would be inefficient, more costly, and would lower retrieval relevance.\n\nRunning retrieval before chunking and embedding would not return valid or useful results, as retrieval relies on having embeddings already created for semantically meaningful chunks."
     },
     {
         "question_id": "mup-43",
@@ -13706,8 +13380,7 @@
                 "explanation": "High completeness is good, but low utilization shows that most of the retrieved content was not used at all, meaning the system retrieved a lot of unecessary data"
             }
         ],
-        "feedback": "Groundedness, sometimes referred to as faithfulness, measures whether the response is based completely on the context. It validates that the response isn't using information other than what exists in the context. A low groundedness metric indicates that the language model might be outputting inaccurate or nonsensical responses.\n\nCompleteness measures whether the response answers all parts of the query. Completeness helps you understand whether the chunks in the context are pertinent, directly relate to the query, and provide a complete answer.\n\nUtilization measures the extent to which the response consists of information from the chunks in the context. The goal is to determine the extent to which each chunk is part of the response. Low utilization indicates that your results might not be relevant to the query. You should evaluate utilization alongside completeness.\n\nCorrectness checks whether the answer is factually accurate.",
-        "include_in_bank": true
+        "feedback": "Groundedness, sometimes referred to as faithfulness, measures whether the response is based completely on the context. It validates that the response isn't using information other than what exists in the context. A low groundedness metric indicates that the language model might be outputting inaccurate or nonsensical responses.\n\nCompleteness measures whether the response answers all parts of the query. Completeness helps you understand whether the chunks in the context are pertinent, directly relate to the query, and provide a complete answer.\n\nUtilization measures the extent to which the response consists of information from the chunks in the context. The goal is to determine the extent to which each chunk is part of the response. Low utilization indicates that your results might not be relevant to the query. You should evaluate utilization alongside completeness.\n\nCorrectness checks whether the answer is factually accurate."
     },
     {
         "question_id": "mup-44",
@@ -13745,8 +13418,7 @@
                 "explanation": "Has no effect on memory."
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-1",
@@ -13772,8 +13444,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-2",
@@ -13799,8 +13470,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-3",
@@ -13826,8 +13496,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-4",
@@ -13853,8 +13522,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-5",
@@ -13880,8 +13548,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-6",
@@ -13907,8 +13574,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-7",
@@ -13934,8 +13600,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-8",
@@ -13961,8 +13626,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-9",
@@ -13988,8 +13652,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-10",
@@ -14015,8 +13678,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-11",
@@ -14042,8 +13704,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-12",
@@ -14069,8 +13730,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-13",
@@ -14096,8 +13756,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-14",
@@ -14123,8 +13782,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-15",
@@ -14150,8 +13808,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-16",
@@ -14177,8 +13834,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-17",
@@ -14204,8 +13860,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-18",
@@ -14231,8 +13886,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-19",
@@ -14258,8 +13912,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-20",
@@ -14285,8 +13938,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-21",
@@ -14312,8 +13964,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-22",
@@ -14339,8 +13990,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-23",
@@ -14366,8 +14016,7 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
     },
     {
         "question_id": "msai-24",
@@ -14393,7 +14042,76 @@
                 "explanation": ""
             }
         ],
-        "feedback": "",
-        "include_in_bank": true
+        "feedback": ""
+    },
+    {
+        "question_id": "mup-45",
+        "type": "multiple_choice_multiple_answer",
+        "question": "Your organization uses Azure Machine Learning (ML) services. You build an Azure ML pipeline using Python SDK v2.\n\nThe pipeline performs an image classification task that prepares data, trains an image classification model and score the model.\n\nYou use a data-prparation component as part of the pipeline, as show below:\n\n```python\nimport os\nfrom pathlib import Path\nfrom mldesigner import command_component, Input, Output\n\n@command_component(\n    name='mydataprep',\n    version='1',\n    display_name='Data preparation component',\n    description='Convert data to CSV file',\n    environment=dict(\n        conda_file=Path(__file__).parent / 'conda.yaml',\n        image='mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04'\n    )\n)\ndef prepare_data_component(\n    input_data: Input(type='uri_folder'),\n    training_data: Output(type='uri_folder'),\n    test_data: Output(type='uri_folder')\n):\n    convert(\n        os.path.join(input_data, 'train-images-idx3-ubyte'),\n        os.path.join(input_data, 'train-labels-idx1-ubyte'),\n        os.path.join(training_data, 'mnist_train.csv'),\n        90000\n    )\n```\n\nSelect correct statements:",
+        "options": [
+            {
+                "id": "A",
+                "text": "This component converts the data from `input_data` into a training data CSV file `training_data`",
+                "is_correct": true,
+                "explanation": "The convert function does output 'mnist_train.csv' as `training_data`."
+            },
+            {
+                "id": "B",
+                "text": "`display_name` is a friendly display name of the component in the UI which needs to be unique",
+                "is_correct": false,
+                "explanation": "It does not need to be unique."
+            },
+            {
+                "id": "C",
+                "text": "`input_data`, `training_data` and `test_data` are ports of the component",
+                "is_correct": true,
+                "explanation": "Within an Azure ML component, `input_data`, `training_data` and `test_data` allow the component to connect to other components for passing data between the components. In other words, these three attributes act as ports of an Azure ML component for data communication between components."
+            },
+            {
+                "id": "D",
+                "text": "The `name` argument in the code is the unique identifier of the component",
+                "is_correct": true,
+                "explanation": "Using `command_component()` decorator, you can define the component's interface, metadata, and code to executre from a Python function. Each decorated Python function will be transformed into a single static specification that the pipeline service can process."
+            },
+            {
+                "id": "E",
+                "text": "The `version` in the code can have multiple versions",
+                "is_correct": true,
+                "explanation": "It reprensents the current version of the component."
+            },
+            {
+                "id": "F",
+                "text": "The `environment` in the code specifies a virtual machine image",
+                "is_correct": false,
+                "explanation": "The environment specify the runtime environment for this component. It specifies a docker image and refers to the conda.yaml file."
+            }
+        ],
+        "feedback": ""
+    },
+    {
+        "question_id": "mup-46",
+        "type": "multiple_choice_multiple_answer",
+        "question": "You are creating a batch prediction pipeline in the Azure Machine Learning designer\n\nYou have published a pipeline with a dataset parameter. The pipeline will use the trained model created in the training pipeline to score the dataset you provide as a parameter.\n\nYou plan to submit the pipeline job using a REST endpoint, using the default pipeline.\n\nSelect correct statements:",
+        "options": [
+            {
+                "id": "A",
+                "text": "You should mention a version number for your pipeline as a parameter in your REST API call when you execute it",
+                "is_correct": false,
+                "explanation": "Although the Azure ML designer assigns a version to each subsequent pipeline that you publish as a REST API endpoint, if you do not explicitely mention the version number in your REST API call, the designer will use the default pipeline."
+            },
+            {
+                "id": "B",
+                "text": "When you publish a pipeline, you can choose to make it the new default pipeline for that endpoint",
+                "is_correct": true,
+                "explanation": "You have the option of selecting the Set as default pipeline for this endpoint checkbox in the Set up published pipeline dialog box when publishing a pipeline."
+            },
+            {
+                "id": "C",
+                "text": "To make a REST call with the default pipeline, you will need an OAuth 2.0 bearer-type authentication header",
+                "is_correct": true,
+                "explanation": "Yes, and you should use an OAuth 2.0 bearer-type authentication header when you are interested in setting up the adequate authentication on your workspace."
+            }
+        ],
+        "feedback": ""
     }
 ]
