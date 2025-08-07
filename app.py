@@ -187,8 +187,7 @@ def reset_states():
 
 
 @require("questions")
-def switch_mode(mode, exam_size=None):
-    exam_size = exam_size or random.randint(40, 60)
+def switch_mode(mode, exam_size=50):
     current_mode = st.session_state.get("mode")
     if current_mode == mode:
         return
@@ -627,7 +626,8 @@ def render_answer_column():
 
 def render_ordering_question():
     # Create two columns for the "Options" and "Answer" panels
-    st.info("Select options and arrange them in the correct order")
+    if st.session_state.current_question.type == "ordering":
+        st.info("Select options and arrange them in the correct order")
     left_col, right_col = st.columns(2)
 
     # Left panel - Available options
