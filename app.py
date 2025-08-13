@@ -771,11 +771,10 @@ def render_feedback_multiple_choice():
         elif option_id in wrong_answers:
             st.error(text + " ❌")
         else:
-            if len(correct_options) > 1:
-                if option_id in missed_answers:
-                    st.warning(text + "❗ (Missed this correct answer)")
-                else:
-                    st.write(text + " (Not selected - correct)")
+            if option_id in missed_answers:
+                st.warning(text + "❗ (Missed this correct answer)")
+            if len(correct_options) > 1 and option_id not in missed_answers:
+                st.write(text + " (Not selected - correct)")
             else:
                 st.write(text)
 
