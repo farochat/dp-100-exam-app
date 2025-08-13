@@ -5996,44 +5996,6 @@
         "feedback": ""
     },
     {
-        "question_id": "examtopics_95d37dc5524c473c8fedf9e082ae6472",
-        "type": "multiple_choice_single_answer",
-        "question": "You plan to run a script as an experiment using a Script Run Configuration. The script uses modules from the scipy library as well as several\n\nPython packages that are not typically installed in a default conda environment.\n\nYou plan to run the experiment on your local workstation for small datasets and scale out the experiment by running it on more powerful remote compute clusters for larger datasets.\n\nYou need to ensure that the experiment runs successfully on local and remote compute with the least administrative effort.\n\nWhat should you do?",
-        "options": [
-            {
-                "id": "A",
-                "text": "Do not specify an environment in the run configuration for the experiment. Run the experiment by using the default environment.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "B",
-                "text": "Create a virtual machine (VM) with the required Python configuration and attach the VM as a compute target. Use this compute target for all experiment runs.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "C",
-                "text": "Create and register an Environment that includes the required packages. Use this Environment for all experiment runs.",
-                "is_correct": true,
-                "explanation": ""
-            },
-            {
-                "id": "D",
-                "text": "Create a config.yaml file defining the conda packages that are required and save the file in the experiment folder.",
-                "is_correct": false,
-                "explanation": ""
-            },
-            {
-                "id": "E",
-                "text": "Always run the experiment with an Estimator by using the default packages.",
-                "is_correct": false,
-                "explanation": ""
-            }
-        ],
-        "feedback": ""
-    },
-    {
         "question_id": "examtopics_d0181195f12f4a69acd33352c81db2e3",
         "type": "multiple_choice_single_answer",
         "question": "You use Azure Machine Learning designer to create a training pipeline for a regression model.\n\nYou need to prepare the pipeline for deployment as an endpoint that generates predictions asynchronously for a dataset of input data values.\n\nWhat should you do?",
@@ -11016,7 +10978,7 @@
             {
                 "id": "A",
                 "text": "MLflow",
-                "is_correct": false,
+                "is_correct": true,
                 "explanation": ""
             },
             {
@@ -11034,7 +10996,7 @@
             {
                 "id": "D",
                 "text": "Batch Endpoint",
-                "is_correct": true,
+                "is_correct": false,
                 "explanation": ""
             }
         ],
